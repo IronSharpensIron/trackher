@@ -406,6 +406,9 @@ export default function TrackHer() {
   const [pickAvatar, setPickAvatar]     = useState(false);
   const [showSkipArticle, setShowSkipArticle] = useState(false);
   const [furtherReadingArticle, setFurtherReadingArticle] = useState(null);
+  const [showStatusChange, setShowStatusChange] = useState(false);
+  const [forecastDate, setForecastDate] = useState("");
+  const [forecastPhase, setForecastPhase] = useState(null);
 
   useEffect(() => { if (partners.length > 0 && !activeId) setActiveId(partners[0].id); }, [partners]);
   useEffect(() => { try { localStorage.setItem("th_partners", JSON.stringify(partners)); } catch {} }, [partners]);
@@ -591,11 +594,32 @@ export default function TrackHer() {
           {/* Profile strip */}
           <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "14px", padding: "12px 16px", background: "#1a1525", borderRadius: "14px", border: "1px solid #2a2035" }}>
             <div style={{ fontSize: "32px", cursor: "pointer" }} onClick={() => setPickAvatar(v => !v)}>{active.avatar}</div>
-            <div>
+            <div style={{ flex: 1 }}>
               <div style={{ fontSize: "16px", fontWeight: "bold", color: "#d4b8f0" }}>{active.name}{active.age ? `, ${active.age}` : ""}</div>
               <div style={{ fontSize: "12px", color: "#5a4a6a", marginTop: "2px" }}>{relLabel}</div>
             </div>
+            <button onClick={() => { setShowStatusChange(v => !v); setPickAvatar(false); }} style={{ background: "none", border: "1px solid #2a2035", borderRadius: "10px", padding: "4px 10px", color: "#6b4fa0", fontSize: "11px", cursor: "pointer", fontFamily: "inherit", whiteSpace: "nowrap" }}>
+              change status
+            </button>
           </div>
+
+          {/* Status change dropdown */}
+          {showStatusChange && (
+            <div style={{ display: "flex", flexDirection: "column", gap: "8px", marginBottom: "14px", padding: "12px", background: "#1a1525", borderRadius: "12px", border: "1px solid #2a2035" }}>
+              <div style={{ fontSize: "11px", color: "#6b4fa0", letterSpacing: "2px", textTransform: "uppercase", marginBottom: "4px" }}>Change status</div>
+              {REL_TYPES.map(r => (
+                <button key={r.id} onClick={() => {
+                  const relEmoji = { girlfriend: "🌹", wife: "💍", fwb: "🔥", friend: "🤝", other: "🌀" };
+                  setPartners(prev => prev.map(p => p.id === activeId ? { ...p, relType: r.id, avatar: relEmoji[r.id] } : p));
+                  setShowStatusChange(false);
+                }} style={{ background: active.relType === r.id ? "linear-gradient(135deg,#2e1f45,#3d2860)" : "#130f1e", border: active.relType === r.id ? "1px solid #8b6fca" : "1px solid #2a2035", borderRadius: "10px", padding: "10px 14px", display: "flex", alignItems: "center", gap: "12px", cursor: "pointer", fontFamily: "inherit", textAlign: "left" }}>
+                  <span style={{ fontSize: "20px" }}>{r.emoji}</span>
+                  <span style={{ fontSize: "15px", color: active.relType === r.id ? "#d4b8f0" : "#c8b8e0", fontWeight: "bold", flex: 1 }}>{r.label}</span>
+                  {active.relType === r.id && <span style={{ color: "#8b6fca" }}>✓</span>}
+                </button>
+              ))}
+            </div>
+          )}
 
           {/* Avatar picker */}
           {pickAvatar && (
@@ -689,6 +713,39 @@ export default function TrackHer() {
               </div>
             </>
           )}
+
+          {/* Phase Forecast */}
+          <div style={{ background: "#1a1525", border: "1px solid #2a2035", borderRadius: "16px", padding: "18px", marginBottom: "10px" }}>
+            <div style={{ fontSize: "11px", letterSpacing: "2px", color: "#6b4fa0", textTransform: "uppercase", marginBottom: "6px" }}>🔮 Phase Forecast</div>
+            <div style={{ fontSize: "13px", color: "#7a6b8a", marginBottom: "14px" }}>Planning something? See what phase she'll be in.</div>
+            <div style={{ display: "flex", gap: "8px", marginBottom: forecastPhase ? "14px" : "0" }}>
+              <input type="date" value={forecastDate} onChange={e => {
+                setForecastDate(e.target.value);
+                if (e.target.value && active.lastPeriod) {
+                  const diff = Math.floor((new Date(e.target.value) - new Date(active.lastPeriod)) / 86400000);
+                  if (diff >= 0) {
+                    const forecastDay = ((diff % active.cycleLength) + 1);
+                    setForecastPhase({ key: getPhaseKey(forecastDay), day: forecastDay });
+                  } else {
+                    setForecastPhase(null);
+                  }
+                } else {
+                  setForecastPhase(null);
+                }
+              }} style={{ flex: 1, background: "#130f1e", border: "1px solid #2a2035", borderRadius: "8px", padding: "8px 12px", color: "#d4c8e8", fontFamily: "inherit", fontSize: "14px", colorScheme: "dark" }} />
+            </div>
+            {forecastPhase && (() => {
+              const fp = PHASES[forecastPhase.key];
+              return (
+                <div style={{ background: `linear-gradient(135deg,${fp.color}18,${fp.color}08)`, border: `1px solid ${fp.color}40`, borderRadius: "12px", padding: "14px" }}>
+                  <div style={{ fontSize: "11px", color: fp.color, letterSpacing: "2px", textTransform: "uppercase", marginBottom: "6px" }}>Day {forecastPhase.day} of {active.cycleLength}</div>
+                  <div style={{ fontSize: "20px", fontWeight: "bold", color: "#f0eaf8", marginBottom: "4px" }}>{fp.emoji} {fp.name} Phase</div>
+                  <div style={{ fontSize: "13px", color: "#a090b8", fontStyle: "italic", marginBottom: "10px" }}>{fp.tagline}</div>
+                  <div style={{ fontSize: "13px", color: fp.color, background: `${fp.color}15`, borderRadius: "8px", padding: "8px 12px" }}>⚗️ {fp.chemical} — {fp.chemicalNote}</div>
+                </div>
+              );
+            })()}
+          </div>
 
           {/* Further Reading */}
           <div style={{ background: "#1a1525", border: "1px solid #2a2035", borderRadius: "16px", padding: "18px", marginBottom: "10px" }}>
