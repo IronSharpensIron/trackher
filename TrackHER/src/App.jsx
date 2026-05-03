@@ -805,8 +805,8 @@ export default function TrackHer() {
               {/* Header tabs — 2 row grid */}
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "6px", marginBottom: "12px" }}>
                 {Object.entries(HEADER_LABELS).map(([key, val]) => (
-                  <button key={key} onClick={() => setActiveHeader(key)} style={{ background: activeHeader === key ? `${phase.color}25` : "#1a1525", border: activeHeader === key ? `1px solid ${phase.color}60` : "1px solid #2a2035", borderRadius: "12px", padding: "10px 6px", color: activeHeader === key ? phase.color : "#5a4a6a", fontSize: "12px", cursor: "pointer", fontFamily: "inherit", textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", gap: "3px" }}>
-                    <span style={{ fontSize: "16px" }}>{val.emoji}</span>
+                  <button key={key} onClick={() => setActiveHeader(key)} style={{ background: activeHeader === key ? `${phase.color}30` : "#252235", border: activeHeader === key ? `1px solid ${phase.color}80` : "1px solid #3a3050", borderRadius: "12px", padding: "10px 6px", color: activeHeader === key ? phase.color : "#a090b8", fontSize: "12px", cursor: "pointer", fontFamily: "inherit", textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", gap: "3px" }}>
+                    <span style={{ fontSize: "18px" }}>{val.emoji}</span>
                     <span style={{ fontSize: "11px", whiteSpace: "nowrap" }}>{val.label}</span>
                   </button>
                 ))}
@@ -868,7 +868,7 @@ export default function TrackHer() {
 
               {/* Further Reading */}
               <div style={{ background: "#1a1525", border: "1px solid #2a2035", borderRadius: "16px", padding: "18px", marginBottom: "10px" }}>
-                <div style={{ fontSize: "11px", letterSpacing: "2px", color: "#3a2a50", textTransform: "uppercase", marginBottom: "14px" }}>📖 Further Reading</div>
+                <div style={{ fontSize: "11px", letterSpacing: "2px", color: "#6b4fa0", textTransform: "uppercase", marginBottom: "14px" }}>📖 Further Reading</div>
                 {(() => {
                   const art = FURTHER_READING.find(a => a.id === pk);
                   if (!art) return null;
@@ -876,10 +876,10 @@ export default function TrackHer() {
                     <button onClick={() => setFurtherReadingArticle(art.id)} style={{ background: "#130f1e", border: "1px solid #2a2035", borderRadius: "12px", padding: "12px 14px", display: "flex", alignItems: "center", gap: "12px", cursor: "pointer", fontFamily: "inherit", textAlign: "left", width: "100%" }}>
                       <span style={{ fontSize: "20px", opacity: 0.6 }}>{art.emoji}</span>
                       <div style={{ flex: 1 }}>
-                        <div style={{ fontSize: "11px", color: "#4a3a6a", letterSpacing: "1px", textTransform: "uppercase", marginBottom: "3px" }}>{art.phase} Phase</div>
-                        <div style={{ fontSize: "14px", color: "#7a6b8a" }}>{art.title}</div>
+                        <div style={{ fontSize: "11px", color: "#6b4fa0", letterSpacing: "1px", textTransform: "uppercase", marginBottom: "3px" }}>{art.phase} Phase</div>
+                        <div style={{ fontSize: "14px", color: "#a090b8" }}>{art.title}</div>
                       </div>
-                      <span style={{ color: "#4a3a6a", fontSize: "16px" }}>→</span>
+                      <span style={{ color: "#6b4fa0", fontSize: "16px" }}>→</span>
                     </button>
                   );
                 })()}
