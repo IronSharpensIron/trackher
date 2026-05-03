@@ -586,6 +586,9 @@ export default function TrackHer() {
   useEffect(() => { const p = partners.find(p => p.id === activeId); setUpdateDate(p?.lastPeriod || ""); }, [activeId, partners]);
 
   useEffect(() => { try { localStorage.setItem("th_fontsize", fontSize); } catch {} }, [fontSize]);
+  useEffect(() => { try { if (isPro) localStorage.setItem("th_pro", "1"); } catch {} }, [isPro]);
+
+  function triggerUpgrade(reason) { setUpgradeReason(reason); setShowUpgrade(true); }
   useEffect(() => { try { localStorage.setItem("th_read", JSON.stringify(readArticles)); } catch {} }, [readArticles]);
 
   function completeSetup(data) {
@@ -823,6 +826,11 @@ export default function TrackHer() {
           <button onClick={() => setShowBooks(true)} style={{ background: "#1a1525", border: "1px solid #2a2035", borderRadius: "20px", padding: "8px 14px", color: "#7a6b8a", fontSize: "13px", cursor: "pointer", fontFamily: "inherit" }}>📚</button>
           <button onClick={() => { if (isMember || partners.length === 0) setShowSetup(true); else setShowUpgrade(true); }} style={{ background: "linear-gradient(135deg,#6b4fa0,#9b6fca)", border: "none", borderRadius: "20px", padding: "8px 16px", color: "white", fontSize: "13px", cursor: "pointer", fontFamily: "inherit" }}>{!isMember && partners.length > 0 ? "🔒 Add" : "+ Add"}</button>
           <button onClick={() => setShowFontSlider(v => !v)} style={{ background: showFontSlider ? "linear-gradient(135deg,#2e1f45,#3d2860)" : "#1a1525", border: showFontSlider ? "1px solid #6b4fa0" : "1px solid #2a2035", borderRadius: "20px", padding: "8px 12px", color: showFontSlider ? "#d4b8f0" : "#7a6b8a", fontSize: "15px", cursor: "pointer", fontFamily: "inherit" }}>Aa</button>
+          {isPro ? (
+            <button onClick={() => triggerUpgrade("notifications")} style={{ background: "#1a1525", border: "1px solid #2a2035", borderRadius: "20px", padding: "8px 12px", color: "#7a6b8a", fontSize: "15px", cursor: "pointer", fontFamily: "inherit" }}>🔔</button>
+          ) : (
+            <button onClick={() => triggerUpgrade("Unlock Pro to access all features")} style={{ background: "linear-gradient(135deg,#3d2060,#6b4fa0)", border: "none", borderRadius: "20px", padding: "8px 14px", color: "#d4b8f0", fontSize: "12px", cursor: "pointer", fontFamily: "inherit", fontWeight: "bold" }}>👑 Pro</button>
+          )}
         </div>
       </div>
 
@@ -1142,6 +1150,41 @@ export default function TrackHer() {
           </div>
         );
       })()}
+
+      {/* Upgrade Modal */}
+      {showUpgrade && (
+        <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.85)", display: "flex", alignItems: "flex-end", zIndex: 300 }} onClick={() => setShowUpgrade(false)}>
+          <div style={{ background: "linear-gradient(135deg,#1a1525,#0f0d14)", borderRadius: "28px 28px 0 0", padding: "32px 24px", width: "100%", maxWidth: "480px", margin: "0 auto", border: "1px solid #4a3a6a" }} onClick={e => e.stopPropagation()}>
+            <div style={{ textAlign: "center", marginBottom: "24px" }}>
+              <div style={{ fontSize: "40px", marginBottom: "12px" }}>👑</div>
+              <div style={{ fontSize: "22px", fontWeight: "bold", color: "#d4b8f0", marginBottom: "8px" }}>Upgrade to TrackHer Pro</div>
+              <div style={{ fontSize: "14px", color: "#7a6b8a", lineHeight: "1.6" }}>{upgradeReason || "Unlock the full TrackHer experience"}</div>
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", gap: "10px", marginBottom: "24px" }}>
+              {[
+                { emoji: "⚠️", label: "Avoid — know what NOT to do each phase" },
+                { emoji: "🔬", label: "Body Science — understand the hormones" },
+                { emoji: "🔥", label: "Sex — cycle-aware intimacy guidance" },
+                { emoji: "♚",  label: "Advanced Game — the full playbook" },
+                { emoji: "🔒", label: "All Foundational articles unlocked" },
+                { emoji: "🔔", label: "Notifications — phase alerts & daily tips" },
+                { emoji: "💼", label: "All relationship types — Boss, Daughter & more" },
+              ].map((f, i) => (
+                <div key={i} style={{ display: "flex", alignItems: "center", gap: "12px", padding: "10px 14px", background: "#1a1525", borderRadius: "10px", border: "1px solid #2a2035" }}>
+                  <span style={{ fontSize: "18px" }}>{f.emoji}</span>
+                  <span style={{ fontSize: "14px", color: "#c8b8e0" }}>{f.label}</span>
+                </div>
+              ))}
+            </div>
+            <button onClick={() => { setIsPro(true); setShowUpgrade(false); }} style={{ width: "100%", background: "linear-gradient(135deg,#6b4fa0,#c084fc)", border: "none", borderRadius: "16px", padding: "16px", color: "white", fontFamily: "inherit", fontSize: "17px", fontWeight: "bold", cursor: "pointer", marginBottom: "10px" }}>
+              Unlock Pro — $4.99 / month
+            </button>
+            <button onClick={() => setShowUpgrade(false)} style={{ width: "100%", background: "none", border: "none", color: "#5a4a6a", fontFamily: "inherit", fontSize: "14px", cursor: "pointer", padding: "8px", fontStyle: "italic" }}>
+              Maybe later
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* Save your data prompt */}
       {showSavePrompt && (
