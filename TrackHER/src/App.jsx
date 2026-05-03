@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import React from "react";
 
 // ─── ARTICLES ────────────────────────────────────────────────────────────────
 const ARTICLES = [
