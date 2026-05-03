@@ -223,11 +223,11 @@ const PHASES = {
     tagline: "The reset phase", chemical: "Oxytocin",
     chemicalNote: "She needs warmth, closeness and safety — no agenda",
     mood: ["She's low energy and her body is doing real physical work right now","Hormones are at their lowest — don't expect her to be her usual self","She may be crampy, bloated and just want to be left alone","Emotionally she may feel raw or fragile without fully knowing why","Comfort and rest are all she really wants right now"],
-    tips: ["Focus on her comfort — think about what makes her feel cozy and make it happen","Stock her favorite comfort food — chocolate, soup, whatever she loves","Take something off her plate today — dishes, errands, dinner plans","Don't push her to socialize or go out; a night in is the move","Just sit with her. You don't need to fix anything, just be present","If she eats meat, suggest red meat — iron drops during her period and red meat helps replenish it"],
+    tips: ["Focus on her comfort — think about what makes her feel cozy and make it happen","Stock her favorite comfort food — chocolate, soup, whatever she loves","Take something off her plate today — dishes, errands, dinner plans","Don't push her to socialize or go out; a night in is the move","Just sit with her. You don't need to fix anything, just be present","If she eats meat, suggest red meat — iron drops during her period and red meat helps replenish it. But remember she may not want you to tell her what to eat 😊"],
     avoid: ["Don't minimize her pain or tell her to push through it","Don't make demands on her time or energy","Don't take her low mood personally — it's hormonal not personal","Don't pressure her to go out or be social","Don't make her feel bad for canceling plans"],
     body: ["The uterine lining is shedding as estrogen and progesterone hit their lowest point","The body releases prostaglandins — chemicals that cause the uterus to contract and create cramps","Blood flow and fatigue are real physical symptoms, not exaggeration","Iron levels can dip during heavy flow days, adding to exhaustion","Think of it as a full system reset — she's clearing out to start fresh"],
-    sex: ["Many women actually want sex during their period — don't assume she doesn't","If she's open to it, heat and intimacy can genuinely relieve cramps","Ask rather than assume — a simple 'do you want me close tonight?' goes a long way","If she's not interested, don't sulk — just be warm and physically present","A back rub or just holding her is its own kind of intimacy right now","Breast sensitivity is heightened right now — be extra gentle, check in before touching","She may be more sensitive to cold — warmth is not just comfort, it's physical relief right now","Fertility: 🟢 Very low — the uterine lining is shedding and ovulation is still ~2 weeks away, though never truly zero if her cycle is short"],
-    game: ["She can't see you right now — she can only feel whether you make her feel safe or not","The chemical she needs is Oxytocin — warmth, closeness, no agenda","Think about what makes her feel held — a blanket, a movie, your hand, skin to skin contact with zero expectation","You are not trying to fix anything or get anything — you are just being a warm presence","The man who shows up here without an agenda is the man she remembers"],
+    sex: ["Many women actually want sex during their period — don't assume she doesn't","If she's open to it, heat and intimacy can genuinely relieve cramps","Ask rather than assume — a simple 'do you want me close tonight?' goes a long way","If she's not interested, don't sulk — just be warm and physically present","A back rub or just holding her is its own kind of intimacy right now","Breast sensitivity is heightened right now — be extra gentle, check in before touching","She may be more sensitive to cold — warmth is not just comfort, it's physical relief right now"],
+    game: [{ text: "Common tests in the Menstrual Phase: The Comfort Test", link: { sectionId: "comfort-test", title: "What is The Comfort Test?" } },{ text: "Oxytocin: The Chemical She Needs From You", link: { sectionId: "oxytocin-chemical", title: "What is Oxytocin and why does it matter?" } },"Align your expectations: Most 'drama' here comes from YOU expecting something unrealistic","You are not trying to fix anything or get anything — you are just being a warm presence","The man who shows up here without an agenda is the man she remembers"],
     gameNote: "Put your phone down, queue up her favorite show, and just be a warm body next to her tonight. No agenda. That's it. That's the whole game.",
   },
   follicular: {
@@ -239,7 +239,7 @@ const PHASES = {
     avoid: ["Don't be withdrawn or glued to your phone — she wants to connect","Don't cancel plans or be flaky — she's in the mood to do things","Don't bring up old arguments — her good mood isn't an invitation to rehash drama","Don't take her energy for granted — match it","Don't waste this week on autopilot"],
     body: ["Estrogen is climbing steadily as the ovaries prepare to release an egg","The brain gets a measurable boost — memory, focus and mood all sharpen","She may feel almost unusually good during this phase and that's completely normal","Serotonin levels rise alongside estrogen, which is why she seems happier","This is the phase where she's most likely to want to try new things"],
     sex: ["Her interest is returning and building — this is a good time to reconnect physically","She's more adventurous during this phase, open to trying new things","Flirt more, build tension slowly — she'll respond well to the chase","Emotional connection still matters — don't skip straight to physical","This is a great phase to introduce something new you've both been curious about","Fertility: 🟡 Low to moderate and rising — sperm can survive up to 5 days, so unprotected sex toward the end of this phase can absolutely lead to pregnancy"],
-    game: ["Her Dopamine is rising — she needs novelty, spark and the feeling that life is exciting","You are not the point — the chemical you trigger is the point","Think about what makes her genuinely light up — new places, spontaneous plans, unexpected moves","Book something. Suggest something. Show up differently this week","The man who makes her feel alive during this phase becomes associated with that feeling permanently"],
+    game: ["Her Dopamine is rising — she needs novelty, spark and the feeling that life is exciting","Dopamine + Serotonin are both rising — she feels genuinely good AND craves novelty. You need to feed both","Think about what makes her genuinely light up — new places, spontaneous plans, unexpected moves","Book something. Suggest something. Show up differently this week","The man who makes her feel alive during this phase becomes associated with that feeling permanently"],
     gameNote: "Don't wait for her to suggest something. You make the plan this week. Watch how she responds.",
   },
   ovulation: {
@@ -450,6 +450,7 @@ function Setup({ onComplete }) {
 // ─── MAIN APP ─────────────────────────────────────────────────────────────────
 export default function TrackHer() {
   const [partners, setPartners]         = useState(() => { try { return JSON.parse(localStorage.getItem("th_partners")) || []; } catch { return []; } });
+  const [readArticles, setReadArticles]   = useState(() => { try { return JSON.parse(localStorage.getItem("th_read")) || []; } catch { return []; } });
   const [fontSize, setFontSize]           = useState(() => { try { return parseFloat(localStorage.getItem("th_fontsize")) || 1; } catch { return 1; } });
   const [showFontSlider, setShowFontSlider] = useState(false);
   const [activeId, setActiveId]         = useState(null);
@@ -465,6 +466,7 @@ export default function TrackHer() {
   const [furtherReadingArticle, setFurtherReadingArticle] = useState(null);
   const [showStatusChange, setShowStatusChange] = useState(false);
   const [librarySection, setLibrarySection] = useState(null);
+  const [linkedLibraryItem, setLinkedLibraryItem] = useState(null);
   const [forecastDate, setForecastDate] = useState("");
   const [forecastPhase, setForecastPhase] = useState(null);
   const [showNextPhase, setShowNextPhase] = useState(false);
@@ -480,6 +482,7 @@ export default function TrackHer() {
   useEffect(() => { const p = partners.find(p => p.id === activeId); setUpdateDate(p?.lastPeriod || ""); }, [activeId, partners]);
 
   useEffect(() => { try { localStorage.setItem("th_fontsize", fontSize); } catch {} }, [fontSize]);
+  useEffect(() => { try { localStorage.setItem("th_read", JSON.stringify(readArticles)); } catch {} }, [readArticles]);
 
   function completeSetup(data) {
     const isFirstPartner = partners.length === 0;
@@ -589,17 +592,22 @@ export default function TrackHer() {
       <div style={{ minHeight: "100vh", background: "#0f0d14", color: "#f0eaf8", fontFamily: "'Georgia', serif" }}>
         <div style={{ background: "#1a1525", borderBottom: "1px solid #2a2035", padding: "16px 20px", display: "flex", alignItems: "center", gap: "12px" }}>
           <button onClick={() => setAppView("tracker")} style={{ background: "none", border: "none", color: "#7a6b8a", fontSize: "22px", cursor: "pointer" }}>←</button>
-          <div style={{ fontSize: "16px", color: "#d4b8f0", fontWeight: "bold" }}>📚 Read This First</div>
+          <div style={{ fontSize: "16px", color: "#d4b8f0", fontWeight: "bold" }}>📚 Foundational Concepts</div>
         </div>
         <div style={{ padding: "20px", maxWidth: "480px", margin: "0 auto" }}>
-          <div style={{ fontSize: "13px", color: "#5a4a6a", fontStyle: "italic", marginBottom: "24px" }}>Two articles that will change how you see everything.</div>
+          <div style={{ fontSize: "14px", color: "#7a6b8a", lineHeight: "1.7", marginBottom: "24px" }}>
+            The following articles are considered critical sidebar articles, independent of where she's at with her cycle. Read these to increase your understanding of how to be a masculine leader and create the dynamics you WANT in your relationship.
+          </div>
           {ARTICLES.map((art, i) => (
-            <button key={art.id} onClick={() => { setActiveArticle(art.id); setAppView("article"); }} style={{ width: "100%", background: "#1a1525", border: "1px solid #2a2035", borderRadius: "16px", padding: "20px", marginBottom: "12px", cursor: "pointer", textAlign: "left", fontFamily: "inherit", display: "block" }}>
-              <div style={{ fontSize: "32px", marginBottom: "10px" }}>{art.emoji}</div>
+            <button key={art.id} onClick={() => { setActiveArticle(art.id); setAppView("article"); if (!readArticles.includes(art.id)) setReadArticles(prev => [...prev, art.id]); }} style={{ width: "100%", background: "#1a1525", border: "1px solid #2a2035", borderRadius: "16px", padding: "20px", marginBottom: "12px", cursor: "pointer", textAlign: "left", fontFamily: "inherit", display: "block", opacity: readArticles.includes(art.id) ? 0.6 : 1 }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "10px" }}>
+                <span style={{ fontSize: "32px" }}>{art.emoji}</span>
+                <span style={{ fontSize: "11px", background: readArticles.includes(art.id) ? "#2a3a2a" : "#2a2035", color: readArticles.includes(art.id) ? "#5bbf8a" : "#5a4a6a", borderRadius: "10px", padding: "3px 10px", letterSpacing: "1px" }}>{readArticles.includes(art.id) ? "✓ Read" : "Unread"}</span>
+              </div>
               <div style={{ fontSize: "11px", color: "#5a4a6a", letterSpacing: "2px", textTransform: "uppercase", marginBottom: "6px" }}>Article {i + 1}</div>
               <div style={{ fontSize: "16px", color: "#d4b8f0", fontWeight: "bold", marginBottom: "6px" }}>{art.title}</div>
               <div style={{ fontSize: "13px", color: "#7a6b8a", fontStyle: "italic", marginBottom: "12px" }}>{art.subtitle}</div>
-              <div style={{ fontSize: "12px", color: "#6b4fa0" }}>Read →</div>
+              <div style={{ fontSize: "12px", color: readArticles.includes(art.id) ? "#5bbf8a" : "#6b4fa0" }}>{readArticles.includes(art.id) ? "Read again →" : "Read →"}</div>
             </button>
           ))}
         </div>
