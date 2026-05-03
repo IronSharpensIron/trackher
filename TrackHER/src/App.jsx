@@ -117,6 +117,73 @@ You were watching her brain get exactly what it needed. And you were the one who
 
 Now do it on purpose. Every week. Based on where she is. That's the whole game. That's it.`,
   },
+  {
+    id: "triangle",
+    title: "The Triangle. Why This App Knows More Than You Think.",
+    subtitle: "Three variables. One precise picture of exactly how to show up.",
+    emoji: "🔺",
+    content: `Most relationship advice is generic. It does not know who she is. It does not know how old she is, what phase of life she is in, what dynamic you are in with her, or what her body is doing this week. It is written for a hypothetical woman who does not exist.
+
+TrackHer is built differently. Every piece of advice you see is the result of three variables being triangulated simultaneously. Understanding how they work together will make you dramatically better at using this app — and at reading women in general.
+
+Here are the three variables.
+
+THE FIRST VARIABLE: HER CYCLE PHASE
+
+Her menstrual cycle is the engine. It runs on a roughly 28-day loop and drives everything — her energy, her mood, her libido, her emotional sensitivity, her need for connection versus space. This is the most immediate variable. It changes week to week and it affects every single interaction you have with her.
+
+A woman in her Menstrual phase needs warmth and zero demands. A woman in Ovulation is at peak confidence, peak desire, peak receptivity. A woman in Late Luteal is running on depleted serotonin and needs your steadiness more than anything else.
+
+This is the foundation. Everything else layers on top of it.
+
+THE SECOND VARIABLE: HER AGE AND LIFE PHASE
+
+This is where most men go completely blind.
+
+A woman's behavior, her priorities, her subconscious strategy — all of it shifts dramatically depending on where she is in her life arc. The framework comes from Rollo Tomassi's Preventative Medicine series — read it in the Books section.
+
+In her Party Years (roughly 18-25) she is at peak sexual market value and she knows it. She has options. She is selecting primarily on raw attraction — Alpha dominance, excitement, unpredictability. Commitment is not her priority.
+
+In her Late Party Years (25-27) something starts to shift. The urgency is subtle but it is there. She begins thinking about consolidation. About finding the man who can be both exciting AND a long-term bet. This is when where is this going starts appearing.
+
+In her Epiphany Phase (28-30) the subconscious becomes conscious. She realizes she can no longer compete for male attention the way she could at 22. Her priorities visibly reprioritize. Provider traits, stability, and emotional investment suddenly matter in ways they did not before.
+
+In her Transitionary Phase (31-35) the urgency intensifies. Competition anxiety is real. She needs to see that you are the answer — not just attractive, but reliable, decisive, and worth betting her future on.
+
+Post-Transition (35+) she has either settled into a relationship or she is in sustained anxiety about it. She is no longer running a high-optionality strategy. She is running a depth strategy.
+
+THE THIRD VARIABLE: YOUR RELATIONSHIP TYPE
+
+The dynamic you are in shapes everything.
+
+A FWB situation is not a girlfriend situation. A girlfriend is not a wife. These represent fundamentally different contracts, different power dynamics, and different things she is subconsciously evaluating you on.
+
+With a FWB, she is still fully running her optionality strategy. You are one option. The game here is attraction maintenance — holding your frame, staying interesting, being the man she chooses to come back to. Commitment signals here can actually lower your value.
+
+With a girlfriend, she is in a selection process. She is deciding whether you are the man worth consolidating on. Every interaction is data. How you handle conflict, how you lead, how you respond to her tests — all of it is being registered.
+
+With a wife, the game is entirely about depth and long-term leadership. She made her bet. Now she needs to see that bet was right every single day.
+
+THE TRIANGULATION
+
+A 24-year-old FWB who is ovulating is running peak Party Years optionality at peak biological desire. Your job is to be completely present, confident, and unbothered. Do not chase. Do not over-explain. Do not signal need.
+
+A 32-year-old girlfriend in her Late Luteal phase is in Transitionary Phase — running low on serotonin and emotionally heightened. Her PMS irritability is partly hormonal and partly existential. She is asking without words: are you solid? Your job this week is to be a wall. Steady, present, unbothered.
+
+A 38-year-old wife in Ovulation is Post-Transition at peak desire. She needs to feel like her choice was right. Be present. Tell her she is beautiful. Lead.
+
+Same app. Three completely different sets of instructions. All from three data points you already entered.
+
+WHAT THIS MEANS FOR YOU
+
+The more you use this app — the more you pay attention to where she is in her cycle, where she is in her life, and what the dynamic actually is between you — the more precise your instincts become.
+
+You stop reacting. You start reading.
+
+That is not manipulation. That is mastery. And the difference between a man who has it and a man who does not is not talent. It is information — and the willingness to actually use it.
+
+That is what this app is for.`,
+  },
 ];
 
 // ─── SKIP ARTICLE ────────────────────────────────────────────────────────────
@@ -685,7 +752,15 @@ export default function TrackHer() {
           <div style={{ fontSize: "13px", color: "#7a6b8a", fontStyle: "italic", marginBottom: "24px" }}>{art.subtitle}</div>
           {art.content.split("\n\n").map((para, i) => {
             const isH = para === para.toUpperCase() && para.length < 80 && !para.includes(".");
-            return <div key={i} style={{ fontSize: isH ? "11px" : "15px", color: isH ? "#6b4fa0" : "#c8b8e0", lineHeight: isH ? "1.4" : "1.85", marginBottom: isH ? "8px" : "18px", letterSpacing: isH ? "2px" : "0", fontWeight: isH ? "bold" : "normal" }}>{para}</div>;
+            const rolloTerms = ["Party Years", "Late Party Years", "Epiphany Phase", "Transitionary Phase", "Post-Transition", "Preventative Medicine"];
+            const rolloUrl = "https://therationalmale.com/2014/03/26/preventative-medicine-part-ii/";
+            const parts = para.split(new RegExp(`(${rolloTerms.join("|")})`, "g"));
+            return <div key={i} style={{ fontSize: isH ? "11px" : "15px", color: isH ? "#6b4fa0" : "#c8b8e0", lineHeight: isH ? "1.4" : "1.85", marginBottom: isH ? "8px" : "18px", letterSpacing: isH ? "2px" : "0", fontWeight: isH ? "bold" : "normal" }}>
+              {parts.map((part, j) => rolloTerms.includes(part)
+                ? <a key={j} href={rolloUrl} target="_blank" rel="noreferrer" style={{ color: "#9b6fca", textDecoration: "underline", cursor: "pointer" }}>{part}</a>
+                : part
+              )}
+            </div>;
           })}
           <div style={{ height: "40px" }} />
         </div>
@@ -709,7 +784,15 @@ export default function TrackHer() {
           <div style={{ fontSize: "13px", color: "#7a6b8a", fontStyle: "italic", marginBottom: "24px" }}>{art.subtitle}</div>
           {art.content.split("\n\n").map((para, i) => {
             const isH = para === para.toUpperCase() && para.length < 80 && !para.includes(".");
-            return <div key={i} style={{ fontSize: isH ? "11px" : "15px", color: isH ? "#6b4fa0" : "#c8b8e0", lineHeight: isH ? "1.4" : "1.85", marginBottom: isH ? "8px" : "18px", letterSpacing: isH ? "2px" : "0", fontWeight: isH ? "bold" : "normal" }}>{para}</div>;
+            const rolloTerms = ["Party Years", "Late Party Years", "Epiphany Phase", "Transitionary Phase", "Post-Transition", "Preventative Medicine"];
+            const rolloUrl = "https://therationalmale.com/2014/03/26/preventative-medicine-part-ii/";
+            const parts = para.split(new RegExp(`(${rolloTerms.join("|")})`, "g"));
+            return <div key={i} style={{ fontSize: isH ? "11px" : "15px", color: isH ? "#6b4fa0" : "#c8b8e0", lineHeight: isH ? "1.4" : "1.85", marginBottom: isH ? "8px" : "18px", letterSpacing: isH ? "2px" : "0", fontWeight: isH ? "bold" : "normal" }}>
+              {parts.map((part, j) => rolloTerms.includes(part)
+                ? <a key={j} href={rolloUrl} target="_blank" rel="noreferrer" style={{ color: "#9b6fca", textDecoration: "underline", cursor: "pointer" }}>{part}</a>
+                : part
+              )}
+            </div>;
           })}
           <div style={{ height: "40px" }} />
         </div>
