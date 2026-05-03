@@ -646,7 +646,6 @@ export default function TrackHer() {
       { id: "connection",  label: "Connection",       emoji: "🔗" },
       { id: "sex",         label: "Sex & Desire",     emoji: "🔥" },
       { id: "advanced",    label: "Advanced Game",    emoji: "♚" },
-      { id: "oxytocin-chemical", label: "Oxytocin",  emoji: "⚗️" },
     ];
 
     const activeFilter = librarySection || "all";
@@ -1009,6 +1008,25 @@ export default function TrackHer() {
                 </div>
               )}
 
+              {/* Further Reading */}
+              <div style={{ background: "#1a1525", border: "1px solid #2a2035", borderRadius: "16px", padding: "18px", marginBottom: "10px" }}>
+                <div style={{ fontSize: "11px", letterSpacing: "2px", color: "#6b4fa0", textTransform: "uppercase", marginBottom: "14px" }}>📖 Further Reading</div>
+                {(() => {
+                  const art = FURTHER_READING.find(a => a.id === pk);
+                  if (!art) return null;
+                  return (
+                    <button onClick={() => setFurtherReadingArticle(art.id)} style={{ background: "#130f1e", border: "1px solid #2a2035", borderRadius: "12px", padding: "12px 14px", display: "flex", alignItems: "center", gap: "12px", cursor: "pointer", fontFamily: "inherit", textAlign: "left", width: "100%" }}>
+                      <span style={{ fontSize: "20px", opacity: 0.6 }}>{art.emoji}</span>
+                      <div style={{ flex: 1 }}>
+                        <div style={{ fontSize: "11px", color: "#6b4fa0", letterSpacing: "1px", textTransform: "uppercase", marginBottom: "3px" }}>{art.phase} Phase</div>
+                        <div style={{ fontSize: "14px", color: "#a090b8" }}>{art.title}</div>
+                      </div>
+                      <span style={{ color: "#6b4fa0", fontSize: "16px" }}>→</span>
+                    </button>
+                  );
+                })()}
+              </div>
+
               {/* Phase Forecast */}
               <div style={{ background: "#1a1525", border: "1px solid #2a2035", borderRadius: "16px", padding: "18px", marginBottom: "10px" }}>
                 <div style={{ fontSize: "11px", letterSpacing: "2px", color: "#6b4fa0", textTransform: "uppercase", marginBottom: "6px" }}>🔮 Phase Forecast</div>
@@ -1034,25 +1052,6 @@ export default function TrackHer() {
                       <div style={{ fontSize: "13px", color: "#a090b8", fontStyle: "italic", marginBottom: "10px" }}>{fp.tagline}</div>
                       <div style={{ fontSize: "13px", color: fp.color, background: `${fp.color}15`, borderRadius: "8px", padding: "8px 12px" }}>⚗️ {fp.chemical} — {fp.chemicalNote}</div>
                     </div>
-                  );
-                })()}
-              </div>
-
-              {/* Further Reading */}
-              <div style={{ background: "#1a1525", border: "1px solid #2a2035", borderRadius: "16px", padding: "18px", marginBottom: "10px" }}>
-                <div style={{ fontSize: "11px", letterSpacing: "2px", color: "#6b4fa0", textTransform: "uppercase", marginBottom: "14px" }}>📖 Further Reading</div>
-                {(() => {
-                  const art = FURTHER_READING.find(a => a.id === pk);
-                  if (!art) return null;
-                  return (
-                    <button onClick={() => setFurtherReadingArticle(art.id)} style={{ background: "#130f1e", border: "1px solid #2a2035", borderRadius: "12px", padding: "12px 14px", display: "flex", alignItems: "center", gap: "12px", cursor: "pointer", fontFamily: "inherit", textAlign: "left", width: "100%" }}>
-                      <span style={{ fontSize: "20px", opacity: 0.6 }}>{art.emoji}</span>
-                      <div style={{ flex: 1 }}>
-                        <div style={{ fontSize: "11px", color: "#6b4fa0", letterSpacing: "1px", textTransform: "uppercase", marginBottom: "3px" }}>{art.phase} Phase</div>
-                        <div style={{ fontSize: "14px", color: "#a090b8" }}>{art.title}</div>
-                      </div>
-                      <span style={{ color: "#6b4fa0", fontSize: "16px" }}>→</span>
-                    </button>
                   );
                 })()}
               </div>
