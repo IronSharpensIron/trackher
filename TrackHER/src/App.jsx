@@ -450,6 +450,8 @@ function Setup({ onComplete }) {
 // ─── MAIN APP ─────────────────────────────────────────────────────────────────
 export default function TrackHer() {
   const [partners, setPartners]         = useState(() => { try { return JSON.parse(localStorage.getItem("th_partners")) || []; } catch { return []; } });
+  const [fontSize, setFontSize]           = useState(() => { try { return parseFloat(localStorage.getItem("th_fontsize")) || 1; } catch { return 1; } });
+  const [showFontSlider, setShowFontSlider] = useState(false);
   const [activeId, setActiveId]         = useState(null);
   const [showSetup, setShowSetup]       = useState(false);
   const [isFirst, setIsFirst]           = useState(() => { try { return !localStorage.getItem("th_ready"); } catch { return true; } });
@@ -476,6 +478,8 @@ export default function TrackHer() {
   useEffect(() => { try { localStorage.setItem("th_partners", JSON.stringify(partners)); } catch {} }, [partners]);
   useEffect(() => { setBullet(0); }, [activeHeader, activeId]);
   useEffect(() => { const p = partners.find(p => p.id === activeId); setUpdateDate(p?.lastPeriod || ""); }, [activeId, partners]);
+
+  useEffect(() => { try { localStorage.setItem("th_fontsize", fontSize); } catch {} }, [fontSize]);
 
   function completeSetup(data) {
     const isFirstPartner = partners.length === 0;
@@ -625,8 +629,9 @@ export default function TrackHer() {
   }
 
   // ── Main tracker
+  const scale = fontSize;
   return (
-    <div style={{ minHeight: "100vh", background: "#0f0d14", fontFamily: "'Georgia', serif", color: "#f0eaf8" }}>
+    <div style={{ minHeight: "100vh", background: "#0f0d14", fontFamily: "'Georgia', serif", color: "#f0eaf8", zoom: scale }}>
 
       {/* Header */}
       <div style={{ background: "linear-gradient(135deg,#1a1525,#0f0d14)", borderBottom: "1px solid #2a2035", padding: "18px 20px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
@@ -638,6 +643,7 @@ export default function TrackHer() {
           <button onClick={() => setAppView("articles")} style={{ background: "#1a1525", border: "1px solid #2a2035", borderRadius: "20px", padding: "8px 14px", color: "#7a6b8a", fontSize: "13px", cursor: "pointer", fontFamily: "inherit" }}>📚</button>
           <button onClick={() => setAppView("library")} style={{ background: "#1a1525", border: "1px solid #2a2035", borderRadius: "20px", padding: "8px 14px", color: "#7a6b8a", fontSize: "13px", cursor: "pointer", fontFamily: "inherit" }}>🎓</button>
           <button onClick={() => setShowSetup(true)} style={{ background: "linear-gradient(135deg,#6b4fa0,#9b6fca)", border: "none", borderRadius: "20px", padding: "8px 16px", color: "white", fontSize: "13px", cursor: "pointer", fontFamily: "inherit" }}>+ Add</button>
+          <button onClick={() => setShowFontSlider(v => !v)} style={{ background: showFontSlider ? "linear-gradient(135deg,#2e1f45,#3d2860)" : "#1a1525", border: showFontSlider ? "1px solid #6b4fa0" : "1px solid #2a2035", borderRadius: "20px", padding: "8px 12px", color: showFontSlider ? "#d4b8f0" : "#7a6b8a", fontSize: "15px", cursor: "pointer", fontFamily: "inherit" }}>Aa</button>
         </div>
       </div>
 
@@ -786,7 +792,7 @@ export default function TrackHer() {
               </div>
 
               {/* Content card */}
-              <div style={{ background: "#1a1525", border: `1px solid ${activeHeader === "avoid" ? "#3a2035" : phase.color + "30"}`, borderRadius: "16px", padding: "18px", marginBottom: "10px" }}>
+              <div style={{ background: "#1a1525", border: `1px solid ${activeHeader === "avoid" ? "#3a2035" : phase.color + "40"}`, borderRadius: "16px", padding: "18px", marginBottom: "10px", background: activeHeader === "avoid" ? "#2a1520" : "#22203a" }}>
                 <div style={{ fontSize: "11px", letterSpacing: "2px", textTransform: "uppercase", marginBottom: "12px", color: activeHeader === "avoid" ? "#bf5060" : phase.color }}>{HEADER_LABELS[activeHeader].emoji} {HEADER_LABELS[activeHeader].label}</div>
                 <div style={{ display: "flex", gap: "12px", alignItems: "flex-start", fontSize: "15px", color: activeHeader === "avoid" ? "#c8a0a8" : "#d4c8e8", lineHeight: "1.7", padding: "13px", background: activeHeader === "avoid" ? "#3a202510" : `${phase.color}10`, borderRadius: "10px", marginBottom: "13px", minHeight: "55px" }}>
                   <span style={{ fontSize: "13px", fontWeight: "bold", color: activeHeader === "avoid" ? "#bf5060" : phase.color, minWidth: "20px", marginTop: "1px" }}>{bullet + 1}.</span>
