@@ -136,6 +136,33 @@ The fix is simple: the moment her period starts, update the date. That resets ev
 You don't need to be perfect about it. Even a rough date is better than nothing. But the more current you keep it, the more useful the app becomes.`,
 };
 
+const BOOKS = [
+  {
+    id: "superior-man",
+    title: "The Way of the Superior Man",
+    author: "David Deida",
+    emoji: "📘",
+    description: "A spiritual guide to mastering the challenges of women, work, and sexual desire. One of the most important books a man can read.",
+    amazonUrl: "https://www.amazon.com/Way-Superior-Man-Spiritual-Challenges/dp/1591792576",
+  },
+  {
+    id: "what-women-want",
+    title: "What Women Want When They Test Men",
+    author: "Bruce Bryans",
+    emoji: "📗",
+    description: "A practical breakdown of why women test men and exactly how to respond in a way that builds attraction and respect.",
+    amazonUrl: "https://www.amazon.com/What-Women-Want-When-Test/dp/1482370107",
+  },
+  {
+    id: "preventative-medicine",
+    title: "Preventative Medicine — Part II",
+    author: "Rollo Tomassi / The Rational Male",
+    emoji: "💊",
+    description: "The SMV timeline framework every man needs to understand. Maps the phases women move through — Party Years, Epiphany, Transition — and what each phase means for how she relates to you. Essential reading.",
+    amazonUrl: "https://therationalmale.com/2014/03/26/preventative-medicine-part-ii/",
+  },
+];
+
 const SKIP_ARTICLE = {
   id: "finddate", title: "How To Find Out Her Start Date",
   subtitle: "For the guy who skipped — here's how to get the info you need.", emoji: "🕵️",
@@ -452,6 +479,7 @@ function Setup({ onComplete }) {
 export default function TrackHer() {
   const [partners, setPartners]         = useState(() => { try { return JSON.parse(localStorage.getItem("th_partners")) || []; } catch { return []; } });
   const [readArticles, setReadArticles]   = useState(() => { try { return JSON.parse(localStorage.getItem("th_read")) || []; } catch { return []; } });
+  const [showBooks, setShowBooks]         = useState(false);
   const [fontSize, setFontSize]           = useState(() => { try { return parseFloat(localStorage.getItem("th_fontsize")) || 1; } catch { return 1; } });
   const [showFontSlider, setShowFontSlider] = useState(false);
   const [activeId, setActiveId]         = useState(null);
@@ -510,6 +538,38 @@ export default function TrackHer() {
   const relLabel = REL_TYPES.find(r => r.id === active?.relType)?.label || "";
 
   // ── Library
+  // ── Books view
+  if (showBooks) {
+    return (
+      <div style={{ minHeight: "100vh", background: "#0f0d14", color: "#f0eaf8", fontFamily: "'Georgia', serif" }}>
+        <div style={{ background: "#1a1525", borderBottom: "1px solid #2a2035", padding: "16px 20px", display: "flex", alignItems: "center", gap: "12px", position: "sticky", top: 0, zIndex: 10 }}>
+          <button onClick={() => setShowBooks(false)} style={{ background: "none", border: "none", color: "#7a6b8a", fontSize: "22px", cursor: "pointer" }}>←</button>
+          <div style={{ fontSize: "16px", color: "#d4b8f0", fontWeight: "bold" }}>📚 Recommended Books</div>
+        </div>
+        <div style={{ padding: "20px", maxWidth: "480px", margin: "0 auto" }}>
+          <div style={{ fontSize: "13px", color: "#5a4a6a", fontStyle: "italic", marginBottom: "24px" }}>
+            Books that will change how you show up. Every one of these is worth your time.
+          </div>
+          {BOOKS.map((book, i) => (
+            <div key={book.id} style={{ background: "#1a1525", border: "1px solid #2a2035", borderRadius: "16px", padding: "20px", marginBottom: "12px" }}>
+              <div style={{ display: "flex", gap: "14px", alignItems: "flex-start" }}>
+                <div style={{ fontSize: "40px" }}>{book.emoji}</div>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontSize: "16px", color: "#d4b8f0", fontWeight: "bold", marginBottom: "4px" }}>{book.title}</div>
+                  <div style={{ fontSize: "12px", color: "#6b4fa0", marginBottom: "10px", letterSpacing: "0.5px" }}>by {book.author}</div>
+                  <div style={{ fontSize: "13px", color: "#7a6b8a", lineHeight: "1.6", marginBottom: "14px" }}>{book.description}</div>
+                  <a href={book.amazonUrl} target="_blank" rel="noreferrer" style={{ display: "inline-block", background: "linear-gradient(135deg,#4a2f70,#6b4fa0)", borderRadius: "10px", padding: "8px 16px", color: "white", fontSize: "13px", textDecoration: "none", fontFamily: "inherit" }}>
+                    View on Amazon →
+                  </a>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
   if (appView === "library") {
     const FILTERS = [
       { id: "all",         label: "All",              emoji: "📖" },
@@ -519,7 +579,6 @@ export default function TrackHer() {
       { id: "connection",  label: "Connection",       emoji: "🔗" },
       { id: "sex",         label: "Sex & Desire",     emoji: "🔥" },
       { id: "advanced",    label: "Advanced Game",    emoji: "♚" },
-      { id: "comfort-test",label: "The Comfort Test", emoji: "🛋️" },
       { id: "oxytocin-chemical", label: "Oxytocin",  emoji: "⚗️" },
     ];
 
@@ -671,6 +730,7 @@ export default function TrackHer() {
         </div>
         <div style={{ display: "flex", gap: "8px" }}>
           <button onClick={() => setAppView("library")} style={{ background: "#1a1525", border: "1px solid #2a2035", borderRadius: "20px", padding: "8px 14px", color: "#7a6b8a", fontSize: "13px", cursor: "pointer", fontFamily: "inherit" }}>📖</button>
+          <button onClick={() => setShowBooks(true)} style={{ background: "#1a1525", border: "1px solid #2a2035", borderRadius: "20px", padding: "8px 14px", color: "#7a6b8a", fontSize: "13px", cursor: "pointer", fontFamily: "inherit" }}>📚</button>
           <button onClick={() => setShowSetup(true)} style={{ background: "linear-gradient(135deg,#6b4fa0,#9b6fca)", border: "none", borderRadius: "20px", padding: "8px 16px", color: "white", fontSize: "13px", cursor: "pointer", fontFamily: "inherit" }}>+ Add</button>
           <button onClick={() => setShowFontSlider(v => !v)} style={{ background: showFontSlider ? "linear-gradient(135deg,#2e1f45,#3d2860)" : "#1a1525", border: showFontSlider ? "1px solid #6b4fa0" : "1px solid #2a2035", borderRadius: "20px", padding: "8px 12px", color: showFontSlider ? "#d4b8f0" : "#7a6b8a", fontSize: "15px", cursor: "pointer", fontFamily: "inherit" }}>Aa</button>
         </div>
