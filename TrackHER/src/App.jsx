@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 
+// ─── ARTICLES ────────────────────────────────────────────────────────────────
 const ARTICLES = [
   {
     id: "code", title: "The Code Has Been Right There The Whole Time",
@@ -117,11 +118,26 @@ Now do it on purpose. Every week. Based on where she is. That's the whole game. 
   },
 ];
 
+// ─── SKIP ARTICLE ────────────────────────────────────────────────────────────
+const ADJUST_DATE_ARTICLE = {
+  id: "adjustdate",
+  title: "Why Would I Adjust Her Start Date?",
+  subtitle: "Because cycles aren't a perfect clock.",
+  emoji: "📅",
+  content: `Most people assume a menstrual cycle runs like clockwork — 28 days, every time, on the dot. It doesn't.
+
+Cycles shift. They get longer or shorter based on stress, sleep, illness, travel, diet changes, intense exercise, or just the natural variation that comes with being human. A woman who usually runs a 28-day cycle might have a 24-day cycle one month and a 32-day cycle the next.
+
+This matters for you because the phase calculations in TrackHer are only as accurate as the start date you give it. If her period came a few days earlier or later than expected, the whole calendar shifts with it.
+
+The fix is simple: the moment her period starts, update the date. That resets everything and keeps the tracking accurate.
+
+You don't need to be perfect about it. Even a rough date is better than nothing. But the more current you keep it, the more useful the app becomes.`,
+};
+
 const SKIP_ARTICLE = {
-  id: "finddate",
-  title: "How To Find Out Her Start Date",
-  subtitle: "For the guy who skipped — here's how to get the info you need.",
-  emoji: "🕵️",
+  id: "finddate", title: "How To Find Out Her Start Date",
+  subtitle: "For the guy who skipped — here's how to get the info you need.", emoji: "🕵️",
   content: `Just ask her.
 
 Seriously. That's tip number one and it's also the whole article if you want it to be.
@@ -147,14 +163,60 @@ If she's visibly uncomfortable or irritable, that's not the moment to ask. Bring
 Once you have it, come back and enter it under "Adjust period start date" at the bottom of her profile. The whole app unlocks from there.`,
 };
 
+// ─── FURTHER READING ─────────────────────────────────────────────────────────
 const FURTHER_READING = [
-  { id: "menstrual",   emoji: "🌑", phase: "Menstrual",    title: "The Reset: What's Really Happening This Week",    content: "Content coming soon." },
-  { id: "follicular",  emoji: "🌒", phase: "Follicular",   title: "The Rise: How To Ride This Wave With Her",         content: "Content coming soon." },
-  { id: "ovulation",   emoji: "🌕", phase: "Ovulation",    title: "The Peak: Three Days That Change Everything",      content: "Content coming soon." },
-  { id: "earlyLuteal", emoji: "🌖", phase: "Early Luteal", title: "The Shift: When Steady Wins",                      content: "Content coming soon." },
-  { id: "lateLuteal",  emoji: "🌘", phase: "Late Luteal",  title: "The Storm: How To Be The Wall She Leans On",       content: "Content coming soon." },
+  { id: "menstrual",   emoji: "🌑", phase: "Menstrual",    title: "The Reset: What's Really Happening This Week" },
+  { id: "follicular",  emoji: "🌒", phase: "Follicular",   title: "The Rise: How To Ride This Wave With Her" },
+  { id: "ovulation",   emoji: "🌕", phase: "Ovulation",    title: "The Peak: Three Days That Change Everything" },
+  { id: "earlyLuteal", emoji: "🌖", phase: "Early Luteal", title: "The Shift: When Steady Wins" },
+  { id: "lateLuteal",  emoji: "🌘", phase: "Late Luteal",  title: "The Storm: How To Be The Wall She Leans On" },
 ];
 
+// ─── LIBRARY ─────────────────────────────────────────────────────────────────
+const LIBRARY = [
+  {
+    id: "understanding", title: "Understanding Her", emoji: "🧠",
+    items: [
+      { type: "text",  title: "Why she may not want you to track", url: null },
+      { type: "audio", title: "The emotional world of a woman", url: null },
+      { type: "video", title: "What her cycle actually looks like", url: null },
+    ],
+  },
+  {
+    id: "conflict", title: "Conflict & Tension", emoji: "⚡",
+    items: [
+      { type: "audio", title: "Handling shit tests", url: null },
+      { type: "video", title: "Examples of different tests", url: null },
+      { type: "text",  title: "When to hold firm vs when to fold", url: null },
+    ],
+  },
+  {
+    id: "connection", title: "Deep Connection", emoji: "🔗",
+    items: [
+      { type: "text",  title: "The Oxytocin playbook", url: null },
+      { type: "audio", title: "How to make her feel truly seen", url: null },
+      { type: "video", title: "Non-verbal connection techniques", url: null },
+    ],
+  },
+  {
+    id: "sex", title: "Sex & Desire", emoji: "🔥",
+    items: [
+      { type: "text",  title: "How her desire actually works", url: null },
+      { type: "audio", title: "Timing intimacy to her cycle", url: null },
+      { type: "video", title: "Reading her signals", url: null },
+    ],
+  },
+  {
+    id: "advanced", title: "Advanced Game", emoji: "♟️",
+    items: [
+      { type: "text",  title: "The chemical triggers explained", url: null },
+      { type: "audio", title: "Dopamine, Oxytocin, Serotonin deep dive", url: null },
+      { type: "video", title: "Real world examples by phase", url: null },
+    ],
+  },
+];
+
+// ─── PHASES ───────────────────────────────────────────────────────────────────
 const PHASES = {
   menstrual: {
     name: "Menstrual", days: [1,5], color: "#e05c6b", emoji: "🌑",
@@ -218,6 +280,7 @@ const PHASES = {
   },
 };
 
+// ─── CONSTANTS ────────────────────────────────────────────────────────────────
 const REL_TYPES = [
   { id: "girlfriend", emoji: "🌹", label: "Girlfriend" },
   { id: "wife",       emoji: "💍", label: "Wife" },
@@ -236,7 +299,7 @@ const GOALS = [
 ];
 
 const HEADER_LABELS = {
-  tips:  { label: "Tips",       emoji: "💡" },
+  tips:  { label: "Tips",          emoji: "💡" },
   mood:  { label: "Her Mood",      emoji: "💜" },
   avoid: { label: "Avoid",         emoji: "⚠️" },
   body:  { label: "Body Science",  emoji: "🔬" },
@@ -246,6 +309,25 @@ const HEADER_LABELS = {
 
 const PHASE_ORDER = ["menstrual","follicular","ovulation","earlyLuteal","lateLuteal"];
 const AVATARS = ["💜","💙","💚","🧡","❤️","🤍","💛","🩷"];
+const REL_EMOJI = { girlfriend: "🌹", wife: "💍", fwb: "🔥", friend: "🤝", other: "🌀" };
+
+// ─── HELPERS ──────────────────────────────────────────────────────────────────
+const FERTILITY = {
+  menstrual:   { emoji: "🟢", tier: "Very Low",      color: "#5bbf8a", note: "The uterine lining is shedding — conception is extremely unlikely right now." },
+  follicular:  { emoji: "🟡", tier: "Low → Medium",  color: "#f4a24b", note: "Estrogen is rising and the body is preparing to ovulate — fertility builds toward the end of this phase." },
+  ovulation:   { emoji: "🔴", tier: "Peak",           color: "#e05c6b", note: "The egg is released and viable for 12–24 hours — this is the highest fertility window of the entire cycle." },
+  earlyLuteal: { emoji: "🟡", tier: "Medium Low",     color: "#f4a24b", note: "The fertile window has passed — conception is unlikely but not impossible if ovulation was late." },
+  lateLuteal:  { emoji: "🟢", tier: "Very Low",       color: "#5bbf8a", note: "The body is preparing to shed the lining — the fertile window is long closed for this cycle." },
+};
+
+const FERTILITY_TIERS = [
+  { label: "Very Low",     color: "#5bbf8a" },
+  { label: "Low → Medium", color: "#f4a24b" },
+  { label: "Medium Low",   color: "#f4a24b" },
+  { label: "Medium",       color: "#f4c14b" },
+  { label: "High",         color: "#e08a3c" },
+  { label: "Peak",         color: "#e05c6b" },
+];
 
 function getPhaseKey(day) {
   if (day <= 5)  return "menstrual";
@@ -259,60 +341,37 @@ function getDayOfCycle(lastPeriod, cycleLength) {
   return ((diff % cycleLength) + 1);
 }
 function getDaysUntil(day, cycleLength) { return cycleLength - day + 1; }
+function today() { return new Date().toISOString().split("T")[0]; }
 
-// ── SETUP FLOW ───────────────────────────────────────────────────────────────
+// ─── SETUP ────────────────────────────────────────────────────────────────────
 function Setup({ onComplete }) {
   const [screen, setScreen]   = useState(1);
   const [name, setName]       = useState("");
   const [age, setAge]         = useState("");
+  const [goal, setGoal]       = useState(null);
   const [relType, setRelType] = useState(null);
   const [date, setDate]       = useState("");
-  const [goal, setGoal]       = useState(null);
   const [fade, setFade]       = useState(true);
 
   function next() {
     setFade(false);
     setTimeout(() => { setScreen(s => s + 1); setFade(true); }, 180);
   }
-
   function finish(skip) {
-    const tod = new Date().toISOString().split("T")[0];
-    onComplete({ name: name.trim(), age: age.trim(), relType, goal, lastPeriod: skip ? tod : (date || tod), skipped: skip });
+    onComplete({ name: name.trim(), age: age.trim(), goal, relType, lastPeriod: skip ? today() : (date || today()), skipped: skip });
   }
 
   const pct = (screen / 5) * 100;
-
-  const wrap = {
-    minHeight: "100vh", background: "#0a0812", fontFamily: "'Georgia', serif",
-    color: "#f0eaf8", display: "flex", flexDirection: "column",
-    opacity: fade ? 1 : 0, transition: "opacity 0.18s",
-  };
-  const inner = {
-    flex: 1, display: "flex", flexDirection: "column", justifyContent: "center",
-    padding: "70px 28px 48px", maxWidth: "440px", margin: "0 auto",
-    width: "100%", boxSizing: "border-box",
-  };
-  const inputStyle = {
-    width: "100%", background: "#1a1525", border: "1px solid #3a2a50",
-    borderRadius: "14px", padding: "16px 18px", color: "#f0eaf8",
-    fontFamily: "inherit", fontSize: "18px", boxSizing: "border-box", outline: "none",
-  };
-  function cta(enabled) {
-    return {
-      background: enabled ? "linear-gradient(135deg,#6b4fa0,#9b6fca)" : "#2a2035",
-      border: "none", borderRadius: "14px", padding: "16px",
-      color: enabled ? "white" : "#4a3a5a", fontSize: "16px", fontWeight: "bold",
-      cursor: enabled ? "pointer" : "default", fontFamily: "inherit",
-      width: "100%", marginTop: "12px", transition: "all 0.2s",
-    };
-  }
+  const wrap = { minHeight: "100vh", background: "#0a0812", fontFamily: "'Georgia', serif", color: "#f0eaf8", display: "flex", flexDirection: "column", opacity: fade ? 1 : 0, transition: "opacity 0.18s" };
+  const inner = { flex: 1, display: "flex", flexDirection: "column", justifyContent: "center", padding: "70px 28px 48px", maxWidth: "440px", margin: "0 auto", width: "100%", boxSizing: "border-box" };
+  const inputStyle = { width: "100%", background: "#1a1525", border: "1px solid #3a2a50", borderRadius: "14px", padding: "16px 18px", color: "#f0eaf8", fontFamily: "inherit", fontSize: "18px", boxSizing: "border-box", outline: "none" };
+  const cta = (on) => ({ background: on ? "linear-gradient(135deg,#6b4fa0,#9b6fca)" : "#2a2035", border: "none", borderRadius: "14px", padding: "16px", color: on ? "white" : "#4a3a5a", fontSize: "16px", fontWeight: "bold", cursor: on ? "pointer" : "default", fontFamily: "inherit", width: "100%", marginTop: "12px", transition: "all 0.2s" });
 
   return (
     <div style={wrap}>
       <div style={{ height: "3px", background: "#1a1525", position: "fixed", top: 0, left: 0, right: 0, zIndex: 10 }}>
-        <div style={{ height: "100%", width: pct + "%", background: "linear-gradient(90deg,#6b4fa0,#c084fc)", transition: "width 0.4s ease" }} />
+        <div style={{ height: "100%", width: `${pct}%`, background: "linear-gradient(90deg,#6b4fa0,#c084fc)", transition: "width 0.4s ease" }} />
       </div>
-
       <div style={inner}>
 
         {screen === 1 && (
@@ -328,7 +387,7 @@ function Setup({ onComplete }) {
           <>
             <div style={{ fontSize: "28px", fontWeight: "bold", marginBottom: "28px" }}>How old is {name}?</div>
             <div style={{ fontSize: "12px", color: "#6a5a7a", letterSpacing: "1.5px", textTransform: "uppercase", marginBottom: "12px" }}>Her age</div>
-            <input value={age} onChange={e => setAge(e.target.value.replace(/\D/g, ""))} placeholder="e.g. 28" type="number" min={13} max={60} autoFocus style={inputStyle} onKeyDown={e => e.key === "Enter" && age && next()} />
+            <input value={age} onChange={e => setAge(e.target.value.replace(/\D/g,""))} placeholder="e.g. 28" type="number" min={13} max={60} autoFocus style={inputStyle} onKeyDown={e => e.key === "Enter" && age && next()} />
             <button onClick={next} style={cta(!!age)} disabled={!age}>Continue →</button>
           </>
         )}
@@ -336,7 +395,7 @@ function Setup({ onComplete }) {
         {screen === 3 && (
           <>
             <div style={{ fontSize: "28px", fontWeight: "bold", marginBottom: "28px" }}>Why are you tracking?</div>
-            <div style={{ display: "flex", flexDirection: "column", gap: "10px", marginBottom: "8px" }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: "9px", marginBottom: "8px" }}>
               {GOALS.map(g => (
                 <button key={g.id} onClick={() => setGoal(g.id)} style={{ background: goal === g.id ? "linear-gradient(135deg,#2e1f45,#3d2860)" : "#1a1525", border: goal === g.id ? "1px solid #8b6fca" : "1px solid #2a2035", borderRadius: "14px", padding: "13px 16px", display: "flex", alignItems: "center", gap: "13px", cursor: "pointer", fontFamily: "inherit", textAlign: "left", transition: "all 0.18s" }}>
                   <span style={{ fontSize: "22px" }}>{g.emoji}</span>
@@ -352,10 +411,10 @@ function Setup({ onComplete }) {
           </>
         )}
 
-        {screen === 5 && (
+        {screen === 4 && (
           <>
             <div style={{ fontSize: "28px", fontWeight: "bold", marginBottom: "28px" }}>{name} is my...</div>
-            <div style={{ display: "flex", flexDirection: "column", gap: "10px", marginBottom: "8px" }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: "9px", marginBottom: "8px" }}>
               {REL_TYPES.map(r => (
                 <button key={r.id} onClick={() => setRelType(r.id)} style={{ background: relType === r.id ? "linear-gradient(135deg,#2e1f45,#3d2860)" : "#1a1525", border: relType === r.id ? "1px solid #8b6fca" : "1px solid #2a2035", borderRadius: "14px", padding: "14px 18px", display: "flex", alignItems: "center", gap: "14px", cursor: "pointer", fontFamily: "inherit", textAlign: "left", transition: "all 0.18s" }}>
                   <span style={{ fontSize: "24px" }}>{r.emoji}</span>
@@ -368,16 +427,13 @@ function Setup({ onComplete }) {
           </>
         )}
 
-        {screen === 4 && (
+        {screen === 5 && (
           <>
             <div style={{ fontSize: "28px", fontWeight: "bold", marginBottom: "8px" }}>When did {name}'s last period start?</div>
             <div style={{ fontSize: "15px", color: "#6a5a7a", marginBottom: "28px" }}>First day of her last period</div>
             <input type="date" value={date} onChange={e => setDate(e.target.value)} style={{ ...inputStyle, colorScheme: "dark", fontSize: "16px" }} />
             <button onClick={() => finish(false)} style={cta(true)}>Start tracking →</button>
-            <button onClick={() => finish(true)} style={{ background: "none", border: "none", color: "#8b6fca", fontSize: "14px", cursor: "pointer", fontFamily: "inherit", marginTop: "16px", textAlign: "center", width: "100%", fontStyle: "italic" }}>
-              Skip for now
-            </button>
-
+            <button onClick={() => finish(true)} style={{ background: "none", border: "none", color: "#8b6fca", fontSize: "14px", cursor: "pointer", fontFamily: "inherit", marginTop: "16px", textAlign: "center", width: "100%", fontStyle: "italic" }}>Skip for now</button>
           </>
         )}
 
@@ -386,13 +442,12 @@ function Setup({ onComplete }) {
             <div key={i} style={{ width: i === screen ? "20px" : "6px", height: "6px", borderRadius: "3px", background: i === screen ? "#8b6fca" : i < screen ? "#4a3a6a" : "#2a2035", transition: "all 0.3s" }} />
           ))}
         </div>
-
       </div>
     </div>
   );
 }
 
-// ── MAIN APP ─────────────────────────────────────────────────────────────────
+// ─── MAIN APP ─────────────────────────────────────────────────────────────────
 export default function TrackHer() {
   const [partners, setPartners]         = useState(() => { try { return JSON.parse(localStorage.getItem("th_partners")) || []; } catch { return []; } });
   const [activeId, setActiveId]         = useState(null);
@@ -407,70 +462,86 @@ export default function TrackHer() {
   const [showSkipArticle, setShowSkipArticle] = useState(false);
   const [furtherReadingArticle, setFurtherReadingArticle] = useState(null);
   const [showStatusChange, setShowStatusChange] = useState(false);
+  const [librarySection, setLibrarySection] = useState(null);
   const [forecastDate, setForecastDate] = useState("");
   const [forecastPhase, setForecastPhase] = useState(null);
+  const [showNextPhase, setShowNextPhase] = useState(false);
+  const [showSavePrompt, setShowSavePrompt] = useState(false);
+  const [showAdjustArticle, setShowAdjustArticle] = useState(false);
+  const [showFeedback, setShowFeedback] = useState(false);
+  const [feedbackText, setFeedbackText] = useState("");
+  const [feedbackSent, setFeedbackSent] = useState(false);
 
   useEffect(() => { if (partners.length > 0 && !activeId) setActiveId(partners[0].id); }, [partners]);
   useEffect(() => { try { localStorage.setItem("th_partners", JSON.stringify(partners)); } catch {} }, [partners]);
   useEffect(() => { setBullet(0); }, [activeHeader, activeId]);
-  useEffect(() => {
-    const p = partners.find(p => p.id === activeId);
-    setUpdateDate(p?.lastPeriod || "");
-  }, [activeId, partners]);
+  useEffect(() => { const p = partners.find(p => p.id === activeId); setUpdateDate(p?.lastPeriod || ""); }, [activeId, partners]);
 
   function completeSetup(data) {
-    const today = new Date().toISOString().split("T")[0];
-    const p = { id: Date.now(), name: data.name, age: data.age, relType: data.relType, lastPeriod: data.lastPeriod || today, cycleLength: 28, avatar: "💜", skipped: data.skipped || false };
+    const isFirstPartner = partners.length === 0;
+    const p = { id: Date.now(), name: data.name, age: data.age, relType: data.relType, goal: data.goal, lastPeriod: data.lastPeriod, cycleLength: 28, avatar: REL_EMOJI[data.relType] || "💜", skipped: data.skipped || false };
     setPartners(prev => [...prev, p]);
     setActiveId(p.id);
     setIsFirst(false);
     setShowSetup(false);
+    if (isFirstPartner) setShowSavePrompt(true);
     try { localStorage.setItem("th_ready", "1"); } catch {}
   }
-
-  function removePartner(id) {
-    const r = partners.filter(p => p.id !== id);
-    setPartners(r);
-    setActiveId(r[0]?.id || null);
-  }
-
-  function doUpdate() {
-    if (updateDate) setPartners(prev => prev.map(p => p.id === activeId ? { ...p, lastPeriod: updateDate, skipped: false } : p));
-  }
+  function removePartner(id) { const r = partners.filter(p => p.id !== id); setPartners(r); setActiveId(r[0]?.id || null); }
+  function doUpdate() { if (updateDate) setPartners(prev => prev.map(p => p.id === activeId ? { ...p, lastPeriod: updateDate, skipped: false } : p)); }
 
   if (isFirst || showSetup) return <Setup onComplete={completeSetup} />;
 
-  const active  = partners.find(p => p.id === activeId);
-  const day     = active?.lastPeriod ? getDayOfCycle(active.lastPeriod, active.cycleLength) : null;
-  const pk      = day ? getPhaseKey(day) : null;
-  const phase   = pk ? PHASES[pk] : null;
+  const active   = partners.find(p => p.id === activeId);
+  const day      = active?.lastPeriod ? getDayOfCycle(active.lastPeriod, active.cycleLength) : null;
+  const pk       = day ? getPhaseKey(day) : null;
+  const phase    = pk ? PHASES[pk] : null;
   const daysLeft = day ? getDaysUntil(day, active.cycleLength) : null;
-  const pct     = day ? (day / active.cycleLength) * 100 : 0;
-  const bullets = phase ? phase[activeHeader] : [];
+  const pct      = day ? (day / active.cycleLength) * 100 : 0;
+  const bullets  = phase ? phase[activeHeader] : [];
   const relLabel = REL_TYPES.find(r => r.id === active?.relType)?.label || "";
 
-  // ── Article reader
-  if (appView === "article" && activeArticle) {
-    const art = ARTICLES.find(a => a.id === activeArticle);
+  // ── Library
+  if (appView === "library") {
+    const TI = { text: "📄", audio: "🎧", video: "🎬" };
+    const TC = { text: "#6b9ebf", audio: "#8e7abf", video: "#e05c6b" };
     return (
       <div style={{ minHeight: "100vh", background: "#0f0d14", color: "#f0eaf8", fontFamily: "'Georgia', serif" }}>
         <div style={{ background: "#1a1525", borderBottom: "1px solid #2a2035", padding: "16px 20px", display: "flex", alignItems: "center", gap: "12px", position: "sticky", top: 0, zIndex: 10 }}>
-          <button onClick={() => setAppView("articles")} style={{ background: "none", border: "none", color: "#7a6b8a", fontSize: "22px", cursor: "pointer" }}>←</button>
-          <div style={{ fontSize: "14px", color: "#d4b8f0", fontWeight: "bold" }}>{art.emoji} {art.title}</div>
+          <button onClick={() => setAppView("tracker")} style={{ background: "none", border: "none", color: "#7a6b8a", fontSize: "22px", cursor: "pointer" }}>←</button>
+          <div style={{ fontSize: "16px", color: "#d4b8f0", fontWeight: "bold" }}>🎓 Library</div>
         </div>
-        <div style={{ padding: "24px 20px", maxWidth: "480px", margin: "0 auto" }}>
-          <div style={{ fontSize: "13px", color: "#7a6b8a", fontStyle: "italic", marginBottom: "24px" }}>{art.subtitle}</div>
-          {art.content.split("\n\n").map((para, i) => {
-            const isH = para === para.toUpperCase() && para.length < 80 && !para.includes(".");
-            return <div key={i} style={{ fontSize: isH ? "11px" : "15px", color: isH ? "#6b4fa0" : "#c8b8e0", lineHeight: isH ? "1.4" : "1.85", marginBottom: isH ? "8px" : "18px", letterSpacing: isH ? "2px" : "0", fontWeight: isH ? "bold" : "normal" }}>{para}</div>;
-          })}
-          <div style={{ height: "40px" }} />
+        <div style={{ padding: "20px", maxWidth: "480px", margin: "0 auto" }}>
+          <div style={{ fontSize: "13px", color: "#5a4a6a", fontStyle: "italic", marginBottom: "24px" }}>Deepen your knowledge. Content added regularly.</div>
+          {LIBRARY.map(section => (
+            <div key={section.id} style={{ marginBottom: "14px" }}>
+              <button onClick={() => setLibrarySection(librarySection === section.id ? null : section.id)} style={{ width: "100%", background: "#1a1525", border: "1px solid #2a2035", borderRadius: "14px", padding: "16px 18px", display: "flex", alignItems: "center", gap: "12px", cursor: "pointer", fontFamily: "inherit", textAlign: "left" }}>
+                <span style={{ fontSize: "24px" }}>{section.emoji}</span>
+                <div style={{ flex: 1, fontSize: "16px", color: "#d4b8f0", fontWeight: "bold" }}>{section.title}</div>
+                <span style={{ color: "#4a3a6a", fontSize: "16px", display: "inline-block", transform: librarySection === section.id ? "rotate(90deg)" : "rotate(0deg)", transition: "transform 0.2s" }}>›</span>
+              </button>
+              {librarySection === section.id && (
+                <div style={{ background: "#130f1e", border: "1px solid #1e1830", borderRadius: "0 0 14px 14px", marginTop: "-4px", padding: "8px 12px 12px" }}>
+                  {section.items.map((item, i) => (
+                    <div key={i} onClick={() => item.url && window.open(item.url, "_blank")} style={{ display: "flex", alignItems: "center", gap: "12px", padding: "12px", borderRadius: "10px", marginBottom: "6px", cursor: item.url ? "pointer" : "default", opacity: item.url ? 1 : 0.5 }}>
+                      <span style={{ fontSize: "20px" }}>{TI[item.type]}</span>
+                      <div style={{ flex: 1 }}>
+                        <div style={{ fontSize: "11px", color: TC[item.type], letterSpacing: "1px", textTransform: "uppercase", marginBottom: "3px" }}>{item.type}</div>
+                        <div style={{ fontSize: "14px", color: item.url ? "#d4c8e8" : "#5a4a6a" }}>{item.title}</div>
+                      </div>
+                      {item.url ? <span style={{ color: "#6b4fa0" }}>→</span> : <span style={{ fontSize: "11px", color: "#3a2a50", fontStyle: "italic" }}>coming soon</span>}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
         </div>
       </div>
     );
   }
 
-  // ── Further reading article reader
+  // ── Further reading article
   if (furtherReadingArticle) {
     const art = FURTHER_READING.find(a => a.id === furtherReadingArticle);
     return (
@@ -481,14 +552,13 @@ export default function TrackHer() {
         </div>
         <div style={{ padding: "24px 20px", maxWidth: "480px", margin: "0 auto" }}>
           <div style={{ fontSize: "11px", color: "#6b4fa0", letterSpacing: "2px", textTransform: "uppercase", marginBottom: "20px" }}>{art.phase} Phase</div>
-          <div style={{ fontSize: "15px", color: "#c8b8e0", lineHeight: "1.85" }}>{art.content}</div>
-          <div style={{ height: "40px" }} />
+          <div style={{ fontSize: "15px", color: "#c8b8e0", lineHeight: "1.85" }}>Content coming soon.</div>
         </div>
       </div>
     );
   }
 
-  // ── Skip article reader
+  // ── Skip article
   if (showSkipArticle) {
     const art = SKIP_ARTICLE;
     return (
@@ -533,6 +603,27 @@ export default function TrackHer() {
     );
   }
 
+  // ── Article reader
+  if (appView === "article" && activeArticle) {
+    const art = ARTICLES.find(a => a.id === activeArticle);
+    return (
+      <div style={{ minHeight: "100vh", background: "#0f0d14", color: "#f0eaf8", fontFamily: "'Georgia', serif" }}>
+        <div style={{ background: "#1a1525", borderBottom: "1px solid #2a2035", padding: "16px 20px", display: "flex", alignItems: "center", gap: "12px", position: "sticky", top: 0, zIndex: 10 }}>
+          <button onClick={() => setAppView("articles")} style={{ background: "none", border: "none", color: "#7a6b8a", fontSize: "22px", cursor: "pointer" }}>←</button>
+          <div style={{ fontSize: "14px", color: "#d4b8f0", fontWeight: "bold" }}>{art.emoji} {art.title}</div>
+        </div>
+        <div style={{ padding: "24px 20px", maxWidth: "480px", margin: "0 auto" }}>
+          <div style={{ fontSize: "13px", color: "#7a6b8a", fontStyle: "italic", marginBottom: "24px" }}>{art.subtitle}</div>
+          {art.content.split("\n\n").map((para, i) => {
+            const isH = para === para.toUpperCase() && para.length < 80 && !para.includes(".");
+            return <div key={i} style={{ fontSize: isH ? "11px" : "15px", color: isH ? "#6b4fa0" : "#c8b8e0", lineHeight: isH ? "1.4" : "1.85", marginBottom: isH ? "8px" : "18px", letterSpacing: isH ? "2px" : "0", fontWeight: isH ? "bold" : "normal" }}>{para}</div>;
+          })}
+          <div style={{ height: "40px" }} />
+        </div>
+      </div>
+    );
+  }
+
   // ── Main tracker
   return (
     <div style={{ minHeight: "100vh", background: "#0f0d14", fontFamily: "'Georgia', serif", color: "#f0eaf8" }}>
@@ -545,39 +636,34 @@ export default function TrackHer() {
         </div>
         <div style={{ display: "flex", gap: "8px" }}>
           <button onClick={() => setAppView("articles")} style={{ background: "#1a1525", border: "1px solid #2a2035", borderRadius: "20px", padding: "8px 14px", color: "#7a6b8a", fontSize: "13px", cursor: "pointer", fontFamily: "inherit" }}>📚</button>
+          <button onClick={() => setAppView("library")} style={{ background: "#1a1525", border: "1px solid #2a2035", borderRadius: "20px", padding: "8px 14px", color: "#7a6b8a", fontSize: "13px", cursor: "pointer", fontFamily: "inherit" }}>🎓</button>
           <button onClick={() => setShowSetup(true)} style={{ background: "linear-gradient(135deg,#6b4fa0,#9b6fca)", border: "none", borderRadius: "20px", padding: "8px 16px", color: "white", fontSize: "13px", cursor: "pointer", fontFamily: "inherit" }}>+ Add</button>
         </div>
       </div>
 
-      {/* Partner tabs — draggable to reorder */}
+      {/* Partner tabs */}
       {partners.length > 0 && (
-        <div style={{ display: "flex", gap: "8px", padding: "12px 20px", overflowX: "auto", background: "#130f1e", borderBottom: "1px solid #1e1830" }}
-          onDragOver={e => e.preventDefault()}
-        >
+        <div style={{ display: "flex", gap: "8px", padding: "12px 20px", overflowX: "auto", background: "#130f1e", borderBottom: "1px solid #1e1830" }} onDragOver={e => e.preventDefault()}>
           {partners.map((p, i) => (
-            <button
-              key={p.id}
-              draggable
+            <button key={p.id} draggable
               onDragStart={e => e.dataTransfer.setData("dragIndex", i)}
               onDrop={e => {
                 const from = parseInt(e.dataTransfer.getData("dragIndex"));
-                const to = i;
-                if (from === to) return;
-                const reordered = [...partners];
-                const [moved] = reordered.splice(from, 1);
-                reordered.splice(to, 0, moved);
-                setPartners(reordered);
+                if (from === i) return;
+                const r = [...partners];
+                const [m] = r.splice(from, 1);
+                r.splice(i, 0, m);
+                setPartners(r);
               }}
               onClick={() => setActiveId(p.id)}
-              style={{ background: activeId === p.id ? "linear-gradient(135deg,#2e1f45,#3d2860)" : "#1a1525", border: activeId === p.id ? "1px solid #6b4fa0" : "1px solid #2a2035", borderRadius: "24px", padding: "6px 14px", color: activeId === p.id ? "#d4b8f0" : "#7a6b8a", fontSize: "14px", cursor: "grab", fontFamily: "inherit", whiteSpace: "nowrap" }}
-            >
+              style={{ background: activeId === p.id ? "linear-gradient(135deg,#2e1f45,#3d2860)" : "#1a1525", border: activeId === p.id ? "1px solid #6b4fa0" : "1px solid #2a2035", borderRadius: "24px", padding: "6px 14px", color: activeId === p.id ? "#d4b8f0" : "#7a6b8a", fontSize: "14px", cursor: "grab", fontFamily: "inherit", whiteSpace: "nowrap" }}>
               {p.avatar} {p.name}
             </button>
           ))}
         </div>
       )}
 
-      {/* No partners at all */}
+      {/* No partners */}
       {!active && (
         <div style={{ textAlign: "center", padding: "60px 24px", color: "#4a3a5a" }}>
           <div style={{ fontSize: "48px", marginBottom: "16px" }}>🌙</div>
@@ -587,39 +673,19 @@ export default function TrackHer() {
         </div>
       )}
 
-      {/* Partner exists */}
+      {/* Partner view */}
       {active && (
         <div style={{ padding: "18px 20px", maxWidth: "480px", margin: "0 auto" }}>
 
           {/* Profile strip */}
           <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "14px", padding: "12px 16px", background: "#1a1525", borderRadius: "14px", border: "1px solid #2a2035" }}>
-            <div style={{ fontSize: "32px", cursor: "pointer" }} onClick={() => setPickAvatar(v => !v)}>{active.avatar}</div>
+            <div style={{ fontSize: "32px", cursor: "pointer" }} onClick={() => { setPickAvatar(v => !v); setShowStatusChange(false); }}>{active.avatar}</div>
             <div style={{ flex: 1 }}>
               <div style={{ fontSize: "16px", fontWeight: "bold", color: "#d4b8f0" }}>{active.name}{active.age ? `, ${active.age}` : ""}</div>
               <div style={{ fontSize: "12px", color: "#5a4a6a", marginTop: "2px" }}>{relLabel}</div>
             </div>
-            <button onClick={() => { setShowStatusChange(v => !v); setPickAvatar(false); }} style={{ background: "none", border: "1px solid #2a2035", borderRadius: "10px", padding: "4px 10px", color: "#6b4fa0", fontSize: "11px", cursor: "pointer", fontFamily: "inherit", whiteSpace: "nowrap" }}>
-              change status
-            </button>
+            <button onClick={() => { setShowStatusChange(v => !v); setPickAvatar(false); }} style={{ background: "none", border: "1px solid #2a2035", borderRadius: "10px", padding: "4px 10px", color: "#6b4fa0", fontSize: "11px", cursor: "pointer", fontFamily: "inherit", whiteSpace: "nowrap" }}>change status</button>
           </div>
-
-          {/* Status change dropdown */}
-          {showStatusChange && (
-            <div style={{ display: "flex", flexDirection: "column", gap: "8px", marginBottom: "14px", padding: "12px", background: "#1a1525", borderRadius: "12px", border: "1px solid #2a2035" }}>
-              <div style={{ fontSize: "11px", color: "#6b4fa0", letterSpacing: "2px", textTransform: "uppercase", marginBottom: "4px" }}>Change status</div>
-              {REL_TYPES.map(r => (
-                <button key={r.id} onClick={() => {
-                  const relEmoji = { girlfriend: "🌹", wife: "💍", fwb: "🔥", friend: "🤝", other: "🌀" };
-                  setPartners(prev => prev.map(p => p.id === activeId ? { ...p, relType: r.id, avatar: relEmoji[r.id] } : p));
-                  setShowStatusChange(false);
-                }} style={{ background: active.relType === r.id ? "linear-gradient(135deg,#2e1f45,#3d2860)" : "#130f1e", border: active.relType === r.id ? "1px solid #8b6fca" : "1px solid #2a2035", borderRadius: "10px", padding: "10px 14px", display: "flex", alignItems: "center", gap: "12px", cursor: "pointer", fontFamily: "inherit", textAlign: "left" }}>
-                  <span style={{ fontSize: "20px" }}>{r.emoji}</span>
-                  <span style={{ fontSize: "15px", color: active.relType === r.id ? "#d4b8f0" : "#c8b8e0", fontWeight: "bold", flex: 1 }}>{r.label}</span>
-                  {active.relType === r.id && <span style={{ color: "#8b6fca" }}>✓</span>}
-                </button>
-              ))}
-            </div>
-          )}
 
           {/* Avatar picker */}
           {pickAvatar && (
@@ -630,9 +696,21 @@ export default function TrackHer() {
             </div>
           )}
 
+          {/* Status change */}
+          {showStatusChange && (
+            <div style={{ display: "flex", flexDirection: "column", gap: "8px", marginBottom: "14px", padding: "12px", background: "#1a1525", borderRadius: "12px", border: "1px solid #2a2035" }}>
+              <div style={{ fontSize: "11px", color: "#6b4fa0", letterSpacing: "2px", textTransform: "uppercase", marginBottom: "4px" }}>Change status</div>
+              {REL_TYPES.map(r => (
+                <button key={r.id} onClick={() => { setPartners(prev => prev.map(p => p.id === activeId ? { ...p, relType: r.id, avatar: REL_EMOJI[r.id] } : p)); setShowStatusChange(false); }} style={{ background: active.relType === r.id ? "linear-gradient(135deg,#2e1f45,#3d2860)" : "#130f1e", border: active.relType === r.id ? "1px solid #8b6fca" : "1px solid #2a2035", borderRadius: "10px", padding: "10px 14px", display: "flex", alignItems: "center", gap: "12px", cursor: "pointer", fontFamily: "inherit", textAlign: "left" }}>
+                  <span style={{ fontSize: "20px" }}>{r.emoji}</span>
+                  <span style={{ fontSize: "15px", color: active.relType === r.id ? "#d4b8f0" : "#c8b8e0", fontWeight: "bold", flex: 1 }}>{r.label}</span>
+                  {active.relType === r.id && <span style={{ color: "#8b6fca" }}>✓</span>}
+                </button>
+              ))}
+            </div>
+          )}
 
-
-          {/* Skip tip card — only for partners who tapped Skip for now */}
+          {/* Skip tip card */}
           {active.skipped && (
             <div style={{ background: "linear-gradient(135deg,#1e1530,#1a1525)", border: "1px solid #4a3a6a", borderRadius: "16px", padding: "18px", marginBottom: "14px" }}>
               <div style={{ fontSize: "11px", color: "#8b6fca", letterSpacing: "2px", textTransform: "uppercase", marginBottom: "8px" }}>🕵️ Don't know her date?</div>
@@ -642,7 +720,7 @@ export default function TrackHer() {
             </div>
           )}
 
-          {/* Phase content — only when we have a date */}
+          {/* Phase content */}
           {phase && (
             <>
               {/* Phase card */}
@@ -652,6 +730,10 @@ export default function TrackHer() {
                 <div style={{ fontSize: "26px", fontWeight: "bold" }}>{phase.emoji} {phase.name} Phase</div>
                 <div style={{ fontSize: "13px", color: "#a090b8", fontStyle: "italic", marginTop: "3px" }}>{phase.tagline}</div>
                 <div style={{ display: "inline-block", marginTop: "10px", background: `${phase.color}20`, border: `1px solid ${phase.color}40`, borderRadius: "20px", padding: "4px 12px", fontSize: "12px", color: phase.color }}>⚗️ {phase.chemical} — {phase.chemicalNote}</div>
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: "12px" }}>
+                  <div style={{ fontSize: "12px", color: "#7a6b8a" }}>Day {day - phase.days[0] + 1} of {phase.days[1] - phase.days[0] + 1} in this phase</div>
+                  <button onClick={() => setShowNextPhase(true)} style={{ background: `${phase.color}20`, border: `1px solid ${phase.color}40`, borderRadius: "12px", padding: "5px 12px", color: phase.color, fontSize: "12px", cursor: "pointer", fontFamily: "inherit" }}>Look ahead: next phase →</button>
+                </div>
                 <div style={{ marginTop: "14px" }}>
                   <div style={{ display: "flex", justifyContent: "space-between", fontSize: "11px", color: "#7a6b8a", marginBottom: "5px" }}>
                     <span>Day {day} of {active.cycleLength}</span>
@@ -671,10 +753,35 @@ export default function TrackHer() {
                 </div>
               </div>
 
-              {/* Header tabs */}
-              <div style={{ display: "flex", gap: "6px", overflowX: "auto", marginBottom: "12px" }}>
+              {/* Fertility card */}
+              {(() => {
+                const f = FERTILITY[pk];
+                const tiers = ["Very Low", "Low → Medium", "Medium Low", "Medium", "High", "Peak"];
+                const tierColors = ["#5bbf8a", "#8bbf5a", "#f4c14b", "#f4a24b", "#e08a3c", "#e05c6b"];
+                const activeIdx = tiers.indexOf(f.tier);
+                return (
+                  <div style={{ background: "#1a1525", border: `1px solid ${f.color}40`, borderRadius: "16px", padding: "16px", marginBottom: "12px" }}>
+                    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "10px" }}>
+                      <div style={{ fontSize: "11px", letterSpacing: "2px", color: f.color, textTransform: "uppercase" }}>🌿 Fertility</div>
+                      <div style={{ fontSize: "15px", fontWeight: "bold", color: f.color }}>{f.emoji} {f.tier}</div>
+                    </div>
+                    <div style={{ display: "flex", gap: "4px", marginBottom: "10px" }}>
+                      {tiers.map((t, i) => (
+                        <div key={i} style={{ flex: 1, height: "6px", borderRadius: "3px", background: i === activeIdx ? tierColors[i] : "#2a2035", transition: "background 0.3s" }} />
+                      ))}
+                    </div>
+                    <div style={{ fontSize: "12px", color: "#7a6b8a", lineHeight: "1.5" }}>{f.note}</div>
+                  </div>
+                );
+              })()}
+
+              {/* Header tabs — 2 row grid */}
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "6px", marginBottom: "12px" }}>
                 {Object.entries(HEADER_LABELS).map(([key, val]) => (
-                  <button key={key} onClick={() => setActiveHeader(key)} style={{ background: activeHeader === key ? `${phase.color}25` : "#1a1525", border: activeHeader === key ? `1px solid ${phase.color}60` : "1px solid #2a2035", borderRadius: "20px", padding: "6px 11px", color: activeHeader === key ? phase.color : "#5a4a6a", fontSize: "12px", cursor: "pointer", fontFamily: "inherit", whiteSpace: "nowrap" }}>{val.emoji} {val.label}</button>
+                  <button key={key} onClick={() => setActiveHeader(key)} style={{ background: activeHeader === key ? `${phase.color}25` : "#1a1525", border: activeHeader === key ? `1px solid ${phase.color}60` : "1px solid #2a2035", borderRadius: "12px", padding: "10px 6px", color: activeHeader === key ? phase.color : "#5a4a6a", fontSize: "12px", cursor: "pointer", fontFamily: "inherit", textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", gap: "3px" }}>
+                    <span style={{ fontSize: "16px" }}>{val.emoji}</span>
+                    <span style={{ fontSize: "11px", whiteSpace: "nowrap" }}>{val.label}</span>
+                  </button>
                 ))}
               </div>
 
@@ -703,9 +810,60 @@ export default function TrackHer() {
                 </div>
               )}
 
-              {/* Adjust start date */}
+              {/* Phase Forecast */}
+              <div style={{ background: "#1a1525", border: "1px solid #2a2035", borderRadius: "16px", padding: "18px", marginBottom: "10px" }}>
+                <div style={{ fontSize: "11px", letterSpacing: "2px", color: "#6b4fa0", textTransform: "uppercase", marginBottom: "6px" }}>🔮 Phase Forecast</div>
+                <div style={{ fontSize: "13px", color: "#7a6b8a", marginBottom: "14px" }}>Planning something? See what phase she'll be in.</div>
+                <div style={{ display: "flex", gap: "8px", marginBottom: forecastPhase ? "14px" : "0" }}>
+                  <input type="date" value={forecastDate} onChange={e => {
+                    setForecastDate(e.target.value);
+                    if (e.target.value && active.lastPeriod) {
+                      const diff = Math.floor((new Date(e.target.value) - new Date(active.lastPeriod)) / 86400000);
+                      if (diff >= 0) {
+                        const fd = ((diff % active.cycleLength) + 1);
+                        setForecastPhase({ key: getPhaseKey(fd), day: fd });
+                      } else { setForecastPhase(null); }
+                    } else { setForecastPhase(null); }
+                  }} style={{ flex: 1, background: "#130f1e", border: "1px solid #2a2035", borderRadius: "8px", padding: "8px 12px", color: "#d4c8e8", fontFamily: "inherit", fontSize: "14px", colorScheme: "dark" }} />
+                </div>
+                {forecastPhase && (() => {
+                  const fp = PHASES[forecastPhase.key];
+                  return (
+                    <div style={{ background: `linear-gradient(135deg,${fp.color}18,${fp.color}08)`, border: `1px solid ${fp.color}40`, borderRadius: "12px", padding: "14px" }}>
+                      <div style={{ fontSize: "11px", color: fp.color, letterSpacing: "2px", textTransform: "uppercase", marginBottom: "6px" }}>Day {forecastPhase.day} of {active.cycleLength}</div>
+                      <div style={{ fontSize: "20px", fontWeight: "bold", color: "#f0eaf8", marginBottom: "4px" }}>{fp.emoji} {fp.name} Phase</div>
+                      <div style={{ fontSize: "13px", color: "#a090b8", fontStyle: "italic", marginBottom: "10px" }}>{fp.tagline}</div>
+                      <div style={{ fontSize: "13px", color: fp.color, background: `${fp.color}15`, borderRadius: "8px", padding: "8px 12px" }}>⚗️ {fp.chemical} — {fp.chemicalNote}</div>
+                    </div>
+                  );
+                })()}
+              </div>
+
+              {/* Further Reading */}
+              <div style={{ background: "#1a1525", border: "1px solid #2a2035", borderRadius: "16px", padding: "18px", marginBottom: "10px" }}>
+                <div style={{ fontSize: "11px", letterSpacing: "2px", color: "#6b4fa0", textTransform: "uppercase", marginBottom: "14px" }}>📖 Further Reading</div>
+                {(() => {
+                  const art = FURTHER_READING.find(a => a.id === pk);
+                  if (!art) return null;
+                  return (
+                    <button onClick={() => setFurtherReadingArticle(art.id)} style={{ background: `linear-gradient(135deg,#2e1f45,#3d2860)`, border: `1px solid ${phase.color}40`, borderRadius: "12px", padding: "14px 16px", display: "flex", alignItems: "center", gap: "12px", cursor: "pointer", fontFamily: "inherit", textAlign: "left", width: "100%" }}>
+                      <span style={{ fontSize: "24px" }}>{art.emoji}</span>
+                      <div style={{ flex: 1 }}>
+                        <div style={{ fontSize: "11px", color: phase.color, letterSpacing: "1px", textTransform: "uppercase", marginBottom: "4px" }}>{art.phase} Phase</div>
+                        <div style={{ fontSize: "15px", color: "#d4b8f0", fontWeight: "bold" }}>{art.title}</div>
+                      </div>
+                      <span style={{ color: phase.color, fontSize: "18px" }}>→</span>
+                    </button>
+                  );
+                })()}
+              </div>
+
+              {/* Adjust period start date */}
               <div style={{ background: "#130f1e", border: "1px solid #2a2035", borderRadius: "16px", padding: "14px", marginBottom: "10px" }}>
-                <div style={{ fontSize: "11px", letterSpacing: "2px", color: "#6b4fa0", textTransform: "uppercase", marginBottom: "8px" }}>📅 Adjust period start date</div>
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "8px" }}>
+                <div style={{ fontSize: "11px", letterSpacing: "2px", color: "#6b4fa0", textTransform: "uppercase" }}>📅 Adjust period start date</div>
+                <button onClick={() => setShowAdjustArticle(true)} style={{ background: "none", border: "none", color: "#6b4fa0", fontSize: "12px", cursor: "pointer", fontFamily: "inherit", fontStyle: "italic", textDecoration: "underline" }}>why would I do that?</button>
+              </div>
                 <div style={{ display: "flex", gap: "8px" }}>
                   <input type="date" value={updateDate} onChange={e => setUpdateDate(e.target.value)} style={{ flex: 1, background: "#1a1525", border: "1px solid #2a2035", borderRadius: "8px", padding: "8px 12px", color: "#d4c8e8", fontFamily: "inherit", fontSize: "14px", colorScheme: "dark" }} />
                   <button onClick={doUpdate} style={{ background: "linear-gradient(135deg,#4a2f70,#6b4fa0)", border: "none", borderRadius: "8px", padding: "8px 14px", color: "white", cursor: "pointer", fontFamily: "inherit", fontSize: "13px" }}>Save</button>
@@ -714,60 +872,64 @@ export default function TrackHer() {
             </>
           )}
 
-          {/* Phase Forecast */}
+          {/* App Feedback */}
           <div style={{ background: "#1a1525", border: "1px solid #2a2035", borderRadius: "16px", padding: "18px", marginBottom: "10px" }}>
-            <div style={{ fontSize: "11px", letterSpacing: "2px", color: "#6b4fa0", textTransform: "uppercase", marginBottom: "6px" }}>🔮 Phase Forecast</div>
-            <div style={{ fontSize: "13px", color: "#7a6b8a", marginBottom: "14px" }}>Planning something? See what phase she'll be in.</div>
-            <div style={{ display: "flex", gap: "8px", marginBottom: forecastPhase ? "14px" : "0" }}>
-              <input type="date" value={forecastDate} onChange={e => {
-                setForecastDate(e.target.value);
-                if (e.target.value && active.lastPeriod) {
-                  const diff = Math.floor((new Date(e.target.value) - new Date(active.lastPeriod)) / 86400000);
-                  if (diff >= 0) {
-                    const forecastDay = ((diff % active.cycleLength) + 1);
-                    setForecastPhase({ key: getPhaseKey(forecastDay), day: forecastDay });
-                  } else {
-                    setForecastPhase(null);
-                  }
-                } else {
-                  setForecastPhase(null);
-                }
-              }} style={{ flex: 1, background: "#130f1e", border: "1px solid #2a2035", borderRadius: "8px", padding: "8px 12px", color: "#d4c8e8", fontFamily: "inherit", fontSize: "14px", colorScheme: "dark" }} />
-            </div>
-            {forecastPhase && (() => {
-              const fp = PHASES[forecastPhase.key];
-              return (
-                <div style={{ background: `linear-gradient(135deg,${fp.color}18,${fp.color}08)`, border: `1px solid ${fp.color}40`, borderRadius: "12px", padding: "14px" }}>
-                  <div style={{ fontSize: "11px", color: fp.color, letterSpacing: "2px", textTransform: "uppercase", marginBottom: "6px" }}>Day {forecastPhase.day} of {active.cycleLength}</div>
-                  <div style={{ fontSize: "20px", fontWeight: "bold", color: "#f0eaf8", marginBottom: "4px" }}>{fp.emoji} {fp.name} Phase</div>
-                  <div style={{ fontSize: "13px", color: "#a090b8", fontStyle: "italic", marginBottom: "10px" }}>{fp.tagline}</div>
-                  <div style={{ fontSize: "13px", color: fp.color, background: `${fp.color}15`, borderRadius: "8px", padding: "8px 12px" }}>⚗️ {fp.chemical} — {fp.chemicalNote}</div>
-                </div>
-              );
-            })()}
-          </div>
-
-          {/* Further Reading */}
-          <div style={{ background: "#1a1525", border: "1px solid #2a2035", borderRadius: "16px", padding: "18px", marginBottom: "10px" }}>
-            <div style={{ fontSize: "11px", letterSpacing: "2px", color: "#6b4fa0", textTransform: "uppercase", marginBottom: "14px" }}>📖 Further Reading</div>
-            {(() => {
-                const art = FURTHER_READING.find(a => a.id === pk);
-                if (!art) return null;
-                return (
-                  <button onClick={() => setFurtherReadingArticle(art.id)} style={{ background: "linear-gradient(135deg,#2e1f45,#3d2860)", border: `1px solid ${phase.color}40`, borderRadius: "12px", padding: "14px 16px", display: "flex", alignItems: "center", gap: "12px", cursor: "pointer", fontFamily: "inherit", textAlign: "left", width: "100%" }}>
-                    <span style={{ fontSize: "24px" }}>{art.emoji}</span>
-                    <div style={{ flex: 1 }}>
-                      <div style={{ fontSize: "11px", color: phase.color, letterSpacing: "1px", textTransform: "uppercase", marginBottom: "4px" }}>{art.phase} Phase</div>
-                      <div style={{ fontSize: "15px", color: "#d4b8f0", fontWeight: "bold" }}>{art.title}</div>
-                    </div>
-                    <span style={{ color: phase.color, fontSize: "18px" }}>→</span>
-                  </button>
-                );
-              })()}
+            <button onClick={() => { setShowFeedback(v => !v); setFeedbackSent(false); }} style={{ background: "none", border: "none", cursor: "pointer", fontFamily: "inherit", width: "100%", textAlign: "left", padding: "0", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+              <div style={{ fontSize: "11px", letterSpacing: "2px", color: "#6b4fa0", textTransform: "uppercase" }}>💬 App Feedback</div>
+              <span style={{ color: "#4a3a6a", fontSize: "16px", display: "inline-block", transform: showFeedback ? "rotate(90deg)" : "rotate(0deg)", transition: "transform 0.2s" }}>›</span>
+            </button>
+            {showFeedback && (
+              <div style={{ marginTop: "14px" }}>
+                <div style={{ fontSize: "13px", color: "#7a6b8a", marginBottom: "10px" }}>What's working? What's missing? Be brutal.</div>
+                {feedbackSent ? (
+                  <div style={{ textAlign: "center", padding: "20px", color: "#8b6fca", fontSize: "15px" }}>🙏 Thanks — we read every single one.</div>
+                ) : (
+                  <>
+                    <textarea value={feedbackText} onChange={e => setFeedbackText(e.target.value)} placeholder="Type your feedback here..." rows={5} style={{ width: "100%", background: "#130f1e", border: "1px solid #2a2035", borderRadius: "10px", padding: "12px 14px", color: "#f0eaf8", fontFamily: "inherit", fontSize: "14px", boxSizing: "border-box", resize: "none", outline: "none", lineHeight: "1.6" }} />
+                    <button onClick={() => { if (feedbackText.trim()) { setFeedbackSent(true); setFeedbackText(""); } }} style={{ width: "100%", marginTop: "10px", background: feedbackText.trim() ? "linear-gradient(135deg,#4a2f70,#6b4fa0)" : "#2a2035", border: "none", borderRadius: "10px", padding: "12px", color: feedbackText.trim() ? "white" : "#4a3a5a", fontFamily: "inherit", fontSize: "14px", cursor: feedbackText.trim() ? "pointer" : "default" }}>Send feedback</button>
+                  </>
+                )}
+              </div>
+            )}
           </div>
 
           <button onClick={() => removePartner(active.id)} style={{ background: "none", border: "1px solid #3a2035", borderRadius: "10px", color: "#6a3a45", padding: "8px 16px", cursor: "pointer", fontFamily: "inherit", fontSize: "12px", width: "100%", marginBottom: "32px" }}>Remove {active.name}</button>
 
+        </div>
+      )}
+
+      {/* Next phase modal */}
+      {showNextPhase && pk && (() => {
+        const nextKey = PHASE_ORDER[(PHASE_ORDER.indexOf(pk) + 1) % PHASE_ORDER.length];
+        const np = PHASES[nextKey];
+        return (
+          <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.75)", display: "flex", alignItems: "flex-end", zIndex: 200 }} onClick={() => setShowNextPhase(false)}>
+            <div style={{ background: "#1a1525", borderRadius: "24px 24px 0 0", padding: "28px 24px", width: "100%", maxWidth: "480px", margin: "0 auto", border: `1px solid ${np.color}40` }} onClick={e => e.stopPropagation()}>
+              <div style={{ fontSize: "11px", color: np.color, letterSpacing: "2px", textTransform: "uppercase", marginBottom: "8px" }}>Coming up next</div>
+              <div style={{ fontSize: "28px", fontWeight: "bold", marginBottom: "4px" }}>{np.emoji} {np.name} Phase</div>
+              <div style={{ fontSize: "14px", color: "#a090b8", fontStyle: "italic", marginBottom: "14px" }}>{np.tagline}</div>
+              <div style={{ background: `${np.color}15`, border: `1px solid ${np.color}30`, borderRadius: "12px", padding: "12px 14px", marginBottom: "14px" }}>
+                <div style={{ fontSize: "12px", color: np.color, marginBottom: "6px" }}>⚗️ {np.chemical}</div>
+                <div style={{ fontSize: "13px", color: "#9888b0" }}>{np.chemicalNote}</div>
+              </div>
+              <div style={{ fontSize: "13px", color: "#7a6b8a", marginBottom: "6px", fontWeight: "bold", textTransform: "uppercase", letterSpacing: "1px" }}>First tip</div>
+              <div style={{ fontSize: "14px", color: "#c8b8e0", lineHeight: "1.6", marginBottom: "20px" }}>{np.tips[0]}</div>
+              <button onClick={() => setShowNextPhase(false)} style={{ width: "100%", background: "linear-gradient(135deg,#4a2f70,#6b4fa0)", border: "none", borderRadius: "12px", padding: "14px", color: "white", fontFamily: "inherit", fontSize: "15px", cursor: "pointer" }}>Got it</button>
+            </div>
+          </div>
+        );
+      })()}
+
+      {/* Save your data prompt */}
+      {showSavePrompt && (
+        <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.75)", display: "flex", alignItems: "flex-end", zIndex: 200 }}>
+          <div style={{ background: "#1a1525", borderRadius: "24px 24px 0 0", padding: "28px 24px", width: "100%", maxWidth: "480px", margin: "0 auto", border: "1px solid #2a2035" }}>
+            <div style={{ fontSize: "32px", marginBottom: "12px" }}>💾</div>
+            <div style={{ fontSize: "20px", fontWeight: "bold", color: "#d4b8f0", marginBottom: "8px" }}>Your data is saved on this device</div>
+            <div style={{ fontSize: "14px", color: "#7a6b8a", lineHeight: "1.6", marginBottom: "24px" }}>Right now TrackHer lives on this phone only. Create a free account to back up your data and access it anywhere.</div>
+            <button onClick={() => setShowSavePrompt(false)} style={{ width: "100%", background: "linear-gradient(135deg,#4a2f70,#6b4fa0)", border: "none", borderRadius: "12px", padding: "14px", color: "white", fontFamily: "inherit", fontSize: "15px", fontWeight: "bold", cursor: "pointer", marginBottom: "10px" }}>Create free account — coming soon</button>
+            <button onClick={() => setShowSavePrompt(false)} style={{ width: "100%", background: "none", border: "none", color: "#5a4a6a", fontFamily: "inherit", fontSize: "14px", cursor: "pointer", padding: "8px", fontStyle: "italic" }}>Maybe later</button>
+          </div>
         </div>
       )}
 
