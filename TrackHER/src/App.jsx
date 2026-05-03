@@ -669,6 +669,27 @@ export default function TrackHer() {
         </div>
       )}
 
+      {/* Font size slider panel */}
+      {showFontSlider && (
+        <div style={{ background: "#1a1525", borderBottom: "1px solid #2a2035", padding: "14px 20px" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "12px", maxWidth: "480px", margin: "0 auto" }}>
+            <span style={{ fontSize: "11px", color: "#7a6b8a" }}>A</span>
+            <input
+              type="range"
+              min="85"
+              max="130"
+              step="5"
+              value={Math.round(fontSize * 100)}
+              onChange={e => setFontSize(parseInt(e.target.value) / 100)}
+              style={{ flex: 1, accentColor: "#6b4fa0", cursor: "pointer" }}
+            />
+            <span style={{ fontSize: "19px", color: "#d4b8f0" }}>A</span>
+            <span style={{ fontSize: "11px", color: "#6b4fa0", minWidth: "32px" }}>{Math.round(fontSize * 100)}%</span>
+            <button onClick={() => setFontSize(1)} style={{ background: "none", border: "1px solid #2a2035", borderRadius: "8px", padding: "3px 8px", color: "#5a4a6a", fontSize: "11px", cursor: "pointer", fontFamily: "inherit" }}>Reset</button>
+          </div>
+        </div>
+      )}
+
       {/* No partners */}
       {!active && (
         <div style={{ textAlign: "center", padding: "60px 24px", color: "#4a3a5a" }}>
