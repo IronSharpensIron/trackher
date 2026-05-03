@@ -631,7 +631,7 @@ export default function TrackHer() {
   // ── Main tracker
   const scale = fontSize;
   return (
-    <div style={{ minHeight: "100vh", background: "#0f0d14", fontFamily: "'Georgia', serif", color: "#f0eaf8", zoom: scale }}>
+    <div style={{ minHeight: "100vh", background: "#0f0d14", fontFamily: "'Georgia', serif", color: "#f0eaf8", transformOrigin: "top left", transform: `scale(${scale})`, width: scale !== 1 ? `${100/scale}%` : "100%" }}>
 
       {/* Header */}
       <div style={{ background: "linear-gradient(135deg,#1a1525,#0f0d14)", borderBottom: "1px solid #2a2035", padding: "18px 20px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
@@ -847,18 +847,18 @@ export default function TrackHer() {
 
               {/* Further Reading */}
               <div style={{ background: "#1a1525", border: "1px solid #2a2035", borderRadius: "16px", padding: "18px", marginBottom: "10px" }}>
-                <div style={{ fontSize: "11px", letterSpacing: "2px", color: "#6b4fa0", textTransform: "uppercase", marginBottom: "14px" }}>📖 Further Reading</div>
+                <div style={{ fontSize: "11px", letterSpacing: "2px", color: "#3a2a50", textTransform: "uppercase", marginBottom: "14px" }}>📖 Further Reading</div>
                 {(() => {
                   const art = FURTHER_READING.find(a => a.id === pk);
                   if (!art) return null;
                   return (
-                    <button onClick={() => setFurtherReadingArticle(art.id)} style={{ background: `linear-gradient(135deg,#2e1f45,#3d2860)`, border: `1px solid ${phase.color}40`, borderRadius: "12px", padding: "14px 16px", display: "flex", alignItems: "center", gap: "12px", cursor: "pointer", fontFamily: "inherit", textAlign: "left", width: "100%" }}>
-                      <span style={{ fontSize: "24px" }}>{art.emoji}</span>
+                    <button onClick={() => setFurtherReadingArticle(art.id)} style={{ background: "#130f1e", border: "1px solid #2a2035", borderRadius: "12px", padding: "12px 14px", display: "flex", alignItems: "center", gap: "12px", cursor: "pointer", fontFamily: "inherit", textAlign: "left", width: "100%" }}>
+                      <span style={{ fontSize: "20px", opacity: 0.6 }}>{art.emoji}</span>
                       <div style={{ flex: 1 }}>
-                        <div style={{ fontSize: "11px", color: phase.color, letterSpacing: "1px", textTransform: "uppercase", marginBottom: "4px" }}>{art.phase} Phase</div>
-                        <div style={{ fontSize: "15px", color: "#d4b8f0", fontWeight: "bold" }}>{art.title}</div>
+                        <div style={{ fontSize: "11px", color: "#4a3a6a", letterSpacing: "1px", textTransform: "uppercase", marginBottom: "3px" }}>{art.phase} Phase</div>
+                        <div style={{ fontSize: "14px", color: "#7a6b8a" }}>{art.title}</div>
                       </div>
-                      <span style={{ color: phase.color, fontSize: "18px" }}>→</span>
+                      <span style={{ color: "#4a3a6a", fontSize: "16px" }}>→</span>
                     </button>
                   );
                 })()}
