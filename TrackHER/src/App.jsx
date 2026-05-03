@@ -226,6 +226,15 @@ const REL_TYPES = [
   { id: "other",      emoji: "🌀", label: "Other" },
 ];
 
+const GOALS = [
+  { id: "friction",   emoji: "🧘", label: "Minimize friction",    sub: "Stop the unnecessary conflict" },
+  { id: "connect",    emoji: "🔗", label: "Connect more deeply",   sub: "Build a real bond" },
+  { id: "better",     emoji: "⬆️", label: "Be a better partner",   sub: "Show up the right way" },
+  { id: "sex",        emoji: "🔥", label: "Improve our sex life",  sub: "Understand her desire" },
+  { id: "understand", emoji: "🧠", label: "Understand her better", sub: "Finally make sense of it" },
+  { id: "all",        emoji: "💯", label: "All of the above",      sub: "The full picture" },
+];
+
 const HEADER_LABELS = {
   tips:  { label: "Tips",       emoji: "💡" },
   mood:  { label: "Her Mood",      emoji: "💜" },
@@ -258,6 +267,7 @@ function Setup({ onComplete }) {
   const [age, setAge]         = useState("");
   const [relType, setRelType] = useState(null);
   const [date, setDate]       = useState("");
+  const [goal, setGoal]       = useState(null);
   const [fade, setFade]       = useState(true);
 
   function next() {
@@ -267,10 +277,10 @@ function Setup({ onComplete }) {
 
   function finish(skip) {
     const tod = new Date().toISOString().split("T")[0];
-    onComplete({ name: name.trim(), age: age.trim(), relType, lastPeriod: skip ? tod : (date || tod), skipped: skip });
+    onComplete({ name: name.trim(), age: age.trim(), relType, goal, lastPeriod: skip ? tod : (date || tod), skipped: skip });
   }
 
-  const pct = (screen / 4) * 100;
+  const pct = (screen / 5) * 100;
 
   const wrap = {
     minHeight: "100vh", background: "#0a0812", fontFamily: "'Georgia', serif",
@@ -325,6 +335,25 @@ function Setup({ onComplete }) {
 
         {screen === 3 && (
           <>
+            <div style={{ fontSize: "28px", fontWeight: "bold", marginBottom: "28px" }}>Why are you tracking?</div>
+            <div style={{ display: "flex", flexDirection: "column", gap: "10px", marginBottom: "8px" }}>
+              {GOALS.map(g => (
+                <button key={g.id} onClick={() => setGoal(g.id)} style={{ background: goal === g.id ? "linear-gradient(135deg,#2e1f45,#3d2860)" : "#1a1525", border: goal === g.id ? "1px solid #8b6fca" : "1px solid #2a2035", borderRadius: "14px", padding: "13px 16px", display: "flex", alignItems: "center", gap: "13px", cursor: "pointer", fontFamily: "inherit", textAlign: "left", transition: "all 0.18s" }}>
+                  <span style={{ fontSize: "22px" }}>{g.emoji}</span>
+                  <div style={{ flex: 1 }}>
+                    <div style={{ fontSize: "15px", color: goal === g.id ? "#d4b8f0" : "#c8b8e0", fontWeight: "bold" }}>{g.label}</div>
+                    <div style={{ fontSize: "12px", color: "#6a5a7a", marginTop: "2px" }}>{g.sub}</div>
+                  </div>
+                  {goal === g.id && <span style={{ color: "#8b6fca" }}>✓</span>}
+                </button>
+              ))}
+            </div>
+            <button onClick={next} style={cta(!!goal)} disabled={!goal}>Continue →</button>
+          </>
+        )}
+
+        {screen === 5 && (
+          <>
             <div style={{ fontSize: "28px", fontWeight: "bold", marginBottom: "28px" }}>{name} is my...</div>
             <div style={{ display: "flex", flexDirection: "column", gap: "10px", marginBottom: "8px" }}>
               {REL_TYPES.map(r => (
@@ -353,7 +382,7 @@ function Setup({ onComplete }) {
         )}
 
         <div style={{ display: "flex", justifyContent: "center", gap: "6px", marginTop: "32px" }}>
-          {[1,2,3,4].map(i => (
+          {[1,2,3,4,5].map(i => (
             <div key={i} style={{ width: i === screen ? "20px" : "6px", height: "6px", borderRadius: "3px", background: i === screen ? "#8b6fca" : i < screen ? "#4a3a6a" : "#2a2035", transition: "all 0.3s" }} />
           ))}
         </div>
@@ -517,11 +546,28 @@ export default function TrackHer() {
         </div>
       </div>
 
-      {/* Partner tabs */}
+      {/* Partner tabs — draggable to reorder */}
       {partners.length > 0 && (
-        <div style={{ display: "flex", gap: "8px", padding: "12px 20px", overflowX: "auto", background: "#130f1e", borderBottom: "1px solid #1e1830" }}>
-          {partners.map(p => (
-            <button key={p.id} onClick={() => setActiveId(p.id)} style={{ background: activeId === p.id ? "linear-gradient(135deg,#2e1f45,#3d2860)" : "#1a1525", border: activeId === p.id ? "1px solid #6b4fa0" : "1px solid #2a2035", borderRadius: "24px", padding: "6px 14px", color: activeId === p.id ? "#d4b8f0" : "#7a6b8a", fontSize: "14px", cursor: "pointer", fontFamily: "inherit", whiteSpace: "nowrap" }}>
+        <div style={{ display: "flex", gap: "8px", padding: "12px 20px", overflowX: "auto", background: "#130f1e", borderBottom: "1px solid #1e1830" }}
+          onDragOver={e => e.preventDefault()}
+        >
+          {partners.map((p, i) => (
+            <button
+              key={p.id}
+              draggable
+              onDragStart={e => e.dataTransfer.setData("dragIndex", i)}
+              onDrop={e => {
+                const from = parseInt(e.dataTransfer.getData("dragIndex"));
+                const to = i;
+                if (from === to) return;
+                const reordered = [...partners];
+                const [moved] = reordered.splice(from, 1);
+                reordered.splice(to, 0, moved);
+                setPartners(reordered);
+              }}
+              onClick={() => setActiveId(p.id)}
+              style={{ background: activeId === p.id ? "linear-gradient(135deg,#2e1f45,#3d2860)" : "#1a1525", border: activeId === p.id ? "1px solid #6b4fa0" : "1px solid #2a2035", borderRadius: "24px", padding: "6px 14px", color: activeId === p.id ? "#d4b8f0" : "#7a6b8a", fontSize: "14px", cursor: "grab", fontFamily: "inherit", whiteSpace: "nowrap" }}
+            >
               {p.avatar} {p.name}
             </button>
           ))}
@@ -647,18 +693,20 @@ export default function TrackHer() {
           {/* Further Reading */}
           <div style={{ background: "#1a1525", border: "1px solid #2a2035", borderRadius: "16px", padding: "18px", marginBottom: "10px" }}>
             <div style={{ fontSize: "11px", letterSpacing: "2px", color: "#6b4fa0", textTransform: "uppercase", marginBottom: "14px" }}>📖 Further Reading</div>
-            <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-              {FURTHER_READING.map(art => (
-                <button key={art.id} onClick={() => setFurtherReadingArticle(art.id)} style={{ background: pk === art.id ? "linear-gradient(135deg,#2e1f45,#3d2860)" : "#130f1e", border: pk === art.id ? `1px solid ${phase.color}40` : "1px solid #2a2035", borderRadius: "12px", padding: "12px 16px", display: "flex", alignItems: "center", gap: "12px", cursor: "pointer", fontFamily: "inherit", textAlign: "left" }}>
-                  <span style={{ fontSize: "20px" }}>{art.emoji}</span>
-                  <div style={{ flex: 1 }}>
-                    <div style={{ fontSize: "11px", color: pk === art.id ? phase.color : "#5a4a6a", letterSpacing: "1px", textTransform: "uppercase", marginBottom: "3px" }}>{art.phase}</div>
-                    <div style={{ fontSize: "14px", color: pk === art.id ? "#d4b8f0" : "#9888b0" }}>{art.title}</div>
-                  </div>
-                  <span style={{ color: "#4a3a6a", fontSize: "16px" }}>→</span>
-                </button>
-              ))}
-            </div>
+            {(() => {
+                const art = FURTHER_READING.find(a => a.id === pk);
+                if (!art) return null;
+                return (
+                  <button onClick={() => setFurtherReadingArticle(art.id)} style={{ background: "linear-gradient(135deg,#2e1f45,#3d2860)", border: `1px solid ${phase.color}40`, borderRadius: "12px", padding: "14px 16px", display: "flex", alignItems: "center", gap: "12px", cursor: "pointer", fontFamily: "inherit", textAlign: "left", width: "100%" }}>
+                    <span style={{ fontSize: "24px" }}>{art.emoji}</span>
+                    <div style={{ flex: 1 }}>
+                      <div style={{ fontSize: "11px", color: phase.color, letterSpacing: "1px", textTransform: "uppercase", marginBottom: "4px" }}>{art.phase} Phase</div>
+                      <div style={{ fontSize: "15px", color: "#d4b8f0", fontWeight: "bold" }}>{art.title}</div>
+                    </div>
+                    <span style={{ color: phase.color, fontSize: "18px" }}>→</span>
+                  </button>
+                );
+              })()}
           </div>
 
           <button onClick={() => removePartner(active.id)} style={{ background: "none", border: "1px solid #3a2035", borderRadius: "10px", color: "#6a3a45", padding: "8px 16px", cursor: "pointer", fontFamily: "inherit", fontSize: "12px", width: "100%", marginBottom: "32px" }}>Remove {active.name}</button>
