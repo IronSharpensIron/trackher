@@ -147,6 +147,14 @@ If she's visibly uncomfortable or irritable, that's not the moment to ask. Bring
 Once you have it, come back and enter it under "Adjust period start date" at the bottom of her profile. The whole app unlocks from there.`,
 };
 
+const FURTHER_READING = [
+  { id: "menstrual",   emoji: "🌑", phase: "Menstrual",    title: "The Reset: What's Really Happening This Week",    content: "Content coming soon." },
+  { id: "follicular",  emoji: "🌒", phase: "Follicular",   title: "The Rise: How To Ride This Wave With Her",         content: "Content coming soon." },
+  { id: "ovulation",   emoji: "🌕", phase: "Ovulation",    title: "The Peak: Three Days That Change Everything",      content: "Content coming soon." },
+  { id: "earlyLuteal", emoji: "🌖", phase: "Early Luteal", title: "The Shift: When Steady Wins",                      content: "Content coming soon." },
+  { id: "lateLuteal",  emoji: "🌘", phase: "Late Luteal",  title: "The Storm: How To Be The Wall She Leans On",       content: "Content coming soon." },
+];
+
 const PHASES = {
   menstrual: {
     name: "Menstrual", days: [1,5], color: "#e05c6b", emoji: "🌑",
@@ -368,6 +376,7 @@ export default function TrackHer() {
   const [updateDate, setUpdateDate]     = useState("");
   const [pickAvatar, setPickAvatar]     = useState(false);
   const [showSkipArticle, setShowSkipArticle] = useState(false);
+  const [furtherReadingArticle, setFurtherReadingArticle] = useState(null);
 
   useEffect(() => { if (partners.length > 0 && !activeId) setActiveId(partners[0].id); }, [partners]);
   useEffect(() => { try { localStorage.setItem("th_partners", JSON.stringify(partners)); } catch {} }, [partners]);
@@ -423,6 +432,24 @@ export default function TrackHer() {
             const isH = para === para.toUpperCase() && para.length < 80 && !para.includes(".");
             return <div key={i} style={{ fontSize: isH ? "11px" : "15px", color: isH ? "#6b4fa0" : "#c8b8e0", lineHeight: isH ? "1.4" : "1.85", marginBottom: isH ? "8px" : "18px", letterSpacing: isH ? "2px" : "0", fontWeight: isH ? "bold" : "normal" }}>{para}</div>;
           })}
+          <div style={{ height: "40px" }} />
+        </div>
+      </div>
+    );
+  }
+
+  // ── Further reading article reader
+  if (furtherReadingArticle) {
+    const art = FURTHER_READING.find(a => a.id === furtherReadingArticle);
+    return (
+      <div style={{ minHeight: "100vh", background: "#0f0d14", color: "#f0eaf8", fontFamily: "'Georgia', serif" }}>
+        <div style={{ background: "#1a1525", borderBottom: "1px solid #2a2035", padding: "16px 20px", display: "flex", alignItems: "center", gap: "12px", position: "sticky", top: 0, zIndex: 10 }}>
+          <button onClick={() => setFurtherReadingArticle(null)} style={{ background: "none", border: "none", color: "#7a6b8a", fontSize: "22px", cursor: "pointer" }}>←</button>
+          <div style={{ fontSize: "14px", color: "#d4b8f0", fontWeight: "bold" }}>{art.emoji} {art.title}</div>
+        </div>
+        <div style={{ padding: "24px 20px", maxWidth: "480px", margin: "0 auto" }}>
+          <div style={{ fontSize: "11px", color: "#6b4fa0", letterSpacing: "2px", textTransform: "uppercase", marginBottom: "20px" }}>{art.phase} Phase</div>
+          <div style={{ fontSize: "15px", color: "#c8b8e0", lineHeight: "1.85" }}>{art.content}</div>
           <div style={{ height: "40px" }} />
         </div>
       </div>
@@ -616,6 +643,23 @@ export default function TrackHer() {
               </div>
             </>
           )}
+
+          {/* Further Reading */}
+          <div style={{ background: "#1a1525", border: "1px solid #2a2035", borderRadius: "16px", padding: "18px", marginBottom: "10px" }}>
+            <div style={{ fontSize: "11px", letterSpacing: "2px", color: "#6b4fa0", textTransform: "uppercase", marginBottom: "14px" }}>📖 Further Reading</div>
+            <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+              {FURTHER_READING.map(art => (
+                <button key={art.id} onClick={() => setFurtherReadingArticle(art.id)} style={{ background: pk === art.id ? "linear-gradient(135deg,#2e1f45,#3d2860)" : "#130f1e", border: pk === art.id ? `1px solid ${phase.color}40` : "1px solid #2a2035", borderRadius: "12px", padding: "12px 16px", display: "flex", alignItems: "center", gap: "12px", cursor: "pointer", fontFamily: "inherit", textAlign: "left" }}>
+                  <span style={{ fontSize: "20px" }}>{art.emoji}</span>
+                  <div style={{ flex: 1 }}>
+                    <div style={{ fontSize: "11px", color: pk === art.id ? phase.color : "#5a4a6a", letterSpacing: "1px", textTransform: "uppercase", marginBottom: "3px" }}>{art.phase}</div>
+                    <div style={{ fontSize: "14px", color: pk === art.id ? "#d4b8f0" : "#9888b0" }}>{art.title}</div>
+                  </div>
+                  <span style={{ color: "#4a3a6a", fontSize: "16px" }}>→</span>
+                </button>
+              ))}
+            </div>
+          </div>
 
           <button onClick={() => removePartner(active.id)} style={{ background: "none", border: "1px solid #3a2035", borderRadius: "10px", color: "#6a3a45", padding: "8px 16px", cursor: "pointer", fontFamily: "inherit", fontSize: "12px", width: "100%", marginBottom: "32px" }}>Remove {active.name}</button>
 
