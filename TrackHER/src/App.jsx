@@ -511,38 +511,85 @@ export default function TrackHer() {
 
   // ── Library
   if (appView === "library") {
-    const TI = { text: "📄", audio: "🎧", video: "🎬" };
-    const TC = { text: "#6b9ebf", audio: "#8e7abf", video: "#e05c6b" };
+    const FILTERS = [
+      { id: "all",         label: "All",              emoji: "📖" },
+      { id: "foundational",label: "Foundational",     emoji: "📚" },
+      { id: "understanding",label: "Understanding Her",emoji: "🧠" },
+      { id: "conflict",    label: "Conflict",         emoji: "⚡" },
+      { id: "connection",  label: "Connection",       emoji: "🔗" },
+      { id: "sex",         label: "Sex & Desire",     emoji: "🔥" },
+      { id: "advanced",    label: "Advanced Game",    emoji: "♚" },
+      { id: "comfort-test",label: "The Comfort Test", emoji: "🛋️" },
+      { id: "oxytocin-chemical", label: "Oxytocin",  emoji: "⚗️" },
+    ];
+
+    const activeFilter = librarySection || "all";
+
+    const foundationalItems = ARTICLES.map(a => ({
+      id: a.id, title: a.title, subtitle: a.subtitle, emoji: a.emoji,
+      category: "foundational", isArticle: true,
+    }));
+
+    const libraryItems = LIBRARY.flatMap(section =>
+      section.items.map(item => ({
+        ...item, sectionId: section.id, sectionTitle: section.title, sectionEmoji: section.emoji,
+        category: section.id, isArticle: false,
+      }))
+    );
+
+    const allItems = [...foundationalItems, ...libraryItems];
+    const filtered = activeFilter === "all" ? allItems : allItems.filter(i => i.category === activeFilter);
+
     return (
       <div style={{ minHeight: "100vh", background: "#0f0d14", color: "#f0eaf8", fontFamily: "'Georgia', serif" }}>
         <div style={{ background: "#1a1525", borderBottom: "1px solid #2a2035", padding: "16px 20px", display: "flex", alignItems: "center", gap: "12px", position: "sticky", top: 0, zIndex: 10 }}>
           <button onClick={() => setAppView("tracker")} style={{ background: "none", border: "none", color: "#7a6b8a", fontSize: "22px", cursor: "pointer" }}>←</button>
-          <div style={{ fontSize: "16px", color: "#d4b8f0", fontWeight: "bold" }}>🎓 Library</div>
+          <div style={{ fontSize: "16px", color: "#d4b8f0", fontWeight: "bold" }}>📖 Content Hub</div>
         </div>
-        <div style={{ padding: "20px", maxWidth: "480px", margin: "0 auto" }}>
-          <div style={{ fontSize: "13px", color: "#5a4a6a", fontStyle: "italic", marginBottom: "24px" }}>Deepen your knowledge. Content added regularly.</div>
-          {LIBRARY.map(section => (
-            <div key={section.id} style={{ marginBottom: "14px" }}>
-              <button onClick={() => setLibrarySection(librarySection === section.id ? null : section.id)} style={{ width: "100%", background: "#1a1525", border: "1px solid #2a2035", borderRadius: "14px", padding: "16px 18px", display: "flex", alignItems: "center", gap: "12px", cursor: "pointer", fontFamily: "inherit", textAlign: "left" }}>
-                <span style={{ fontSize: "24px" }}>{section.emoji}</span>
-                <div style={{ flex: 1, fontSize: "16px", color: "#d4b8f0", fontWeight: "bold" }}>{section.title}</div>
-                <span style={{ color: "#4a3a6a", fontSize: "16px", display: "inline-block", transform: librarySection === section.id ? "rotate(90deg)" : "rotate(0deg)", transition: "transform 0.2s" }}>›</span>
-              </button>
-              {librarySection === section.id && (
-                <div style={{ background: "#130f1e", border: "1px solid #1e1830", borderRadius: "0 0 14px 14px", marginTop: "-4px", padding: "8px 12px 12px" }}>
-                  {section.items.map((item, i) => (
-                    <div key={i} onClick={() => item.url && window.open(item.url, "_blank")} style={{ display: "flex", alignItems: "center", gap: "12px", padding: "12px", borderRadius: "10px", marginBottom: "6px", cursor: item.url ? "pointer" : "default", opacity: item.url ? 1 : 0.5 }}>
-                      <span style={{ fontSize: "20px" }}>{TI[item.type]}</span>
-                      <div style={{ flex: 1 }}>
-                        <div style={{ fontSize: "11px", color: TC[item.type], letterSpacing: "1px", textTransform: "uppercase", marginBottom: "3px" }}>{item.type}</div>
-                        <div style={{ fontSize: "14px", color: item.url ? "#d4c8e8" : "#5a4a6a" }}>{item.title}</div>
-                      </div>
-                      {item.url ? <span style={{ color: "#6b4fa0" }}>→</span> : <span style={{ fontSize: "11px", color: "#3a2a50", fontStyle: "italic" }}>coming soon</span>}
-                    </div>
-                  ))}
-                </div>
-              )}
+
+        {/* Filter pills */}
+        <div style={{ display: "flex", gap: "8px", padding: "12px 20px", overflowX: "auto", background: "#130f1e", borderBottom: "1px solid #1e1830" }}>
+          {FILTERS.map(f => (
+            <button key={f.id} onClick={() => setLibrarySection(f.id === "all" ? null : f.id)} style={{ background: activeFilter === f.id ? "linear-gradient(135deg,#2e1f45,#3d2860)" : "#1a1525", border: activeFilter === f.id ? "1px solid #6b4fa0" : "1px solid #2a2035", borderRadius: "20px", padding: "6px 14px", color: activeFilter === f.id ? "#d4b8f0" : "#7a6b8a", fontSize: "12px", cursor: "pointer", fontFamily: "inherit", whiteSpace: "nowrap" }}>
+              {f.emoji} {f.label}
+            </button>
+          ))}
+        </div>
+
+        <div style={{ padding: "16px 20px", maxWidth: "480px", margin: "0 auto" }}>
+          {activeFilter === "all" && (
+            <div style={{ fontSize: "13px", color: "#5a4a6a", fontStyle: "italic", marginBottom: "16px" }}>
+              {allItems.length} articles — filter by topic above
             </div>
+          )}
+          {filtered.map((item, i) => (
+            <button key={i} onClick={() => {
+              if (item.isArticle) {
+                setActiveArticle(item.id);
+                setAppView("article");
+                if (!readArticles.includes(item.id)) setReadArticles(prev => [...prev, item.id]);
+              }
+            }} style={{ width: "100%", background: "#1a1525", border: "1px solid #2a2035", borderRadius: "14px", padding: "16px", marginBottom: "10px", cursor: item.isArticle ? "pointer" : "default", textAlign: "left", fontFamily: "inherit", display: "block", opacity: item.isArticle ? 1 : 0.5 }}>
+              <div style={{ display: "flex", alignItems: "flex-start", gap: "12px" }}>
+                <span style={{ fontSize: "24px" }}>{item.emoji || item.sectionEmoji}</span>
+                <div style={{ flex: 1 }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "4px" }}>
+                    <div style={{ fontSize: "11px", color: "#5a4a6a", letterSpacing: "1px", textTransform: "uppercase" }}>
+                      {item.isArticle ? "Foundational" : item.sectionTitle}
+                    </div>
+                    {item.isArticle && (
+                      <span style={{ fontSize: "10px", background: readArticles.includes(item.id) ? "#2a3a2a" : "#2a2035", color: readArticles.includes(item.id) ? "#5bbf8a" : "#5a4a6a", borderRadius: "8px", padding: "2px 8px" }}>
+                        {readArticles.includes(item.id) ? "✓ Read" : "Unread"}
+                      </span>
+                    )}
+                  </div>
+                  <div style={{ fontSize: "15px", color: "#d4b8f0", fontWeight: "bold", marginBottom: "3px" }}>{item.title}</div>
+                  {item.subtitle && <div style={{ fontSize: "12px", color: "#7a6b8a", fontStyle: "italic" }}>{item.subtitle}</div>}
+                  {!item.isArticle && <div style={{ fontSize: "11px", color: "#3a2a50", fontStyle: "italic", marginTop: "4px" }}>coming soon</div>}
+                </div>
+                {item.isArticle && <span style={{ color: "#6b4fa0", fontSize: "16px", marginTop: "2px" }}>→</span>}
+              </div>
+            </button>
           ))}
         </div>
       </div>
@@ -587,34 +634,8 @@ export default function TrackHer() {
     );
   }
 
-  // ── Articles list
-  if (appView === "articles") {
-    return (
-      <div style={{ minHeight: "100vh", background: "#0f0d14", color: "#f0eaf8", fontFamily: "'Georgia', serif" }}>
-        <div style={{ background: "#1a1525", borderBottom: "1px solid #2a2035", padding: "16px 20px", display: "flex", alignItems: "center", gap: "12px" }}>
-          <button onClick={() => setAppView("tracker")} style={{ background: "none", border: "none", color: "#7a6b8a", fontSize: "22px", cursor: "pointer" }}>←</button>
-          <div style={{ fontSize: "16px", color: "#d4b8f0", fontWeight: "bold" }}>📚 Foundational Concepts</div>
-        </div>
-        <div style={{ padding: "20px", maxWidth: "480px", margin: "0 auto" }}>
-          <div style={{ fontSize: "14px", color: "#7a6b8a", lineHeight: "1.7", marginBottom: "24px" }}>
-            The following articles are considered critical sidebar articles, independent of where she's at with her cycle. Read these to increase your understanding of how to be a masculine leader and create the dynamics you WANT in your relationship.
-          </div>
-          {ARTICLES.map((art, i) => (
-            <button key={art.id} onClick={() => { setActiveArticle(art.id); setAppView("article"); if (!readArticles.includes(art.id)) setReadArticles(prev => [...prev, art.id]); }} style={{ width: "100%", background: "#1a1525", border: "1px solid #2a2035", borderRadius: "16px", padding: "20px", marginBottom: "12px", cursor: "pointer", textAlign: "left", fontFamily: "inherit", display: "block", opacity: readArticles.includes(art.id) ? 0.6 : 1 }}>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "10px" }}>
-                <span style={{ fontSize: "32px" }}>{art.emoji}</span>
-                <span style={{ fontSize: "11px", background: readArticles.includes(art.id) ? "#2a3a2a" : "#2a2035", color: readArticles.includes(art.id) ? "#5bbf8a" : "#5a4a6a", borderRadius: "10px", padding: "3px 10px", letterSpacing: "1px" }}>{readArticles.includes(art.id) ? "✓ Read" : "Unread"}</span>
-              </div>
-              <div style={{ fontSize: "11px", color: "#5a4a6a", letterSpacing: "2px", textTransform: "uppercase", marginBottom: "6px" }}>Article {i + 1}</div>
-              <div style={{ fontSize: "16px", color: "#d4b8f0", fontWeight: "bold", marginBottom: "6px" }}>{art.title}</div>
-              <div style={{ fontSize: "13px", color: "#7a6b8a", fontStyle: "italic", marginBottom: "12px" }}>{art.subtitle}</div>
-              <div style={{ fontSize: "12px", color: readArticles.includes(art.id) ? "#5bbf8a" : "#6b4fa0" }}>{readArticles.includes(art.id) ? "Read again →" : "Read →"}</div>
-            </button>
-          ))}
-        </div>
-      </div>
-    );
-  }
+  // ── Articles redirects to library
+  if (appView === "articles") { setAppView("library"); return null; }
 
   // ── Article reader
   if (appView === "article" && activeArticle) {
@@ -649,8 +670,7 @@ export default function TrackHer() {
           <div style={{ fontSize: "11px", color: "#7a6b8a", marginTop: "2px", fontStyle: "italic" }}>understand her, support her</div>
         </div>
         <div style={{ display: "flex", gap: "8px" }}>
-          <button onClick={() => setAppView("articles")} style={{ background: "#1a1525", border: "1px solid #2a2035", borderRadius: "20px", padding: "8px 14px", color: "#7a6b8a", fontSize: "13px", cursor: "pointer", fontFamily: "inherit" }}>📚</button>
-          <button onClick={() => setAppView("library")} style={{ background: "#1a1525", border: "1px solid #2a2035", borderRadius: "20px", padding: "8px 14px", color: "#7a6b8a", fontSize: "13px", cursor: "pointer", fontFamily: "inherit" }}>🎓</button>
+          <button onClick={() => setAppView("library")} style={{ background: "#1a1525", border: "1px solid #2a2035", borderRadius: "20px", padding: "8px 14px", color: "#7a6b8a", fontSize: "13px", cursor: "pointer", fontFamily: "inherit" }}>📖</button>
           <button onClick={() => setShowSetup(true)} style={{ background: "linear-gradient(135deg,#6b4fa0,#9b6fca)", border: "none", borderRadius: "20px", padding: "8px 16px", color: "white", fontSize: "13px", cursor: "pointer", fontFamily: "inherit" }}>+ Add</button>
           <button onClick={() => setShowFontSlider(v => !v)} style={{ background: showFontSlider ? "linear-gradient(135deg,#2e1f45,#3d2860)" : "#1a1525", border: showFontSlider ? "1px solid #6b4fa0" : "1px solid #2a2035", borderRadius: "20px", padding: "8px 12px", color: showFontSlider ? "#d4b8f0" : "#7a6b8a", fontSize: "15px", cursor: "pointer", fontFamily: "inherit" }}>Aa</button>
         </div>
