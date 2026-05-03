@@ -814,7 +814,7 @@ export default function TrackHer() {
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "6px", marginBottom: "12px" }}>
                 {Object.entries(HEADER_LABELS).map(([key, val]) => (
                   <button key={key} onClick={() => setActiveHeader(key)} style={{ background: activeHeader === key ? `${phase.color}30` : "#252235", border: activeHeader === key ? `1px solid ${phase.color}80` : "1px solid #3a3050", borderRadius: "12px", padding: "10px 6px", color: activeHeader === key ? phase.color : "#a090b8", fontSize: "12px", cursor: "pointer", fontFamily: "inherit", textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", gap: "3px" }}>
-                    <span style={{ fontSize: "18px" }}>{val.emoji}</span>
+                    <span style={{ fontSize: "18px", color: val.color || "inherit", WebkitTextStroke: val.color ? "0px" : "0px", filter: val.color === "#ffffff" ? "invert(1)" : "none" }}>{val.emoji}</span>
                     <span style={{ fontSize: "11px", whiteSpace: "nowrap" }}>{val.label}</span>
                   </button>
                 ))}
