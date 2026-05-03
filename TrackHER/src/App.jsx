@@ -377,11 +377,17 @@ const PHASES = {
 
 // ─── CONSTANTS ────────────────────────────────────────────────────────────────
 const REL_TYPES = [
-  { id: "girlfriend", emoji: "🌹", label: "Girlfriend" },
-  { id: "wife",       emoji: "💍", label: "Wife" },
-  { id: "fwb",        emoji: "🔥", label: "FWB" },
-  { id: "friend",     emoji: "🤝", label: "Friend" },
-  { id: "other",      emoji: "🌀", label: "Other" },
+  { id: "girlfriend", emoji: "🌹", label: "Girlfriend",  premium: false },
+  { id: "wife",       emoji: "💍", label: "Wife",         premium: false },
+  { id: "fwb",        emoji: "🔥", label: "FWB",          premium: false },
+  { id: "friend",     emoji: "🤝", label: "Friend",       premium: false },
+  { id: "other",      emoji: "🌀", label: "Other",        premium: false },
+  { id: "boss",       emoji: "👔", label: "Boss",         premium: true  },
+  { id: "daughter",   emoji: "👧", label: "Daughter",     premium: true  },
+  { id: "coworker",   emoji: "💼", label: "Co-worker",    premium: true  },
+  { id: "sister",     emoji: "👯", label: "Sister",       premium: true  },
+  { id: "ex",         emoji: "💔", label: "Ex",           premium: true  },
+  { id: "colleague",  emoji: "🤝", label: "Colleague",    premium: true  },
 ];
 
 const GOALS = [
@@ -545,6 +551,8 @@ function Setup({ onComplete }) {
 // ─── MAIN APP ─────────────────────────────────────────────────────────────────
 export default function TrackHer() {
   const [partners, setPartners]         = useState(() => { try { return JSON.parse(localStorage.getItem("th_partners")) || []; } catch { return []; } });
+  const [isMember, setIsMember]           = useState(() => { try { return !!localStorage.getItem("th_member"); } catch { return false; } });
+  const [showUpgrade, setShowUpgrade]     = useState(false);
   const [readArticles, setReadArticles]   = useState(() => { try { return JSON.parse(localStorage.getItem("th_read")) || []; } catch { return []; } });
   const [showBooks, setShowBooks]         = useState(false);
   const [fontSize, setFontSize]           = useState(() => { try { return parseFloat(localStorage.getItem("th_fontsize")) || 1; } catch { return 1; } });
@@ -813,7 +821,7 @@ export default function TrackHer() {
         <div style={{ display: "flex", gap: "8px" }}>
           <button onClick={() => setAppView("library")} style={{ background: "#1a1525", border: "1px solid #2a2035", borderRadius: "20px", padding: "8px 14px", color: "#7a6b8a", fontSize: "13px", cursor: "pointer", fontFamily: "inherit" }}>📖</button>
           <button onClick={() => setShowBooks(true)} style={{ background: "#1a1525", border: "1px solid #2a2035", borderRadius: "20px", padding: "8px 14px", color: "#7a6b8a", fontSize: "13px", cursor: "pointer", fontFamily: "inherit" }}>📚</button>
-          <button onClick={() => setShowSetup(true)} style={{ background: "linear-gradient(135deg,#6b4fa0,#9b6fca)", border: "none", borderRadius: "20px", padding: "8px 16px", color: "white", fontSize: "13px", cursor: "pointer", fontFamily: "inherit" }}>+ Add</button>
+          <button onClick={() => { if (isMember || partners.length === 0) setShowSetup(true); else setShowUpgrade(true); }} style={{ background: "linear-gradient(135deg,#6b4fa0,#9b6fca)", border: "none", borderRadius: "20px", padding: "8px 16px", color: "white", fontSize: "13px", cursor: "pointer", fontFamily: "inherit" }}>{!isMember && partners.length > 0 ? "🔒 Add" : "+ Add"}</button>
           <button onClick={() => setShowFontSlider(v => !v)} style={{ background: showFontSlider ? "linear-gradient(135deg,#2e1f45,#3d2860)" : "#1a1525", border: showFontSlider ? "1px solid #6b4fa0" : "1px solid #2a2035", borderRadius: "20px", padding: "8px 12px", color: showFontSlider ? "#d4b8f0" : "#7a6b8a", fontSize: "15px", cursor: "pointer", fontFamily: "inherit" }}>Aa</button>
         </div>
       </div>
@@ -976,8 +984,12 @@ export default function TrackHer() {
               {/* Header tabs — 2 row grid */}
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "6px", marginBottom: "12px" }}>
                 {Object.entries(HEADER_LABELS).map(([key, val]) => (
-                  <button key={key} onClick={() => setActiveHeader(key)} style={{ background: activeHeader === key ? `${phase.color}30` : "#252235", border: activeHeader === key ? `1px solid ${phase.color}80` : "1px solid #3a3050", borderRadius: "12px", padding: "10px 6px", color: activeHeader === key ? phase.color : "#a090b8", fontSize: "12px", cursor: "pointer", fontFamily: "inherit", textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", gap: "3px" }}>
-                    <span style={{ fontSize: "18px", color: val.color || "inherit", WebkitTextStroke: val.color ? "0px" : "0px", filter: val.color === "#ffffff" ? "invert(1)" : "none" }}>{val.emoji}</span>
+                  <button key={key} onClick={() => {
+                    if (key === "game" && !isMember) { setShowUpgrade(true); return; }
+                    setActiveHeader(key);
+                  }} style={{ background: activeHeader === key ? `${phase.color}30` : "#252235", border: key === "game" && !isMember ? "1px solid #4a3a6a" : activeHeader === key ? `1px solid ${phase.color}80` : "1px solid #3a3050", borderRadius: "12px", padding: "10px 6px", color: key === "game" && !isMember ? "#4a3a6a" : activeHeader === key ? phase.color : "#a090b8", fontSize: "12px", cursor: "pointer", fontFamily: "inherit", textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", gap: "3px", position: "relative" }}>
+                    {key === "game" && !isMember && <span style={{ position: "absolute", top: "4px", right: "6px", fontSize: "9px" }}>🔒</span>}
+                    <span style={{ fontSize: "18px", color: val.color || "inherit", filter: val.color === "#ffffff" ? "invert(1)" : "none", opacity: key === "game" && !isMember ? 0.35 : 1 }}>{val.emoji}</span>
                     <span style={{ fontSize: "11px", whiteSpace: "nowrap" }}>{val.label}</span>
                   </button>
                 ))}
@@ -1069,6 +1081,19 @@ export default function TrackHer() {
               </div>
             </>
           )}
+
+          {/* Notifications — premium */}
+          <div style={{ background: "#1a1525", border: "1px dashed #3a2a50", borderRadius: "16px", padding: "18px", marginBottom: "10px", opacity: 0.6 }}>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+              <div>
+                <div style={{ fontSize: "11px", letterSpacing: "2px", color: "#4a3a6a", textTransform: "uppercase", marginBottom: "6px" }}>🔔 Notifications</div>
+                <div style={{ fontSize: "13px", color: "#4a3a6a" }}>Period alerts, ovulation windows, PMS warnings</div>
+              </div>
+              <button onClick={() => setShowUpgrade(true)} style={{ background: "linear-gradient(135deg,#2e1f45,#3d2860)", border: "1px solid #4a3a6a", borderRadius: "10px", padding: "8px 14px", color: "#8b6fca", fontSize: "12px", cursor: "pointer", fontFamily: "inherit", whiteSpace: "nowrap" }}>
+                🔒 Unlock
+              </button>
+            </div>
+          </div>
 
           {/* App Feedback */}
           <div style={{ background: "#1a1525", border: "1px solid #2a2035", borderRadius: "16px", padding: "18px", marginBottom: "10px" }}>
