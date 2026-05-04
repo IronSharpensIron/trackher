@@ -612,7 +612,7 @@ export default function TrackHer() {
       <div style={{ background: "linear-gradient(135deg,#1a1525,#0f0d14)", borderBottom: "1px solid #2a2035", padding: "18px 20px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         <div>
           <div style={{ fontSize: "24px", fontWeight: "bold", letterSpacing: "-0.5px" }}>TrackHer</div>
-          <div style={{ fontSize: "11px", color: "#7a6b8a", marginTop: "2px", fontStyle: "italic" }}>understand her, support her</div>
+          <div style={{ fontSize: "11px", color: "#7a6b8a", marginTop: "2px", fontStyle: "italic" }}>read the defense</div>
         </div>
         <div style={{ display: "flex", gap: "6px" }}>
           <button onClick={function() { setAppView("library"); }} style={{ background: CARD, border: "1px solid " + BORDER, borderRadius: "20px", padding: "8px 12px", color: "#7a6b8a", fontSize: "13px", cursor: "pointer", fontFamily: "inherit" }}>📖</button>
@@ -759,6 +759,22 @@ export default function TrackHer() {
             </div>
           )}
 
+          {phase && (
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "6px", marginBottom: "12px" }}>
+              {Object.keys(HEADERS).map(function(key) {
+                var val = HEADERS[key];
+                var gated = PRO_HEADERS.indexOf(key) !== -1 && !isPro;
+                return (
+                  <button key={key} onClick={function() { if (gated) { triggerUpgrade(val.label + " is a Pro feature"); return; } setActiveHeader(key); }} style={{ background: activeHeader === key ? phase.color + "30" : "#252235", border: activeHeader === key ? "1px solid " + phase.color + "80" : "1px solid #3a3050", borderRadius: "12px", padding: "10px 6px", color: activeHeader === key ? phase.color : "#a090b8", fontSize: "12px", cursor: "pointer", fontFamily: "inherit", textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", gap: "3px", position: "relative", opacity: gated ? 0.6 : 1 }}>
+                    <span style={{ fontSize: "18px" }}>{val.emoji}</span>
+                    <span style={{ fontSize: "11px", whiteSpace: "nowrap" }}>{val.label}</span>
+                    {gated && <span style={{ position: "absolute", top: "4px", right: "6px", fontSize: "9px" }}>🔒</span>}
+                  </button>
+                );
+              })}
+            </div>
+          )}
+
           {phase && (function() {
             var f = FERTILITY[pk];
             var ai3 = FERTILITY_TIERS.indexOf(f.tier);
@@ -775,22 +791,6 @@ export default function TrackHer() {
               </div>
             );
           })()}
-
-          {phase && (
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "6px", marginBottom: "12px" }}>
-              {Object.keys(HEADERS).map(function(key) {
-                var val = HEADERS[key];
-                var gated = PRO_HEADERS.indexOf(key) !== -1 && !isPro;
-                return (
-                  <button key={key} onClick={function() { if (gated) { triggerUpgrade(val.label + " is a Pro feature"); return; } setActiveHeader(key); }} style={{ background: activeHeader === key ? phase.color + "30" : "#252235", border: activeHeader === key ? "1px solid " + phase.color + "80" : "1px solid #3a3050", borderRadius: "12px", padding: "10px 6px", color: activeHeader === key ? phase.color : "#a090b8", fontSize: "12px", cursor: "pointer", fontFamily: "inherit", textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", gap: "3px", position: "relative", opacity: gated ? 0.6 : 1 }}>
-                    <span style={{ fontSize: "18px" }}>{val.emoji}</span>
-                    <span style={{ fontSize: "11px", whiteSpace: "nowrap" }}>{val.label}</span>
-                    {gated && <span style={{ position: "absolute", top: "4px", right: "6px", fontSize: "9px" }}>🔒</span>}
-                  </button>
-                );
-              })}
-            </div>
-          )}
 
           {phase && bullets.length > 0 && (
             <div style={{ marginBottom: "12px" }}>
@@ -974,7 +974,7 @@ export default function TrackHer() {
               <div style={{ fontSize: "22px", fontWeight: "bold", color: "#d4b8f0", marginBottom: "8px" }}>Upgrade to TrackHer Pro</div>
               <div style={{ fontSize: "14px", color: "#7a6b8a", lineHeight: "1.6" }}>{upgradeReason || "Unlock the full TrackHer experience"}</div>
             </div>
-            {["🔥 Sex — know when and how to stoke her sexual desire", "⚠️ Avoid — avoid drama-causing mistakes", "🔬 Body Science — deeper knowledge of her bio-dynamics", "♚ Advanced Game — get the REAL knowledge that improves the whole relationship", "🔒 Foundational Articles — all unlocked", "🔔 Notifications — real time alerts with what you need to know NOW", "💼 Relationship Types — Boss, Daughter, Co-Worker and more"].map(function(f, i) {
+            {["🔥 Sex: Know WHEN and HOW to stoke her sexual desire", "⚠️ Avoid: Avoid drama-causing mistakes", "🔬 Body Science: Get deeper knowledge of her biodynamics", "♚ Advanced Game: What your grandfather and your father should have told you", "🔒 Foundational Articles: All unlocked", "🔔 Notifications: Real time alerts with what you need to know NOW", "💼 Relationship Types: Boss, Daughter, Co-Worker and more"].map(function(f, i) {
               return (
                 <div key={i} style={{ display: "flex", alignItems: "center", gap: "12px", padding: "10px 14px", background: CARD, borderRadius: "10px", border: "1px solid " + BORDER, marginBottom: "8px" }}>
                   <span style={{ fontSize: "18px" }}>{f.split(" ")[0]}</span>
