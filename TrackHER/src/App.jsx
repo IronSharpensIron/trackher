@@ -944,7 +944,7 @@ export default function TrackHer() {
               <div style={{ fontSize: "22px", fontWeight: "bold", color: "#d4b8f0", marginBottom: "8px" }}>Upgrade to TrackHer Pro</div>
               <div style={{ fontSize: "14px", color: "#7a6b8a", lineHeight: "1.6" }}>{upgradeReason || "Unlock the full TrackHer experience"}</div>
             </div>
-            {["⚠️ Avoid — know what NOT to do each phase", "🔬 Body Science — understand the hormones", "🔥 Sex — cycle-aware intimacy guidance", "♚ Advanced Game — the full playbook", "🔒 All Foundational articles unlocked", "🔔 Notifications — phase alerts and daily tips", "💼 All relationship types — Boss, Daughter and more"].map(function(f, i) {
+            {["🔥 Sex — know when and how to stoke her sexual desire", "⚠️ Avoid — avoid drama-causing mistakes", "🔬 Body Science — deeper knowledge of her bio-dynamics", "♚ Advanced Game — get the REAL knowledge that improves the whole relationship", "🔒 Foundational Articles — all unlocked", "🔔 Notifications — real time alerts with what you need to know NOW", "💼 Relationship Types — Boss, Daughter, Co-Worker and more"].map(function(f, i) {
               return (
                 <div key={i} style={{ display: "flex", alignItems: "center", gap: "12px", padding: "10px 14px", background: CARD, borderRadius: "10px", border: "1px solid " + BORDER, marginBottom: "8px" }}>
                   <span style={{ fontSize: "18px" }}>{f.split(" ")[0]}</span>
