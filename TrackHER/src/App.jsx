@@ -445,7 +445,7 @@ function getDaysUntil(day, cycleLength) { return cycleLength - day + 1; }
 function today() { return new Date().toISOString().split("T")[0]; }
 
 // ─── SETUP ────────────────────────────────────────────────────────────────────
-function Setup({ onComplete }) {
+function Setup({ onComplete, isPro, triggerUpgrade }) {
   const [screen, setScreen]   = useState(1);
   const [name, setName]       = useState("");
   const [age, setAge]         = useState("");
@@ -604,7 +604,7 @@ export default function TrackHer() {
   function removePartner(id) { const r = partners.filter(p => p.id !== id); setPartners(r); setActiveId(r[0]?.id || null); }
   function doUpdate() { if (updateDate) setPartners(prev => prev.map(p => p.id === activeId ? { ...p, lastPeriod: updateDate, skipped: false } : p)); }
 
-  if (isFirst || showSetup) return <Setup onComplete={completeSetup} />;
+  if (isFirst || showSetup) return <Setup onComplete={completeSetup} isPro={isPro} triggerUpgrade={triggerUpgrade} />;
 
   const active   = partners.find(p => p.id === activeId);
   const day      = active?.lastPeriod ? getDayOfCycle(active.lastPeriod, active.cycleLength) : null;
@@ -1124,7 +1124,18 @@ export default function TrackHer() {
             )}
           </div>
 
-          <button onClick={() => removePartner(active.id)} style={{ background: "none", border: "1px solid #3a2035", borderRadius: "10px", color: "#6a3a45", padding: "8px 16px", cursor: "pointer", fontFamily: "inherit", fontSize: "12px", width: "100%", marginBottom: "32px" }}>Remove {active.name}</button>
+          {!confirmDelete ? (
+            <button onClick={() => setConfirmDelete(true)} style={{ background: "none", border: "1px solid #3a2035", borderRadius: "10px", color: "#6a3a45", padding: "8px 16px", cursor: "pointer", fontFamily: "inherit", fontSize: "12px", width: "100%", marginBottom: "32px" }}>Remove {active.name}</button>
+          ) : (
+            <div style={{ background: "#2a1520", border: "1px solid #5a2030", borderRadius: "14px", padding: "16px", marginBottom: "32px", textAlign: "center" }}>
+              <div style={{ fontSize: "15px", color: "#e8a0a8", fontWeight: "bold", marginBottom: "6px" }}>Remove {active.name}?</div>
+              <div style={{ fontSize: "13px", color: "#7a4a55", marginBottom: "16px" }}>This can't be undone.</div>
+              <div style={{ display: "flex", gap: "10px" }}>
+                <button onClick={() => setConfirmDelete(false)} style={{ flex: 1, background: "#1a1525", border: "1px solid #2a2035", borderRadius: "10px", padding: "10px", color: "#7a6b8a", fontFamily: "inherit", fontSize: "14px", cursor: "pointer" }}>Cancel</button>
+                <button onClick={() => { removePartner(active.id); setConfirmDelete(false); }} style={{ flex: 1, background: "linear-gradient(135deg,#6a1525,#9a2535)", border: "none", borderRadius: "10px", padding: "10px", color: "white", fontFamily: "inherit", fontSize: "14px", fontWeight: "bold", cursor: "pointer" }}>Yes, remove</button>
+              </div>
+            </div>
+          )}
 
         </div>
       )}
