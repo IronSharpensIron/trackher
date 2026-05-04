@@ -502,7 +502,7 @@ export default function TrackHer() {
       <div style={{ minHeight: "100vh", background: BG, color: "#f0eaf8", fontFamily: "Georgia, serif" }}>
         <div style={{ background: CARD, borderBottom: "1px solid " + BORDER, padding: "16px 20px", display: "flex", alignItems: "center", gap: "12px" }}>
           <button onClick={function() { setAppView("tracker"); }} style={{ background: "none", border: "none", color: "#7a6b8a", fontSize: "22px", cursor: "pointer" }}>←</button>
-          <div style={{ fontSize: "16px", color: "#d4b8f0", fontWeight: "bold" }}>📖 Content Hub</div>
+          <div style={{ fontSize: "16px", color: "#d4b8f0", fontWeight: "bold" }}>📖 Required Reading</div>
         </div>
         <div style={{ display: "flex", gap: "8px", padding: "12px 20px", overflowX: "auto", background: "#130f1e", borderBottom: "1px solid #1e1830" }}>
           {FILTERS.map(function(f) {
@@ -510,7 +510,11 @@ export default function TrackHer() {
           })}
         </div>
         <div style={{ padding: "16px 20px", maxWidth: "480px", margin: "0 auto" }}>
+          <div style={{ fontSize: "14px", color: "white", lineHeight: "1.7", marginBottom: "20px", padding: "16px", background: "#1a1525", borderRadius: "12px", border: "1px solid #2a2035" }}>
+            What follows is REQUIRED reading if you want to understand what's actually happening with the woman you're tracking, and get what you want out of the relationship. These are in order. Some are locked for members only.
+          </div>
           {filtered.map(function(item, idx) {
+            var itemNumber = idx + 1;
             var gated = item.isArticle && FREE_ARTICLES.indexOf(item.id) === -1 && !isPro;
             return (
               <button key={idx} onClick={function() {
@@ -521,7 +525,10 @@ export default function TrackHer() {
                 if (readArticles.indexOf(item.id) === -1) setReadArticles(function(prev) { return prev.concat([item.id]); });
               }} style={{ width: "100%", background: CARD, border: "1px solid " + BORDER, borderRadius: "14px", padding: "16px", marginBottom: "10px", cursor: item.isArticle ? "pointer" : "default", textAlign: "left", fontFamily: "inherit", display: "block", opacity: item.isArticle ? 1 : 0.5 }}>
                 <div style={{ display: "flex", alignItems: "flex-start", gap: "12px" }}>
-                  <span style={{ fontSize: "24px" }}>{item.emoji || item.sectionEmoji}</span>
+                  <div style={{ display: "flex", flexDirection: "column", alignItems: "center", minWidth: "32px" }}>
+                    <span style={{ fontSize: "11px", color: "#6b4fa0", fontWeight: "bold", marginBottom: "2px" }}>{itemNumber}</span>
+                    <span style={{ fontSize: "24px" }}>{item.emoji || item.sectionEmoji}</span>
+                  </div>
                   <div style={{ flex: 1 }}>
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "4px" }}>
                       <div style={{ fontSize: "11px", color: "#5a4a6a", letterSpacing: "1px", textTransform: "uppercase" }}>{item.isArticle ? "Foundational" : item.sectionTitle}</div>
