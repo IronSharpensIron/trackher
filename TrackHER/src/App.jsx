@@ -1003,23 +1003,6 @@ export default function TrackHer() {
                 ))}
               </div>
 
-              {/* Content card */}
-              <div style={{ background: "#1a1525", border: `1px solid ${activeHeader === "avoid" ? "#3a2035" : phase.color + "40"}`, borderRadius: "16px", padding: "18px", marginBottom: "10px", background: activeHeader === "avoid" ? "#2a1520" : "#22203a" }}>
-                <div style={{ fontSize: "11px", letterSpacing: "2px", textTransform: "uppercase", marginBottom: "12px", color: activeHeader === "avoid" ? "#bf5060" : phase.color }}>{HEADER_LABELS[activeHeader].emoji} {HEADER_LABELS[activeHeader].label}</div>
-                <div style={{ display: "flex", gap: "12px", alignItems: "flex-start", fontSize: "15px", color: activeHeader === "avoid" ? "#c8a0a8" : "#d4c8e8", lineHeight: "1.7", padding: "13px", background: activeHeader === "avoid" ? "#3a202510" : `${phase.color}10`, borderRadius: "10px", marginBottom: "13px", minHeight: "55px" }}>
-                  <span style={{ fontSize: "13px", fontWeight: "bold", color: activeHeader === "avoid" ? "#bf5060" : phase.color, minWidth: "20px", marginTop: "1px" }}>{bullet + 1}.</span>
-                  <span>{bullets[bullet]}</span>
-                </div>
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                  <button onClick={() => setBullet(b => Math.max(0, b - 1))} style={{ background: bullet > 0 ? `${phase.color}20` : "#1a1525", border: `1px solid ${bullet > 0 ? phase.color + "40" : "#2a2035"}`, borderRadius: "8px", padding: "6px 12px", color: bullet > 0 ? phase.color : "#3a2a50", fontSize: "13px", cursor: bullet > 0 ? "pointer" : "default", fontFamily: "inherit" }}>← prev</button>
-                  <div style={{ display: "flex", gap: "5px" }}>
-                    {bullets.map((_, i) => <div key={i} onClick={() => setBullet(i)} style={{ width: i === bullet ? "16px" : "6px", height: "6px", borderRadius: "3px", cursor: "pointer", background: i === bullet ? phase.color : "#3a2a50", transition: "all 0.2s" }} />)}
-                  </div>
-                  <button onClick={() => setBullet(b => Math.min(bullets.length - 1, b + 1))} style={{ background: bullet < bullets.length - 1 ? `${phase.color}20` : "#1a1525", border: `1px solid ${bullet < bullets.length - 1 ? phase.color + "40" : "#2a2035"}`, borderRadius: "8px", padding: "6px 12px", color: bullet < bullets.length - 1 ? phase.color : "#3a2a50", fontSize: "13px", cursor: bullet < bullets.length - 1 ? "pointer" : "default", fontFamily: "inherit" }}>next →</button>
-                </div>
-                <div style={{ textAlign: "center", fontSize: "11px", color: "#4a3a5a", marginTop: "8px" }}>{bullet + 1} of {bullets.length}</div>
-              </div>
-
               {/* Game note */}
               {activeHeader === "game" && phase.gameNote && (
                 <div style={{ background: `${phase.color}12`, border: `1px solid ${phase.color}30`, borderRadius: "12px", padding: "14px 16px", marginBottom: "10px" }}>
