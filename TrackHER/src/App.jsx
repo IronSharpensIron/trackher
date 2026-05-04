@@ -115,10 +115,10 @@ const REL_TYPES = [
   { id: "wife",       emoji: "💍", label: "Wife",       pro: false },
   { id: "fwb",        emoji: "🔥", label: "FWB",        pro: true  },
   { id: "friend",     emoji: "🤝", label: "Friend",     pro: true  },
-  { id: "other",      emoji: "🌀", label: "Other",      pro: true  },
   { id: "boss",       emoji: "👔", label: "Boss",       pro: true  },
   { id: "daughter",   emoji: "👧", label: "Daughter",   pro: true  },
   { id: "coworker",   emoji: "💼", label: "Coworker",   pro: true  },
+  { id: "other",      emoji: "🌀", label: "Other",      pro: true  },
 ];
 
 const GOALS = [
