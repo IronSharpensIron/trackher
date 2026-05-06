@@ -111,6 +111,134 @@ const FERTILITY = {
 const FERTILITY_TIERS = ["Very Low", "Low to Medium", "Medium Low", "Medium", "High", "Peak"];
 const FERTILITY_COLORS = ["#5bbf8a", "#8bbf5a", "#f4c14b", "#f4a24b", "#e08a3c", "#e05c6b"];
 
+
+const PHASE_TRANSITIONS = {
+  menstrualToFollicular: {
+    from: "Menstrual", to: "Follicular",
+    fromEmoji: "🌑", toEmoji: "🌒",
+    color: "#f4a24b",
+    teaser: "The storm is over and she's about to feel like herself again. The one thing you need to do tomorrow is...",
+    title: "She's Coming Back. Don't Waste It.",
+    content: "For the last five days she has been low. Low energy, low mood, low patience. Her body has been doing real physical work and her hormones have been at their floor.\n\nThat changes tomorrow.\n\nWHAT'S ACTUALLY HAPPENING\n\nEstrogen starts climbing. Serotonin follows. Dopamine begins to build. The fog lifts. She wakes up and feels - sometimes almost startlingly - like herself again. Like the version of herself she likes. Energy returning. Optimism returning. Appetite for life returning.\n\nThis transition is one of the most noticeable in the entire cycle if you're paying attention. One day she's depleted and withdrawn. The next she's making plans and laughing from the gut.\n\nTHE ONE THING YOU NEED TO DO\n\nHave a plan. Not a big plan. Just a plan.\n\nShe is going to wake up tomorrow with rising energy and nowhere to point it yet. You want to be the one who gives it direction. A suggestion. A reservation. A place to go. Something to look forward to. It doesn't need to be elaborate - it needs to exist.\n\nThe man who shows up with nothing gets a woman who fills her own calendar. The man who shows up with something gets to be part of her comeback week.\n\nHer Dopamine is climbing. Feed it.\n\nWHAT TO AVOID\n\nDon't bring up anything heavy from the last five days. Don't reference her mood. Don't ask if she's feeling better in a way that reminds her she was low. Just show up as if today is a new day - because for her chemistry, it literally is.\n\nThe Follicular phase lasts about eight days. This is her best stretch of the month. You have eight days to make her feel like being with you is the best part of her life right now.\n\nStart tomorrow."
+  },
+  follicularToOvulation: {
+    from: "Follicular", to: "Ovulation",
+    fromEmoji: "🌒", toEmoji: "🌕",
+    color: "#5bbf8a",
+    teaser: "Three days. Peak everything. The move most men completely miss is...",
+    title: "Three Days. That's All You Get.",
+    content: "Tomorrow she enters Ovulation. You have three days. That is it.\n\nMost men don't know this window exists. They treat every week the same. They wonder why she seems different this week - more confident, more affectionate, more responsive - and they don't do anything different with it. They coast. They waste it.\n\nDon't be that man.\n\nWHAT'S HAPPENING IN HER BODY\n\nA luteinizing hormone surge triggers the release of a mature egg. Estrogen peaks. Testosterone spikes briefly - one of the only moments in her cycle where testosterone is elevated. All three of her key chemicals - Oxytocin, Dopamine and Serotonin - are simultaneously at their highest point.\n\nShe feels it. She may not know why but she feels it. More confident. More attractive. More alive. More interested in you.\n\nTHE MOVE MOST MEN MISS\n\nPresence. Full, undivided, phone-down presence.\n\nHer attraction during ovulation is not just physical. It is a full-system evaluation. She is subconsciously asking: is this man worth it? Not in a calculated way - in a felt way. Her body is running its highest-stakes assessment and you are being measured against every man she has ever known.\n\nThe man who is distracted, checked out, or running the same autopilot routine fails that assessment without knowing he was even being tested.\n\nThe man who is fully present - who looks at her, who initiates, who is confident and warm and decisive - becomes the standard she compares everything else to.\n\nTHREE THINGS TO DO IN THE NEXT 72 HOURS\n\nFirst: tell her she looks good. Not as a line. As a genuine observation delivered with eye contact. She is at her physical peak and she wants to be seen.\n\nSecond: make a move. Initiate. Be direct. Her libido is at its absolute highest and she is waiting to see if you show up with the same energy she's feeling.\n\nThird: plan something. Take her somewhere. Create a memory this week. Ovulation is the one window where everything you do lands at full intensity. Make it count.\n\nThree days. Starting tomorrow."
+  },
+  ovulationToEarlyLuteal: {
+    from: "Ovulation", to: "Early Luteal",
+    fromEmoji: "🌕", toEmoji: "🌖",
+    color: "#7a9ebf",
+    teaser: "The peak is over and your role just shifted. What she needs from you right now is not what you think. It's...",
+    title: "The Shift. Your Role Just Changed.",
+    content: "The peak is over.\n\nFor the last three days she has been at her highest - highest energy, highest confidence, highest desire. That window closes today. Tomorrow she enters Early Luteal and the chemistry shifts underneath her.\n\nThis is where most men get confused. They keep showing up the same way they did during Ovulation - high energy, spontaneous, exciting - and wonder why it isn't landing the same way.\n\nIt doesn't land because she doesn't need that anymore. She needs something different now.\n\nWHAT'S CHANGING\n\nProgesterone rises sharply and takes the lead. This hormone is calming - almost sedating. Her energy drops. Her need for big plans and novelty fades. She becomes more inward, more reflective, more interested in quiet connection than peak experiences.\n\nSerotonin is still present but beginning its slow descent. Stability starts to matter more than excitement.\n\nWHAT SHE ACTUALLY NEEDS\n\nSteadiness. Not boredom - steadiness. The difference is everything.\n\nSteadiness means you are consistent. You are calm. You handle things without being asked. You don't create unnecessary friction or chaos. You are a reliable presence that she doesn't have to manage.\n\nThis is not the week for big plans, high-energy dates or major conversations. This is the week for showing up quietly and being the man she can exhale around.\n\nTHE SPECIFIC MOVE\n\nReduce her mental load. Look around at what needs to be done and do it before she asks. Handle dinner. Handle the thing she mentioned last week. Take something off her plate without making it a conversation.\n\nShe will notice. She won't necessarily say anything. But she will file it as evidence that you are a man who pays attention and shows up.\n\nThat evidence compounds. It is building the deepest kind of attraction there is - the kind that doesn't fade.\n\nYour job this week is not to be exciting. It's to be the man she doesn't have to worry about."
+  },
+  earlyToLateLuteal: {
+    from: "Early Luteal", to: "Late Luteal",
+    fromEmoji: "🌖", toEmoji: "🌘",
+    color: "#8e7abf",
+    teaser: "Her Serotonin is about to crash and most men make one specific mistake this week. That mistake is...",
+    title: "The Crash Is Coming. Don't Make This Mistake.",
+    content: "Tomorrow she enters Late Luteal. This is the hardest phase of her cycle - for her and for you.\n\nEstrogen and progesterone both drop sharply. Serotonin follows. Her nervous system becomes genuinely more reactive. Small things feel big. Ordinary moments feel heavy. She may feel unlike herself and not fully understand why.\n\nAnd most men - even good men, even men who are trying - make one specific mistake this week.\n\nTHE MISTAKE\n\nThey make it about themselves.\n\nShe's irritable so they get defensive. She's withdrawn so they push for connection. She's emotional so they try to fix it, explain it, logic their way through it. They interpret her low mood as a signal about the relationship. They take the temperature of how she feels about them based on how she's acting during the worst week of her hormonal cycle.\n\nThis is like judging someone's personality by how they act during a fever. It tells you nothing except that the fever is real.\n\nWHAT'S ACTUALLY HAPPENING\n\nHer Serotonin is at its lowest point of the entire month. Serotonin regulates mood, emotional resilience and the ability to tolerate frustration. When it crashes she isn't choosing to be difficult. She is running on depleted neurochemistry. Her brain is literally missing the chemical it needs to feel okay.\n\nHere's the part that changes everything: she cannot manufacture that Serotonin on her own right now.\n\nBut you can provide the conditions for it.\n\nHOW TO BE THE WALL\n\nDon't react to her mood. Absorb it without reflecting it back. If she's tense, you stay calm. If she's sharp, you stay steady. Not cold - steady. There's a difference.\n\nHandle things. Remove friction from her environment before she encounters it. Clean space. Clear plan. No surprises. No added stress.\n\nDon't disappear. This is when some men go quiet or give her cold space thinking that's what she wants. It's not. She wants to know you're still there, still solid, still unbothered by her weather.\n\nDon't ask what's wrong. Don't try to fix it. Don't tell her she seems off. Just be warm and present and completely unfazed.\n\nThe man who holds it together when she can't is the man she feels safest with for the long haul. That's not a small thing. That's everything."
+  },
+  lateLutealToMenstrual: {
+    from: "Late Luteal", to: "Menstrual",
+    fromEmoji: "🌘", toEmoji: "🌑",
+    color: "#e05c6b",
+    teaser: "Everything resets. But before it does there's one thing she needs from you tonight that almost no man gives her...",
+    title: "The Reset Is Here. Give Her This Tonight.",
+    content: "Tomorrow her period starts. The cycle resets.\n\nEverything she has been feeling - the irritability, the emotional weight, the low-grade sense that something is wrong - has a physical explanation that is about to resolve itself. Her body knows this. There is often a moment right at the start of her period where she feels a kind of relief. The tension breaks. The pressure lifts. She can breathe again.\n\nBut tonight she is still in it. And tonight there is one thing she needs from you that almost no man thinks to give.\n\nWHAT SHE NEEDS\n\nWitnessing.\n\nNot fixing. Not advice. Not even comfort in the active sense. Just someone who sees what she's been carrying and doesn't need her to explain it or justify it or apologize for it.\n\nMost men are somewhere on the spectrum between checked out and problem-solving mode. Neither is what she needs on the last night of her cycle. What she needs is a man who is simply present with her. Who sits with her in it. Who makes her feel like her experience - whatever it has been this week - is valid and seen.\n\nTHE SPECIFIC MOVE\n\nTonight: lower the temperature of the environment. No demands. No plans. No agenda. If she wants to talk, listen without redirecting toward solutions. If she wants quiet, give her comfortable quiet rather than awkward silence. Physical warmth - a hand, closeness, contact without expectation - matters more tonight than words.\n\nIf she says anything about how she's been feeling this week, resist the urge to explain it or minimize it. Just say something that tells her you were paying attention.\n\nYou don't have to say much. You just have to be there.\n\nTOMORROW\n\nHer period starts and everything resets. Her energy will be low for the next few days as her body does its work. Be ready to shift into Menstrual mode - warmth, no demands, no agenda.\n\nBut tonight is its own moment. Be the man who shows up for it."
+  }
+};
+
+
+const DAUGHTER_PHASES = {
+  menstrual: {
+    tips: [
+      "She may not bring it up and that's okay. Your job isn't to address it directly - just quietly reduce demands on her this week",
+      "Stock the house with her comfort foods without making it a thing. Just have them there",
+      "If she seems withdrawn or irritable, don't take it personally and don't push for conversation. Just be a warm, steady presence nearby",
+      "A simple 'I've got dinner handled tonight' goes further than you know right now",
+      "Physical comfort matters - a blanket, her favorite show on, the house feeling calm. You don't need words for this",
+      "If she does open up, just listen. Don't fix, don't advise unless asked. The act of being heard is the support she needs",
+    ],
+    avoid: [
+      "Don't make jokes about her mood or her cycle - even gentle teasing lands badly this week",
+      "Don't pile on responsibilities or expectations - this isn't the week to push on homework, chores or future plans",
+      "Don't ask probing questions about how she's feeling physically - let her lead that conversation if she wants it",
+      "Don't compare her mood to her cycle out loud - even if you understand what's happening, naming it can feel dismissive",
+      "Don't withdraw your warmth just because she's not engaging - she needs to feel you're still there even when she's quiet",
+    ],
+  },
+  follicular: {
+    tips: [
+      "Her energy is returning and she's going to want to do things - say yes more this week when she suggests plans",
+      "This is one of the best weeks to have real conversations. She's more open, more articulate, more herself",
+      "Suggest something you can do together - a hike, a meal out, something she's been wanting to try. She'll respond well",
+      "Notice what she's excited about this week and show genuine interest in it. Her confidence is building",
+      "This is a great week to tell her something specific you're proud of about her. It will land deeper than you expect",
+      "Match her energy. If she's light and social, be present and engaged - not distracted or heavy",
+    ],
+    avoid: [
+      "Don't dampen her good energy with heavy conversations or criticism this week - save those for later",
+      "Don't be dismissive of her plans or ideas - she's in a naturally optimistic and creative state",
+      "Don't check out when she wants to talk - she's at her most communicative and your engagement matters now",
+      "Don't underestimate how much she needs to feel seen by you specifically during this phase",
+    ],
+  },
+  ovulation: {
+    tips: [
+      "She's at her most confident this week - affirm that. Tell her something specific and genuine about who she is",
+      "She may be more social and outgoing - be curious about her world without being interrogating",
+      "This is the week she feels most like the fullest version of herself. Your job is to witness that and reflect it back",
+      "If there's something important you've been meaning to say to her - an apology, a compliment, a truth - this is the week it lands best",
+      "Quality time matters more than quantity. An hour of real presence beats a whole day of distracted proximity",
+    ],
+    avoid: [
+      "Don't be critical or nitpicky this week - she's feeling good and criticism lands harder when it contrasts with inner confidence",
+      "Don't be emotionally absent when she's this open - disconnection from you during her peak week leaves a mark",
+      "Don't make her feel surveilled or controlled when her social energy is high - trust is built or broken here",
+    ],
+  },
+  earlyLuteal: {
+    tips: [
+      "She's starting to wind down from her peak - reduce the noise and busyness around her without making it obvious",
+      "Small acts of care land big this week. Handle something she would normally handle herself",
+      "Check in gently. A simple 'you good?' with no agenda and no pressure is enough",
+      "Keep the home environment calm and low-friction - she's more sensitive to chaos starting to build now",
+      "This is a good week for quiet connection - watching something together, a drive, low-key time that doesn't require her to perform",
+      "If she seems more inward or reflective, don't interpret it as a problem. Just stay close",
+    ],
+    avoid: [
+      "Don't schedule a lot of demands or big events this week if you can help it",
+      "Don't push for deep emotional conversations unless she initiates - she's moving toward needing steadiness not processing",
+      "Don't interpret her quietness as distance from you. It's internal, not directed at you",
+    ],
+  },
+  lateLuteal: {
+    tips: [
+      "This is the most important week to just show up. Not with solutions - just with presence",
+      "If she seems overwhelmed, quietly handle something from her plate before she asks",
+      "Your calm is literally medicine for her nervous system right now. The more steady you are, the safer she feels",
+      "Let her feel whatever she's feeling without rushing her toward being okay. Sit with her in it",
+      "A simple 'I'm here' - said with no agenda and followed by actual presence - is one of the most powerful things a father can offer this week",
+      "If she lashes out or seems irrational, absorb it without reacting. Her chemistry is at its most dysregulated. It is not about you",
+      "Check in on whether she has what she needs practically - food, rest, warmth. The basics matter more than you think this week",
+    ],
+    avoid: [
+      "Do not tell her she's being dramatic or oversensitive - her nervous system is genuinely more reactive right now",
+      "Do not disappear or go cold when she needs consistency the most - even quiet, nearby presence matters",
+      "Do not pile on any additional stress, criticism or pressure this week under any circumstances",
+      "Do not make her feel like a burden for having emotions - this week she needs to know she is safe to fall apart a little near you",
+      "Do not bring up anything that can wait until next week. It can wait",
+    ],
+  },
+};
+
 const REL_TYPES = [
   { id: "girlfriend", emoji: "🌹", label: "Girlfriend", pro: false },
   { id: "wife",       emoji: "💍", label: "Wife",       pro: false },
@@ -178,35 +306,77 @@ function ArticleBody({ content }) {
   );
 }
 
-function LibraryItem({ item }) {
-  var expanded = useState(false);
-  var setExpanded = expanded[1];
-  expanded = expanded[0];
-  var playing = useState(false);
-  var setPlaying = playing[1];
-  playing = playing[0];
-  var progress = useState(0);
-  var setProgress = progress[1];
-  progress = progress[0];
-  var activeWord = useState(-1);
-  var setActiveWord = activeWord[1];
-  activeWord = activeWord[0];
-  var intervalRef = useRef(null);
-  var words = item.content ? item.content.split(" ") : [];
+function AudioPlayer({ content, color }) {
+  var playingState = useState(false); var playing = playingState[0]; var setPlaying = playingState[1];
+  var wordIdxState = useState(-1); var wordIdx = wordIdxState[0]; var setWordIdx = wordIdxState[1];
+  var progressState = useState(0); var progress = progressState[0]; var setProgress = progressState[1];
+  var uttRef = useRef(null);
+  var wordsRef = useRef([]);
+  var totalWordsRef = useRef(0);
 
-  function togglePlay() {
-    if (playing) { clearInterval(intervalRef.current); setPlaying(false); return; }
-    setPlaying(true); setActiveWord(0); setProgress(0);
-    var start = Date.now();
-    var dur = words.length * 350;
-    intervalRef.current = setInterval(function() {
-      var p = Math.min((Date.now() - start) / dur, 1);
-      setProgress(p * 100);
-      setActiveWord(Math.floor(p * words.length));
-      if (p >= 1) { clearInterval(intervalRef.current); setPlaying(false); setActiveWord(-1); setProgress(0); }
-    }, 100);
+  var words = content ? content.replace(/\\n/g, " ").split(/\s+/).filter(function(w) { return w.length > 0; }) : [];
+  var pc = color || "#6b4fa0";
+
+  function stop() {
+    if (window.speechSynthesis) window.speechSynthesis.cancel();
+    setPlaying(false);
+    setWordIdx(-1);
+    setProgress(0);
   }
 
+  function play() {
+    if (!window.speechSynthesis || words.length === 0) return;
+    window.speechSynthesis.cancel();
+    var utt = new window.SpeechSynthesisUtterance(words.join(" "));
+    utt.rate = 0.92;
+    utt.pitch = 1.0;
+    utt.volume = 1.0;
+    uttRef.current = utt;
+    totalWordsRef.current = words.length;
+    var currentWord = 0;
+    utt.onboundary = function(e) {
+      if (e.name === "word") {
+        setWordIdx(currentWord);
+        setProgress(Math.round((currentWord / words.length) * 100));
+        currentWord++;
+      }
+    };
+    utt.onend = function() { setPlaying(false); setWordIdx(-1); setProgress(0); };
+    utt.onerror = function() { setPlaying(false); setWordIdx(-1); setProgress(0); };
+    setPlaying(true);
+    setWordIdx(0);
+    window.speechSynthesis.speak(utt);
+  }
+
+  function toggle() { if (playing) { stop(); } else { play(); } }
+
+  return (
+    <div>
+      <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "16px", background: "#1a1525", borderRadius: "12px", padding: "12px 16px" }}>
+        <button onClick={toggle} style={{ background: "linear-gradient(135deg,#4a2f70," + pc + ")", border: "none", borderRadius: "50%", width: "40px", height: "40px", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", fontSize: "16px", flexShrink: 0 }}>{playing ? "⏸" : "▶"}</button>
+        <div style={{ flex: 1 }}>
+          <div style={{ background: "#2a2035", borderRadius: "4px", height: "5px", overflow: "hidden", marginBottom: "4px" }}>
+            <div style={{ height: "100%", width: progress + "%", background: "linear-gradient(90deg," + pc + ",#c084fc)", transition: "width 0.2s linear", borderRadius: "4px" }} />
+          </div>
+          <div style={{ fontSize: "11px", color: playing ? pc : "#5a4a6a" }}>{playing ? "🎧 Playing - follow along below..." : "🎧 Tap to listen"}</div>
+        </div>
+        {playing && <button onClick={stop} style={{ background: "none", border: "1px solid #3a2a50", borderRadius: "8px", padding: "4px 10px", color: "#5a4a6a", fontSize: "11px", cursor: "pointer", fontFamily: "inherit" }}>Stop</button>}
+      </div>
+      <div style={{ fontSize: "15px", lineHeight: "2.0", color: "#9888b0" }}>
+        {words.map(function(word, i) {
+          var isActive = i === wordIdx;
+          var isPast = wordIdx >= 0 && i < wordIdx;
+          return (
+            <span key={i} style={{ color: isActive ? "#ffffff" : isPast ? "#d4b8f0" : "#6a5a7a", background: isActive ? pc + "40" : "transparent", borderRadius: "4px", padding: "2px 3px", fontWeight: isActive ? "bold" : "normal", fontSize: isActive ? "16px" : "15px", transition: "all 0.1s" }}>{word} </span>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function LibraryItem({ item }) {
+  var expandedState = useState(false); var expanded = expandedState[0]; var setExpanded = expandedState[1];
   var isComingSoon = !item.content || item.content === "Content coming soon.";
   return (
     <div style={{ marginBottom: "8px" }}>
@@ -220,20 +390,7 @@ function LibraryItem({ item }) {
       </div>
       {expanded && (
         <div style={{ background: "#130f1e", border: "1px solid #1e1830", borderRadius: "0 0 12px 12px", padding: "16px", marginTop: "-4px" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "14px", background: "#1a1525", borderRadius: "10px", padding: "10px 14px" }}>
-            <button onClick={togglePlay} style={{ background: "linear-gradient(135deg,#4a2f70,#6b4fa0)", border: "none", borderRadius: "50%", width: "36px", height: "36px", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", fontSize: "14px" }}>{playing ? "⏸" : "▶"}</button>
-            <div style={{ flex: 1 }}>
-              <div style={{ background: "#2a2035", borderRadius: "4px", height: "4px", overflow: "hidden" }}>
-                <div style={{ height: "100%", width: progress + "%", background: "linear-gradient(90deg,#6b4fa0,#c084fc)", transition: "width 0.1s linear" }} />
-              </div>
-              <div style={{ fontSize: "10px", color: "#5a4a6a", marginTop: "4px" }}>🎧 AI audio - coming soon</div>
-            </div>
-          </div>
-          <div style={{ fontSize: "15px", lineHeight: "1.9", color: "#9888b0" }}>
-            {words.map(function(word, i) {
-              return <span key={i} style={{ color: activeWord === -1 ? "#c8b8e0" : i <= activeWord ? "#f0eaf8" : "#4a3a5a", background: i === activeWord ? "#6b4fa030" : "transparent", borderRadius: "3px", padding: "1px 2px", fontWeight: i === activeWord ? "bold" : "normal" }}>{word} </span>;
-            })}
-          </div>
+          <AudioPlayer content={item.content} color="#6b4fa0" />
         </div>
       )}
     </div>
@@ -375,10 +532,17 @@ export default function TrackHer() {
   var s28 = useState(false); var feedbackSent = s28[0]; var setFeedbackSent = s28[1];
   var s29 = useState(false); var confirmDelete = s29[0]; var setConfirmDelete = s29[1];
   var s30 = useState(false); var showSavePrompt = s30[0]; var setShowSavePrompt = s30[1];
+  var s31 = useState(null); var notifArticle = s31[0]; var setNotifArticle = s31[1];
+  var s32 = useState(false); var notifEnabled = s32[0]; var setNotifEnabled = s32[1];
 
   useEffect(function() { if (partners.length > 0 && !activeId) setActiveId(partners[0].id); }, [partners]);
   useEffect(function() { try { localStorage.setItem("th_p", JSON.stringify(partners)); } catch(e) {} }, [partners]);
   useEffect(function() { setBullet(0); }, [activeHeader, activeId]);
+  useEffect(function() {
+    if (isDaughter && (activeHeader === "sex" || activeHeader === "game")) {
+      setActiveHeader("tips");
+    }
+  }, [activeId]);
   useEffect(function() { var p = partners.find(function(p) { return p.id === activeId; }); setUpdateDate(p ? p.lastPeriod || "" : ""); }, [activeId, partners]);
   useEffect(function() { try { localStorage.setItem("th_fs", fontSize); } catch(e) {} }, [fontSize]);
   useEffect(function() { try { localStorage.setItem("th_read", JSON.stringify(readArticles)); } catch(e) {} }, [readArticles]);
@@ -409,6 +573,22 @@ export default function TrackHer() {
     if (updateDate) setPartners(function(prev) { return prev.map(function(p) { return p.id === activeId ? Object.assign({}, p, { lastPeriod: updateDate, skipped: false }) : p; }); });
   }
 
+  function getTomorrowTransition(p) {
+    if (!p || !p.lastPeriod) return null;
+    var tomorrow = getDayOfCycle(p.lastPeriod, p.cycleLength) + 1;
+    var todayKey = getPhaseKey(tomorrow - 1);
+    var tomorrowKey = getPhaseKey(tomorrow > p.cycleLength ? 1 : tomorrow);
+    if (todayKey === tomorrowKey) return null;
+    var map = {
+      menstrualFollicular: PHASE_TRANSITIONS.menstrualToFollicular,
+      follicularOvulation: PHASE_TRANSITIONS.follicularToOvulation,
+      ovulationEarlyLuteal: PHASE_TRANSITIONS.ovulationToEarlyLuteal,
+      earlyLutealLateLuteal: PHASE_TRANSITIONS.earlyToLateLuteal,
+      lateLutealMenstrual: PHASE_TRANSITIONS.lateLutealToMenstrual,
+    };
+    return map[todayKey + tomorrowKey.charAt(0).toUpperCase() + tomorrowKey.slice(1)] || null;
+  }
+
   if (isFirst || showSetup) {
     return <Setup onComplete={completeSetup} isPro={isPro} triggerUpgrade={triggerUpgrade} />;
   }
@@ -423,11 +603,38 @@ export default function TrackHer() {
   var relLabel = "";
   for (var ri = 0; ri < REL_TYPES.length; ri++) { if (REL_TYPES[ri].id === (active && active.relType)) { relLabel = REL_TYPES[ri].label; break; } }
   var goalLabel = "";
+  var isDaughter = active && active.relType === "daughter";
   for (var gi = 0; gi < GOALS.length; gi++) { if (GOALS[gi].id === (active && active.goal)) { goalLabel = GOALS[gi].label; break; } }
 
   var BG = "#0f0d14";
   var CARD = "#1a1525";
   var BORDER = "#2a2035";
+
+  if (notifArticle) {
+    var na = PHASE_TRANSITIONS[notifArticle];
+    return (
+      <div style={{ minHeight: "100vh", background: BG, color: "#f0eaf8", fontFamily: "Georgia, serif" }}>
+        <div style={{ background: CARD, borderBottom: "1px solid " + BORDER, padding: "16px 20px", display: "flex", alignItems: "center", gap: "12px", position: "sticky", top: 0, zIndex: 10 }}>
+          <button onClick={function() { setNotifArticle(null); }} style={{ background: "none", border: "none", color: "#7a6b8a", fontSize: "22px", cursor: "pointer" }}>←</button>
+          <div>
+            <div style={{ fontSize: "11px", color: na.color, letterSpacing: "2px", textTransform: "uppercase", marginBottom: "2px" }}>{na.fromEmoji} {na.from} → {na.toEmoji} {na.to}</div>
+            <div style={{ fontSize: "15px", color: "#d4b8f0", fontWeight: "bold" }}>{na.title}</div>
+          </div>
+        </div>
+        <div style={{ padding: "24px 20px", maxWidth: "480px", margin: "0 auto" }}>
+          <div style={{ background: na.color + "15", border: "1px solid " + na.color + "30", borderRadius: "14px", padding: "16px", marginBottom: "24px" }}>
+            <div style={{ fontSize: "11px", color: na.color, letterSpacing: "2px", textTransform: "uppercase", marginBottom: "8px" }}>🔔 Phase Transition</div>
+            <div style={{ fontSize: "14px", color: "#c8b8e0", lineHeight: "1.7", fontStyle: "italic" }}>{na.teaser}</div>
+          </div>
+          <AudioPlayer content={na.content} color={na.color} />
+          <div style={{ marginTop: "24px" }}>
+            <ArticleBody content={na.content} />
+          </div>
+          <div style={{ height: "40px" }} />
+        </div>
+      </div>
+    );
+  }
 
   if (linkedItem) {
     var lsec = null; var litm = null;
@@ -577,7 +784,10 @@ export default function TrackHer() {
         </div>
         <div style={{ padding: "24px 20px", maxWidth: "480px", margin: "0 auto" }}>
           <div style={{ fontSize: "13px", color: "#7a6b8a", fontStyle: "italic", marginBottom: "24px" }}>{art.subtitle}</div>
-          <ArticleBody content={art.content} />
+          <AudioPlayer content={art.content} color="#6b4fa0" />
+          <div style={{ marginTop: "24px" }}>
+            <ArticleBody content={art.content} />
+          </div>
           <div style={{ height: "40px" }} />
         </div>
       </div>
@@ -598,7 +808,7 @@ export default function TrackHer() {
           <button onClick={function() { setShowSetup(true); }} style={{ background: "linear-gradient(135deg,#6b4fa0,#9b6fca)", border: "none", borderRadius: "20px", padding: "8px 14px", color: "white", fontSize: "13px", cursor: "pointer", fontFamily: "inherit" }}>+ Add</button>
           <button onClick={function() { setShowFontSlider(function(v) { return !v; }); }} style={{ background: showFontSlider ? "linear-gradient(135deg,#2e1f45,#3d2860)" : CARD, border: showFontSlider ? "1px solid #6b4fa0" : "1px solid " + BORDER, borderRadius: "20px", padding: "8px 12px", color: showFontSlider ? "#d4b8f0" : "#7a6b8a", fontSize: "15px", cursor: "pointer", fontFamily: "inherit" }}>Aa</button>
           {isPro ? (
-            <button style={{ background: CARD, border: "1px solid " + BORDER, borderRadius: "20px", padding: "8px 12px", color: "#7a6b8a", fontSize: "15px", cursor: "pointer", fontFamily: "inherit" }}>🔔</button>
+            <button onClick={function() { setAppView(appView === "notifications" ? "tracker" : "notifications"); }} style={{ background: appView === "notifications" ? "linear-gradient(135deg,#2e1f45,#3d2860)" : CARD, border: appView === "notifications" ? "1px solid #6b4fa0" : "1px solid " + BORDER, borderRadius: "20px", padding: "8px 12px", color: appView === "notifications" ? "#d4b8f0" : "#7a6b8a", fontSize: "15px", cursor: "pointer", fontFamily: "inherit" }}>🔔</button>
           ) : (
             <button onClick={function() { triggerUpgrade("Unlock the full TrackHer experience"); }} style={{ background: "linear-gradient(135deg,#3d2060,#6b4fa0)", border: "none", borderRadius: "20px", padding: "8px 12px", color: "#d4b8f0", fontSize: "12px", cursor: "pointer", fontFamily: "inherit", fontWeight: "bold" }}>👑 Pro</button>
           )}
@@ -739,7 +949,10 @@ export default function TrackHer() {
 
           {phase && (
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "6px", marginBottom: "12px" }}>
-              {Object.keys(HEADERS).map(function(key) {
+              {Object.keys(HEADERS).filter(function(key) {
+                if (isDaughter && (key === "sex" || key === "game")) return false;
+                return true;
+              }).map(function(key) {
                 var val = HEADERS[key];
                 var gated = PRO_HEADERS.indexOf(key) !== -1 && !isPro;
                 return (
@@ -826,6 +1039,19 @@ export default function TrackHer() {
                   </div>
                   <span style={{ color: "#6b4fa0", fontSize: "16px" }}>→</span>
                 </button>
+              </div>
+            );
+          })()}
+
+          {phase && (function() {
+            var trans = getTomorrowTransition(active);
+            if (!trans) return null;
+            return (
+              <div style={{ background: "linear-gradient(135deg," + trans.color + "18," + trans.color + "08)", border: "1px solid " + trans.color + "40", borderRadius: "16px", padding: "18px", marginBottom: "10px", cursor: "pointer" }} onClick={function() { setNotifArticle(Object.keys(PHASE_TRANSITIONS).find(function(k) { return PHASE_TRANSITIONS[k] === trans; })); }}>
+                <div style={{ fontSize: "11px", color: trans.color, letterSpacing: "2px", textTransform: "uppercase", marginBottom: "10px" }}>🔔 Phase Change Tomorrow</div>
+                <div style={{ fontSize: "18px", marginBottom: "8px" }}>{trans.fromEmoji} → {trans.toEmoji} <span style={{ fontSize: "16px", fontWeight: "bold", color: "#f0eaf8" }}>{trans.to} Phase starts tomorrow</span></div>
+                <div style={{ fontSize: "14px", color: "#c8b8e0", lineHeight: "1.7", fontStyle: "italic", marginBottom: "12px" }}>{trans.teaser.replace("{name}", active.name)}</div>
+                <div style={{ display: "flex", alignItems: "center", gap: "6px", color: trans.color, fontSize: "13px", fontWeight: "bold" }}>Read the full guide <span>→</span></div>
               </div>
             );
           })()}
