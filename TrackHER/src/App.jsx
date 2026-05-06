@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 
-const PRO_HEADERS = ["avoid", "body", "sex", "game"];
+const PRO_HEADERS = ["avoid", "body", "sex", "game", "managing", "parental"];
 const FREE_ARTICLES = ["code", "chemicals"];
 const ROLLO_URL = "https://therationalmale.com/2014/03/26/preventative-medicine-part-ii/";
 const ROLLO_TERMS = ["Party Years", "Late Party Years", "Epiphany Phase", "Transitionary Phase", "Post-Transition", "Preventative Medicine"];
@@ -239,6 +239,125 @@ const DAUGHTER_PHASES = {
   },
 };
 
+
+const BOSS_PHASES = {
+  menstrual: {
+    tips: [
+      "Her energy is low - keep interactions brief and low-demand. Send an email instead of requesting a meeting if possible",
+      "If you have to present, keep it tight and solutions-focused. No rambling, no unnecessary preamble",
+      "If she seems short or distracted, don't take it personally. Complete your work quietly and well this week",
+      "Good week to handle independent tasks that don't require her input or approval",
+      "If you need a decision, frame it as a simple binary choice. Reduce the cognitive load required",
+    ],
+    avoid: [
+      "Don't bring a problem without a proposed solution - this week more than any other",
+      "Don't schedule unnecessary check-ins or meetings that could be an email",
+      "Don't interpret her short tone as displeasure with your performance - timing is everything",
+      "Don't push for creative brainstorming or vision-level conversations - wait for Follicular",
+      "Don't escalate non-urgent issues. If it can wait, let it wait",
+    ],
+    managing: [
+      "Managing up starts with reading the room. When she's low energy, the highest-value move is reducing friction - not increasing visibility",
+      "Come to every interaction with a clear ask, a clear recommendation, and a pre-drafted solution. Never make her do your thinking",
+      "Protect her calendar if you have any influence over it. Block unnecessary meetings. Handle what you can without escalating",
+      "Send concise written updates instead of requesting face time. A well-structured email that needs only a yes or no is a gift right now",
+      "The employee who makes a leader's low-energy week easier is remembered when high-stakes advancement decisions get made",
+    ],
+  },
+  follicular: {
+    tips: [
+      "Best week to pitch ideas, request feedback or bring forward new initiatives - she is at her most open and optimistic",
+      "Schedule important conversations, presentations or proposals during this phase when possible",
+      "She will be more receptive to creative and strategic thinking - come prepared with ideas, not just status updates",
+      "Her communication energy is higher this week - strengthen the relationship with more substantive check-ins",
+      "If you have been waiting to raise something sensitive or important, this is the window to do it",
+    ],
+    avoid: [
+      "Don't waste this window on small talk and surface-level updates - bring substance",
+      "Don't be passive or wait for her to drive the agenda - she will respect initiative this week",
+      "Don't bring bureaucratic friction or red tape conversations - she wants to move forward",
+      "Don't cancel or reschedule meetings you have with her this week - her engagement is high",
+      "Don't miss the window. It closes. Follicular is your highest-leverage moment of the month",
+    ],
+    managing: [
+      "This is your highest-leverage window of the month. Bring your best work, your most important ask, or your boldest proposal",
+      "Frame conversations around possibility, growth and vision - her brain is wired for this right now",
+      "Ask for feedback on your performance, your direction or your development. She has the bandwidth to give you something real",
+      "If you want a sponsor not just a boss, this is when you build that. Show ambition and strategic thinking",
+      "Visibility that happens during her high-receptivity phase sticks. The impression you make this week is disproportionately influential",
+    ],
+  },
+  ovulation: {
+    tips: [
+      "Her confidence is at its peak - she will be decisive, engaging and high-energy. Match that energy",
+      "If you need a fast decision or a commitment, ask for it now - she is at her most action-oriented",
+      "Excellent time for presentations, pitches, or any interaction where you need her at full presence",
+      "Be direct and bring your A game - she responds to competence and clarity more than at any other point",
+      "If there is a relationship you need to build or repair with her, this window makes it easiest",
+    ],
+    avoid: [
+      "Don't show up unprepared or low-energy - you will be measured against her peak",
+      "Don't bring small problems or administrative noise - use this time for things that matter",
+      "Don't be passive or wait for her to lead every interaction - show initiative",
+      "Don't miss the window by filling it with status quo conversation - this is your moment",
+      "Don't let this phase pass without showing her something that makes her glad she has you on her team",
+    ],
+    managing: [
+      "Request a one-on-one. Show up fully prepared with something valuable - your vision, a strategic observation, a well-reasoned proposal",
+      "Ask for the thing you actually want. A promotion conversation. A stretch project. She has the capacity to engage with your ambition right now",
+      "Make sure she sees your best work during this phase. Circulate a strong deliverable or lead a meeting where she can observe your competence",
+      "Be the person who brings clarity, direction and energy when she is at her peak - that pairing is how sponsorship is built",
+      "The impression you make during her peak days carries outsized weight in how she evaluates you. This is not manipulation. It is strategic presence",
+    ],
+  },
+  earlyLuteal: {
+    tips: [
+      "She is winding down from her peak - keep interactions efficient and well-prepared",
+      "Good phase for execution and follow-through - she appreciates people who deliver without hand-holding",
+      "If you have open items from earlier conversations, now is the time to complete and close them",
+      "Keep proposals and updates concrete and grounded - less drawn to abstract or visionary thinking this week",
+      "Demonstrate reliability. Show up on time. Hit your deadlines. The steady professional stands out",
+    ],
+    avoid: [
+      "Don't bring half-formed ideas or incomplete proposals - she will pick them apart more readily this week",
+      "Don't overschedule her time or create unnecessary process overhead",
+      "Don't interpret increased scrutiny of your work as disapproval - she is more detail-focused by biology right now",
+      "Don't push for major creative or strategic pivots - save those for the Follicular phase",
+      "Don't miss deadlines or be unclear in your communication - the margin for error is smaller this week",
+    ],
+    managing: [
+      "Shift from pitching and proposing to delivering and completing. The currency this phase is reliability, not creativity",
+      "Send progress updates proactively. Do not wait to be asked where something stands. Reduce her need to manage you",
+      "If she gives more detailed or critical feedback than usual, receive it without defensiveness. Incorporate it visibly. This builds credibility",
+      "Handle the administrative and operational things that often get neglected. Close open loops. She notices",
+      "The employee who delivers clean, complete, on-time work without creating noise is the highest-value employee right now. Be that person",
+    ],
+  },
+  lateLuteal: {
+    tips: [
+      "Tread carefully this week. Her stress tolerance is lower - keep interactions low-friction",
+      "If you have to deliver bad news, do it quickly, clearly and with a solution already prepared",
+      "Proactively handle things that might generate stress or escalation - resolve issues before they reach her",
+      "Not the week to push for new initiatives, major changes or bold asks - wait for Follicular",
+      "Be reliable, visible and professional. Low drama, high output. That is the play this week",
+    ],
+    avoid: [
+      "Do not bring unnecessary problems, drama or complaints - only things that genuinely require her attention",
+      "Do not request her opinion on things that can wait - every decision has a cost right now",
+      "Do not interpret a sharp tone as a verdict on your standing - it reflects her chemistry, not your performance",
+      "Do not create interpersonal friction or team drama that lands in her inbox - shield her from noise",
+      "Do not make any major asks, proposals or relationship-redefining conversations - wait until after her period",
+    ],
+    managing: [
+      "Your only job this week is to not be a source of additional stress. Solve problems before they escalate. Create zero noise",
+      "If you sense tension in an interaction, do not push back in the moment. Absorb it professionally, then follow up in writing",
+      "This week is a test of your emotional intelligence. Employees who stay calm and low-maintenance during their boss's hardest week earn long-term trust",
+      "Shield her from team conflict and interpersonal noise wherever possible. Handle it yourself. Make things smaller, not bigger",
+      "Do not escalate something non-critical just because you want a decision. Table it. Wait. The conversation will go better in 7 days",
+    ],
+  },
+};
+
 const REL_TYPES = [
   { id: "girlfriend", emoji: "🌹", label: "Girlfriend", pro: false },
   { id: "wife",       emoji: "💍", label: "Wife",       pro: false },
@@ -260,13 +379,25 @@ const GOALS = [
 ];
 
 const HEADERS = {
-  tips:  { label: "Tips",          emoji: "💡" },
-  mood:  { label: "Her Mood",      emoji: "💜" },
-  avoid: { label: "Avoid",         emoji: "⚠️" },
-  body:  { label: "Body Science",  emoji: "🔬" },
-  sex:   { label: "Sex",           emoji: "🔥" },
-  game:  { label: "Advanced Game", emoji: "♚" },
+  tips:     { label: "Tips",               emoji: "💡" },
+  mood:     { label: "Her Mood",           emoji: "💜" },
+  avoid:    { label: "Avoid",              emoji: "⚠️" },
+  body:     { label: "Body Science",       emoji: "🔬" },
+  sex:      { label: "Sex",               emoji: "🔥" },
+  game:     { label: "Advanced Game",      emoji: "♚" },
+  managing: { label: "Managing Up",        emoji: "📈" },
+  parental: { label: "Parental Leadership",emoji: "🤝" },
 };
+
+function getHeadersForRel(relType) {
+  if (relType === "daughter") {
+    return ["tips","mood","avoid","body","parental"];
+  }
+  if (relType === "boss" || relType === "coworker") {
+    return ["tips","mood","avoid","body","managing"];
+  }
+  return ["tips","mood","avoid","body","sex","game"];
+}
 
 const PHASE_ORDER = ["menstrual","follicular","ovulation","earlyLuteal","lateLuteal"];
 const AVATARS = ["💜","💙","💚","🧡","❤️","🤍","💛","🩷"];
@@ -539,7 +670,12 @@ export default function TrackHer() {
   useEffect(function() { try { localStorage.setItem("th_p", JSON.stringify(partners)); } catch(e) {} }, [partners]);
   useEffect(function() { setBullet(0); }, [activeHeader, activeId]);
   useEffect(function() {
-    if (isDaughter && (activeHeader === "sex" || activeHeader === "game")) {
+    var rel = partners.find(function(p) { return p.id === activeId; });
+    var rt = rel ? rel.relType : null;
+    if (rt === "daughter" && (activeHeader === "sex" || activeHeader === "game" || activeHeader === "managing")) {
+      setActiveHeader("tips");
+    }
+    if ((rt === "boss" || rt === "coworker") && (activeHeader === "sex" || activeHeader === "game" || activeHeader === "parental")) {
       setActiveHeader("tips");
     }
   }, [activeId]);
@@ -599,12 +735,23 @@ export default function TrackHer() {
   var phase = pk ? PHASES[pk] : null;
   var daysLeft = day ? active.cycleLength - day + 1 : null;
   var cyclePct = day ? (day / active.cycleLength) * 100 : 0;
-  var bullets = phase ? phase[activeHeader] : [];
   var relLabel = "";
   for (var ri = 0; ri < REL_TYPES.length; ri++) { if (REL_TYPES[ri].id === (active && active.relType)) { relLabel = REL_TYPES[ri].label; break; } }
   var goalLabel = "";
   var isDaughter = active && active.relType === "daughter";
+  var isBoss = active && (active.relType === "boss" || active.relType === "coworker");
   for (var gi = 0; gi < GOALS.length; gi++) { if (GOALS[gi].id === (active && active.goal)) { goalLabel = GOALS[gi].label; break; } }
+
+  var bullets = [];
+  if (phase) {
+    if (isDaughter && activeHeader === "tips")     { bullets = DAUGHTER_PHASES[pk] ? DAUGHTER_PHASES[pk].tips    : phase.tips;  }
+    else if (isDaughter && activeHeader === "avoid")    { bullets = DAUGHTER_PHASES[pk] ? DAUGHTER_PHASES[pk].avoid   : phase.avoid; }
+    else if (isDaughter && activeHeader === "parental") { bullets = DAUGHTER_PHASES[pk] ? DAUGHTER_PHASES[pk].managing : [];          }
+    else if (isBoss && activeHeader === "tips")         { bullets = BOSS_PHASES[pk]     ? BOSS_PHASES[pk].tips       : phase.tips;  }
+    else if (isBoss && activeHeader === "avoid")        { bullets = BOSS_PHASES[pk]     ? BOSS_PHASES[pk].avoid      : phase.avoid; }
+    else if (isBoss && activeHeader === "managing")     { bullets = BOSS_PHASES[pk]     ? BOSS_PHASES[pk].managing   : [];          }
+    else { bullets = phase[activeHeader] || []; }
+  }
 
   var BG = "#0f0d14";
   var CARD = "#1a1525";
@@ -917,7 +1064,7 @@ export default function TrackHer() {
           {phase && (
             <div style={{ background: "linear-gradient(135deg," + phase.color + "18," + phase.color + "08)", border: "1px solid " + phase.color + "40", borderRadius: "20px", padding: "20px", marginBottom: "14px", position: "relative", overflow: "hidden" }}>
               <div style={{ position: "absolute", top: "-20px", right: "-20px", fontSize: "90px", opacity: "0.07" }}>{phase.emoji}</div>
-              <div style={{ fontSize: "11px", color: phase.color, letterSpacing: "2px", textTransform: "uppercase", marginBottom: "4px" }}>{active.name} is in</div>
+              <div style={{ fontSize: "11px", color: phase.color, letterSpacing: "2px", textTransform: "uppercase", marginBottom: "4px" }}>{isBoss ? "Your boss " + active.name + " is in" : isDaughter ? active.name + " is in" : active.name + " is in"}</div>
               <div style={{ fontSize: "26px", fontWeight: "bold" }}>{phase.emoji} {phase.name} Phase</div>
               <div style={{ fontSize: "13px", color: "#a090b8", fontStyle: "italic", marginTop: "3px" }}>{phase.tagline}</div>
               <div style={{ display: "inline-block", marginTop: "10px", background: phase.color + "20", border: "1px solid " + phase.color + "40", borderRadius: "20px", padding: "4px 12px", fontSize: "12px", color: phase.color }}>⚗️ {phase.chemical} - {phase.chemicalNote}</div>
@@ -949,10 +1096,7 @@ export default function TrackHer() {
 
           {phase && (
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "6px", marginBottom: "12px" }}>
-              {Object.keys(HEADERS).filter(function(key) {
-                if (isDaughter && (key === "sex" || key === "game")) return false;
-                return true;
-              }).map(function(key) {
+              {getHeadersForRel(active ? active.relType : null).map(function(key) {
                 var val = HEADERS[key];
                 var gated = PRO_HEADERS.indexOf(key) !== -1 && !isPro;
                 return (
@@ -986,15 +1130,15 @@ export default function TrackHer() {
           {phase && bullets.length > 0 && (
             <div style={{ marginBottom: "12px" }}>
               <div
-                style={{ background: activeHeader === "avoid" ? "#3a1828" : "#f5f0ff", borderRadius: "20px", padding: "24px", minHeight: "180px", display: "flex", flexDirection: "column", justifyContent: "space-between", boxShadow: "0 4px 24px rgba(0,0,0,0.3)", userSelect: "none", touchAction: "pan-y" }}
+                style={{ background: activeHeader === "avoid" ? "#3a1828" : activeHeader === "managing" ? "#f0f8f4" : activeHeader === "parental" ? "#f0f4f8" : "#f5f0ff", borderRadius: "20px", padding: "24px", minHeight: "180px", display: "flex", flexDirection: "column", justifyContent: "space-between", boxShadow: "0 4px 24px rgba(0,0,0,0.3)", userSelect: "none", touchAction: "pan-y" }}
                 onTouchStart={function(e) { e.currentTarget._tx = e.touches[0].clientX; }}
                 onTouchEnd={function(e) { var d = e.changedTouches[0].clientX - e.currentTarget._tx; if (d < -50 && bullet < bullets.length - 1) setBullet(function(b) { return b + 1; }); if (d > 50 && bullet > 0) setBullet(function(b) { return b - 1; }); }}
               >
                 <div>
-                  <div style={{ fontSize: "11px", letterSpacing: "2px", textTransform: "uppercase", marginBottom: "16px", color: activeHeader === "avoid" ? "#bf5060" : phase.color, fontWeight: "bold" }}>{HEADERS[activeHeader].emoji} {HEADERS[activeHeader].label}</div>
+                  <div style={{ fontSize: "11px", letterSpacing: "2px", textTransform: "uppercase", marginBottom: "16px", color: activeHeader === "avoid" ? "#bf5060" : phase.color, fontWeight: "bold" }}>{HEADERS[activeHeader] ? HEADERS[activeHeader].emoji + " " + HEADERS[activeHeader].label : ""}</div>
                   <div style={{ display: "flex", gap: "14px", alignItems: "flex-start" }}>
                     <span style={{ fontSize: "28px", fontWeight: "900", color: activeHeader === "avoid" ? "#bf506030" : phase.color + "40", lineHeight: 1, marginTop: "-4px" }}>{bullet + 1}</span>
-                    <div style={{ fontSize: "18px", color: activeHeader === "avoid" ? "#e8c0c8" : "#1a1030", lineHeight: "1.6", fontWeight: "500" }}>
+                    <div style={{ fontSize: "18px", color: activeHeader === "avoid" ? "#e8c0c8" : activeHeader === "managing" ? "#0d2b1a" : activeHeader === "parental" ? "#0d1a2b" : "#1a1030", lineHeight: "1.6", fontWeight: "500" }}>
                       {typeof bullets[bullet] === "object" ? (
                         <span onClick={function() { if (bullets[bullet].link) setLinkedItem(bullets[bullet].link); }} style={{ cursor: "pointer" }}>
                           {bullets[bullet].text} <span style={{ color: phase.color }}>→</span>
@@ -1017,7 +1161,43 @@ export default function TrackHer() {
             </div>
           )}
 
-          {phase && activeHeader === "game" && phase.gameNote && (
+          {phase && activeHeader === "managing" && isBoss && (function() {
+            var notes = {
+              menstrual:   "This week: be the employee who makes things easier without being asked. That's the whole play.",
+              follicular:  "This week: bring your biggest ask, your best work, or your boldest idea. She's ready to receive it.",
+              ovulation:   "Three days. Make sure she sees your best self. What you do this week is disproportionately remembered.",
+              earlyLuteal: "This week: close the loop on everything open. Deliver clean. No noise.",
+              lateLuteal:  "This week: zero drama. Zero escalation. Be the steadiest person on the team."
+            };
+            var note = notes[pk];
+            if (!note) return null;
+            return (
+              <div style={{ background: phase.color + "12", border: "1px solid " + phase.color + "30", borderRadius: "12px", padding: "14px 16px", marginBottom: "10px" }}>
+                <div style={{ fontSize: "11px", color: phase.color, letterSpacing: "1px", textTransform: "uppercase", marginBottom: "6px" }}>📈 The move this week</div>
+                <div style={{ fontSize: "14px", color: "#b8a8d0", lineHeight: "1.6", fontStyle: "italic" }}>{note}</div>
+              </div>
+            );
+          })()}
+
+          {phase && activeHeader === "parental" && isDaughter && (function() {
+            var notes = {
+              menstrual:   "This week: just be nearby and warm. No fixing, no agenda. Presence is the whole job.",
+              follicular:  "This week: the window is open. Say something real. Ask something that matters. She's available.",
+              ovulation:   "Three days where she feels most like herself. Tell her what you see in her that she might not see in herself.",
+              earlyLuteal: "This week: quiet, steady presence. Handle things she'd normally handle. She notices.",
+              lateLuteal:  "This week: be the wall. Absorb without reacting. Let her know it's safe to struggle near you."
+            };
+            var note = notes[pk];
+            if (!note) return null;
+            return (
+              <div style={{ background: phase.color + "12", border: "1px solid " + phase.color + "30", borderRadius: "12px", padding: "14px 16px", marginBottom: "10px" }}>
+                <div style={{ fontSize: "11px", color: phase.color, letterSpacing: "1px", textTransform: "uppercase", marginBottom: "6px" }}>🤝 The move this week</div>
+                <div style={{ fontSize: "14px", color: "#b8a8d0", lineHeight: "1.6", fontStyle: "italic" }}>{note}</div>
+              </div>
+            );
+          })()}
+
+          {phase && activeHeader === "game" && phase.gameNote && !isDaughter && !isBoss && (
             <div style={{ background: phase.color + "12", border: "1px solid " + phase.color + "30", borderRadius: "12px", padding: "14px 16px", marginBottom: "10px" }}>
               <div style={{ fontSize: "11px", color: phase.color, letterSpacing: "1px", textTransform: "uppercase", marginBottom: "6px" }}>🎯 The move this week</div>
               <div style={{ fontSize: "14px", color: "#b8a8d0", lineHeight: "1.6", fontStyle: "italic" }}>{phase.gameNote}</div>
